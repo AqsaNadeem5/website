@@ -583,6 +583,7 @@
       margin-bottom: 0.35rem;
     }
 
+    /* Fixed linter warning with line-clamp and -webkit-line-clamp */
     .card-title-serif {
       font-family: var(--font-serif);
       font-size: 1.05rem;
@@ -592,6 +593,7 @@
       font-weight: 600;
       display: -webkit-box;
       -webkit-line-clamp: 2;
+      line-clamp: 2;
       -webkit-box-orient: vertical;
       overflow: hidden;
     }
@@ -657,7 +659,7 @@
 
     /* ==========================================================================
        6. BEST SELLERS SLIDER (4 ITEMS VISIBLE)
-       ========================================================================== */
+       ========================================================================= */
     .slider-container-wrap {
       position: relative;
       overflow: hidden;
@@ -1788,7 +1790,7 @@
        ========================================================================== -->
   <script>
     // ==========================================================================
-    // 1. HERBAL & BEAUTY PRODUCT DATABASE (30 HIGH QUALITY PRODUCTS)
+    // 1. HERBAL & BEAUTY PRODUCT DATABASE
     // ==========================================================================
     const products = [
       // --- FACEWASHES ---
@@ -1852,7 +1854,6 @@
       renderer.setSize(heroSec.clientWidth, heroSec.clientHeight);
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-      // Herbal Green Ambience & Directional Beams
       const ambientLight = new THREE.AmbientLight(0xE6F2DD, 0.9);
       scene.add(ambientLight);
 
@@ -1864,7 +1865,6 @@
       mintLight.position.set(-10, -10, -5);
       scene.add(mintLight);
 
-      // 1. Organic Fluid Wave Mesh (Aloe Gel / Essence Effect)
       const cols = 64;
       const rows = 48;
       const geometry = new THREE.PlaneGeometry(26, 17, cols, rows);
@@ -1886,7 +1886,6 @@
       const positionAttr = geometry.attributes.position;
       const initialPositions = positionAttr.array.slice();
 
-      // 2. 3D Floating Botanical Dew Particles
       const particleCount = 65;
       const particleGeo = new THREE.SphereGeometry(0.12, 16, 16);
       const particleMat = new THREE.MeshPhysicalMaterial({
@@ -1915,7 +1914,6 @@
       }
       scene.add(particleGroup);
 
-      // Mouse tracking
       let mouseX = 0, mouseY = 0;
       heroSec.addEventListener('mousemove', (e) => {
         const rect = heroSec.getBoundingClientRect();
@@ -1935,7 +1933,6 @@
         requestAnimationFrame(animate);
         const t = clock.getElapsedTime() * 0.85;
 
-        // Animate fluid gel plane
         for (let i = 0; i < positionAttr.count; i++) {
           const u = initialPositions[i * 3];
           const v = initialPositions[i * 3 + 1];
@@ -1952,7 +1949,6 @@
         positionAttr.needsUpdate = true;
         geometry.computeVertexNormals();
 
-        // Animate floating dew droplets
         particleGroup.children.forEach((p, idx) => {
           const data = particleData[idx];
           p.position.y += data.speedY;
@@ -2025,7 +2021,6 @@
         }
       }
 
-      // Build 3D Interactive Card HTML with onmousemove tilt
       buildProductCardHTML(p) {
         const isWished = this.wishlist.includes(p.id);
         return `
@@ -2060,7 +2055,6 @@
         `;
       }
 
-      // 3D Card Tilt Interaction
       handleCard3DTilt(e, card) {
         const rect = card.getBoundingClientRect();
         const x = e.clientX - rect.left;
@@ -2176,7 +2170,6 @@
         this.renderCatalog();
       }
 
-      // Cart
       addToCart(id) {
         const product = products.find(p => p.id === id);
         if (!product) return;
