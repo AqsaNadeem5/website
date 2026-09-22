@@ -7,33 +7,57 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   
   <style>
+    /* ========================================================
+       LIGHT (BRIGHT) MODE TOKENS
+       ======================================================== */
     :root {
       --bg-canvas: #FFFFFF;
-      --text-main: #241C15;
-      --text-muted: #7E7063;
-      --card-bg-start: rgba(255, 255, 255, 0.88);
-      --card-bg-mid: rgba(250, 244, 238, 0.65);
-      --card-bg-end: rgba(240, 228, 218, 0.80);
-      --gold-bezel: rgba(198, 163, 110, 0.75);
-      --gold-glow: rgba(198, 163, 110, 0.25);
+      --text-main: #1D1610;
+      --text-muted: #5E5042;
+      --text-sub: #7A6956;
+      --card-bg-start: rgba(255, 255, 255, 0.92);
+      --card-bg-mid: rgba(250, 245, 240, 0.75);
+      --card-bg-end: rgba(244, 234, 224, 0.88);
+      --gold-bezel: #C89F5E;
+      --gold-bezel-shadow: rgba(200, 159, 94, 0.25);
+      --gold-glow: rgba(200, 159, 94, 0.15);
       --glass-blur: 24px;
-      --glass-opacity: 0.85;
-      --border-separator: rgba(216, 199, 180, 0.45);
+      --glass-opacity: 0.95;
+      --border-separator: rgba(200, 159, 94, 0.45);
+      --cell-bg: rgba(255, 255, 255, 0.85);
+      --cell-text: #23180F;
+      --clock-arch-border: #C89F5E;
+      --clock-bg: rgba(248, 242, 234, 0.85);
+      --clock-text: #38240D;
+      --clock-date: #6E5334;
+      --drawer-bg: rgba(255, 255, 255, 0.96);
     }
 
+    /* ========================================================
+       DARK MODE TOKENS — HIGH CONTRAST & CLEAR TEXT
+       ======================================================== */
     body.dark-mode {
-      --bg-canvas: #0F0D0C;
-      --text-main: #F5EFEB;
-      --text-muted: #A89B8E;
-      --card-bg-start: rgba(36, 28, 22, 0.85);
-      --card-bg-mid: rgba(25, 20, 16, 0.65);
-      --card-bg-end: rgba(18, 14, 11, 0.88);
-      --gold-bezel: rgba(218, 178, 120, 0.85);
-      --gold-glow: rgba(218, 178, 120, 0.35);
-      --border-separator: rgba(85, 68, 52, 0.55);
+      --bg-canvas: #0C0A08;
+      --text-main: #FFFFFF;
+      --text-muted: #F2E3CE;
+      --text-sub: #E2CAAF;
+      --card-bg-start: rgba(30, 22, 16, 0.88);
+      --card-bg-mid: rgba(20, 15, 11, 0.92);
+      --card-bg-end: rgba(13, 10, 7, 0.98);
+      --gold-bezel: #F5C978;
+      --gold-bezel-shadow: rgba(245, 201, 120, 0.45);
+      --gold-glow: rgba(245, 201, 120, 0.22);
+      --border-separator: rgba(245, 201, 120, 0.38);
+      --cell-bg: rgba(24, 18, 13, 0.92);
+      --cell-text: #FFFFFF;
+      --clock-arch-border: #F5C978;
+      --clock-bg: #140E0A;
+      --clock-text: #F5C978;
+      --clock-date: #F2E3CE;
+      --drawer-bg: rgba(18, 13, 9, 0.98);
     }
 
     body {
@@ -42,48 +66,40 @@
       color: var(--text-main);
       overflow-x: hidden;
       min-height: 100vh;
-      transition: background-color 0.4s ease, color 0.4s ease;
+      transition: background-color 0.35s ease, color 0.35s ease;
     }
 
-    /* Ambient Warm Studio Lighting (subtle gradient against white background) */
     .ambient-glow {
       position: fixed;
       inset: 0;
       pointer-events: none;
       z-index: 0;
       background: 
-        radial-gradient(circle at 15% 15%, rgba(247, 231, 204, 0.35) 0%, transparent 40%),
-        radial-gradient(circle at 85% 70%, rgba(235, 212, 190, 0.3) 0%, transparent 45%);
+        radial-gradient(circle at 15% 15%, var(--gold-glow) 0%, transparent 40%),
+        radial-gradient(circle at 85% 70%, var(--gold-glow) 0%, transparent 45%);
     }
 
-    /* ========================================================
-       CHAMPAGNE GOLD METALLIC RIM WITH FROSTED GLASS CAPSULE
-       ======================================================== */
-
+    /* Champagne Gold Capsule Frame */
     .gold-glass-capsule {
       position: relative;
       border-radius: 9999px;
-      background: linear-gradient(180deg, var(--card-bg-start) 0%, var(--card-bg-mid) 50%, var(--card-bg-end) 100%);
+      background: linear-gradient(180deg, var(--card-bg-start) 0%, var(--card-bg-end) 100%);
       backdrop-filter: blur(var(--glass-blur)) saturate(140%);
       -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(140%);
       border: 1.5px solid transparent;
       box-shadow:
         0 0 0 1.5px var(--gold-bezel),
-        inset 0 0 4px rgba(78, 52, 22, 0.28),
-        inset 0 1.5px 2px rgba(255, 255, 255, 0.95),
-        inset 0 -1.5px 2px rgba(184, 137, 75, 0.45),
-        0 6px 14px -2px rgba(84, 60, 32, 0.08),
-        0 18px 28px -6px rgba(84, 60, 32, 0.05);
+        inset 0 1.5px 2px rgba(255, 255, 255, 0.4),
+        0 6px 14px -2px rgba(0, 0, 0, 0.15);
       transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .gold-glass-capsule:hover {
       box-shadow:
-        0 0 0 1.5px rgba(225, 185, 125, 0.95),
-        inset 0 0 5px rgba(78, 52, 22, 0.35),
-        inset 0 2px 3px rgba(255, 255, 255, 1),
-        0 10px 22px -3px rgba(84, 60, 32, 0.14);
-      transform: translateY(-1.5px);
+        0 0 0 1.8px var(--gold-bezel),
+        inset 0 2px 3px rgba(255, 255, 255, 0.6),
+        0 8px 20px -2px var(--gold-bezel-shadow);
+      transform: translateY(-1px);
     }
 
     /* Large Glass Slab Panel */
@@ -91,47 +107,84 @@
       position: relative;
       border-radius: 28px;
       background: linear-gradient(135deg, var(--card-bg-start) 0%, var(--card-bg-mid) 50%, var(--card-bg-end) 100%);
-      backdrop-filter: blur(var(--glass-blur)) saturate(140%);
-      -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+      backdrop-filter: blur(var(--glass-blur)) saturate(150%);
+      -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(150%);
       opacity: var(--glass-opacity);
       box-shadow:
         0 0 0 1.5px var(--gold-bezel),
-        inset 0 1.5px 2px rgba(255, 255, 255, 0.95),
-        inset 0 -2px 3px rgba(160, 118, 62, 0.32),
-        inset 0 0 8px rgba(92, 62, 28, 0.06),
-        0 10px 25px -4px rgba(70, 48, 22, 0.08),
-        0 30px 48px -12px rgba(70, 48, 22, 0.06);
+        inset 0 1.5px 2px rgba(255, 255, 255, 0.35),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.5),
+        0 14px 34px -4px rgba(0, 0, 0, 0.25);
       transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     /* Active Segment Pill */
     .gold-segment-active {
-      background: linear-gradient(180deg, #FFFFFF 0%, #F5EDE4 100%) !important;
+      background: linear-gradient(180deg, #FAD792 0%, #C99A45 100%) !important;
       box-shadow:
-        0 0 0 1.5px var(--gold-bezel),
+        0 0 0 1.5px #FFE6B0,
         inset 0 1.5px 2px #FFFFFF,
-        0 4px 10px rgba(90, 60, 25, 0.12) !important;
-      color: #38240D !important;
-      font-weight: 700 !important;
-    }
-
-    body.dark-mode .gold-segment-active {
-      background: linear-gradient(180deg, #3A2B1D 0%, #20170E 100%) !important;
-      color: #F8EFE7 !important;
+        0 4px 12px rgba(0, 0, 0, 0.25) !important;
+      color: #120D06 !important;
+      font-weight: 800 !important;
     }
 
     /* Input with gold rim */
     .gold-glass-input {
-      background: linear-gradient(180deg, rgba(235, 224, 213, 0.35) 0%, rgba(248, 242, 237, 0.65) 100%);
-      border: 1px solid var(--border-separator);
-      border-top: 1.5px solid rgba(160, 120, 68, 0.45);
-      border-bottom: 1.5px solid rgba(255, 255, 255, 0.9);
+      background: linear-gradient(180deg, rgba(235, 224, 213, 0.2) 0%, rgba(248, 242, 237, 0.45) 100%);
+      border: 1.5px solid var(--border-separator);
       border-radius: 9999px;
       color: var(--text-main);
     }
+    body.dark-mode .gold-glass-input {
+      background: rgba(18, 14, 10, 0.85);
+      color: #FFFFFF;
+    }
     .gold-glass-input:focus {
       outline: none;
+      border-color: var(--gold-bezel);
       box-shadow: 0 0 0 2px var(--gold-bezel);
+    }
+    .gold-glass-input option {
+      background-color: var(--bg-canvas);
+      color: var(--text-main);
+    }
+
+    /* ========================================================
+       TIME FRAME: EXACT STACKED ARCH/OVAL DESIGN
+       ======================================================== */
+    .clock-card-frame {
+      position: relative;
+      border-radius: 28px;
+      padding: 1.25rem;
+      background: var(--clock-bg);
+      border: 1.5px solid var(--gold-bezel);
+      box-shadow: 
+        0 0 0 1px rgba(0, 0, 0, 0.4),
+        0 12px 28px -4px rgba(0, 0, 0, 0.35);
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: space-between;
+      min-height: 380px;
+      overflow: hidden;
+    }
+
+    /* Inner Arch / Oval Ring */
+    .clock-oval-vault {
+      position: relative;
+      width: 100%;
+      max-width: 210px;
+      margin: 0.75rem auto;
+      border-radius: 120px;
+      border: 1.5px solid var(--clock-arch-border);
+      padding: 1.75rem 1rem 1.5rem;
+      text-align: center;
+      background: radial-gradient(circle at 50% 35%, rgba(245, 201, 120, 0.08) 0%, transparent 75%);
+      box-shadow: inset 0 0 14px rgba(0, 0, 0, 0.4);
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center;
+      justify-content: center;
     }
 
     /* Toggle Switches */
@@ -139,8 +192,8 @@
       width: 48px;
       height: 26px;
       border-radius: 9999px;
-      background: rgba(200, 185, 170, 0.4);
-      box-shadow: 0 0 0 1.5px var(--gold-bezel), inset 0 2px 4px rgba(65, 45, 20, 0.15);
+      background: rgba(45, 34, 25, 0.6);
+      box-shadow: 0 0 0 1.5px var(--gold-bezel), inset 0 2px 4px rgba(0, 0, 0, 0.6);
       position: relative;
       cursor: pointer;
     }
@@ -148,15 +201,15 @@
       width: 20px;
       height: 20px;
       border-radius: 50%;
-      background: linear-gradient(180deg, #FFFFFF 0%, #E8D6C2 100%);
-      box-shadow: 0 0 0 1px var(--gold-bezel), 0 2px 5px rgba(60, 40, 18, 0.25);
+      background: linear-gradient(180deg, #FFFFFF 0%, #D4A354 100%);
+      box-shadow: 0 0 0 1px var(--gold-bezel), 0 2px 5px rgba(0, 0, 0, 0.5);
       position: absolute;
       top: 2px;
       left: 3px;
       transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .gold-toggle.active {
-      background: linear-gradient(180deg, rgba(200, 165, 115, 0.7) 0%, rgba(165, 125, 75, 0.9) 100%);
+      background: linear-gradient(180deg, rgba(200, 159, 94, 0.65) 0%, rgba(165, 125, 75, 0.9) 100%);
     }
     .gold-toggle.active .gold-toggle-knob {
       transform: translateX(21px);
@@ -164,20 +217,24 @@
 
     /* Chips */
     .chip-gold {
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.85) 0%, rgba(245, 235, 225, 0.65) 100%);
-      box-shadow: 0 0 0 1px var(--gold-bezel), 0 2px 4px rgba(60, 40, 20, 0.05);
+      background: rgba(200, 159, 94, 0.18);
+      border: 1px solid var(--gold-bezel);
+      color: var(--text-main);
       border-radius: 9999px;
+      font-weight: 600;
     }
     .chip-priority-gold {
-      background: linear-gradient(135deg, #4A3419 0%, #2A1C0B 100%);
-      color: #F8EFE4 !important;
-      box-shadow: 0 0 0 1px rgba(220, 185, 135, 0.8), 0 3px 6px rgba(45, 30, 12, 0.25);
+      background: linear-gradient(135deg, #F5C978 0%, #C99A45 100%);
+      color: #120D06 !important;
+      font-weight: 800;
+      box-shadow: 0 0 0 1px #FFE6B0, 0 3px 6px rgba(0, 0, 0, 0.4);
       border-radius: 9999px;
     }
 
     /* Day Detail Drawer */
     #dayDrawer {
       transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
+      background: var(--drawer-bg);
     }
     #dayDrawer.drawer-closed {
       transform: translateX(105%);
@@ -195,23 +252,23 @@
 
   <div class="max-w-6xl w-full space-y-10 relative z-10">
 
-    <!-- Header Section with Dark/Bright Mode Toggle -->
+    <!-- Header Section with Theme Toggle -->
     <header class="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-2">
       <div>
         <div class="flex items-center gap-3 mb-2">
-          <div class="w-2.5 h-2.5 rounded-full bg-[#C8A366] shadow-[0_0_8px_rgba(200,163,102,0.9)]"></div>
-          <span class="text-xs font-bold tracking-widest text-[#93774D] uppercase">Pure White Studio &bull; Precision Glass</span>
+          <div class="w-2.5 h-2.5 rounded-full bg-[var(--gold-bezel)] shadow-[0_0_12px_var(--gold-bezel)]"></div>
+          <span class="text-xs font-bold tracking-widest text-[var(--gold-bezel)] uppercase">Precision Glass Studio</span>
         </div>
-        <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight">Champagne Glass Scheduler</h1>
-        <p class="text-sm text-[#7E7063] mt-1">Frosted Glass Core &bull; Polished Metallic Rim &bull; Interactive Day Inspector</p>
+        <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-[var(--text-main)]">Champagne Glass Scheduler</h1>
+        <p class="text-sm text-[var(--text-muted)] font-medium mt-1">Frosted Glass Core &bull; Polished Metallic Rim &bull; Interactive Day Inspector</p>
       </div>
 
-      <!-- Theme & Display Mode Controls -->
+      <!-- Bright / Dark Mode & VIP Sync Controls -->
       <div class="flex items-center gap-6">
         <!-- Bright / Dark Mode Switcher -->
         <div class="flex items-center gap-3">
-          <span class="text-xs font-bold uppercase tracking-wider text-[#7E7063]">Mode</span>
-          <button onclick="toggleTheme()" class="gold-glass-capsule px-4 py-2 text-xs font-bold flex items-center gap-2 cursor-pointer">
+          <span class="text-xs font-bold uppercase tracking-wider text-[var(--text-muted)]">Mode</span>
+          <button onclick="toggleTheme()" class="gold-glass-capsule px-4 py-2 text-xs font-extrabold flex items-center gap-2 cursor-pointer text-[var(--text-main)]">
             <span id="themeIcon">☀️</span>
             <span id="themeLabel">Bright</span>
           </button>
@@ -219,7 +276,7 @@
 
         <!-- Haptics / Sound Toggle -->
         <div class="flex items-center gap-3">
-          <span class="text-xs font-bold uppercase tracking-wider text-[#7E7063]">VIP Sync</span>
+          <span class="text-xs font-bold uppercase tracking-wider text-[var(--text-muted)]">VIP Sync</span>
           <div id="goldToggle" class="gold-toggle" onclick="toggleHaptics()">
             <div class="gold-toggle-knob"></div>
           </div>
@@ -227,59 +284,94 @@
       </div>
     </header>
 
-    <!-- TOP SECTION: LIVE CLOCK CAPSULE + ADJUSTABLE REFRACTION -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <!-- TOP SECTION: LIVE CLOCK (EXACT FRAME) + VIEW SELECTION + QUICK ENTRY -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
       
-      <!-- Box 1: LIVE TIME CAPSULE (Replacing the old primary capsule) -->
-      <div class="gold-glass-slab p-6 space-y-3 flex flex-col justify-between">
-        <div class="flex items-center justify-between">
-          <span class="text-xs font-bold uppercase tracking-wider text-[#93774D]">Current Time (Live)</span>
-          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+      <!-- Box 1: LIVE TIME CAPSULE (Vertical Stack Matching Reference)[cite: 18] -->
+      <div class="clock-card-frame">
+        <!-- Top bar with label and emerald pulsing dot[cite: 18] -->
+        <div class="flex items-center justify-between px-1">
+          <span class="text-xs font-extrabold tracking-wider text-[var(--gold-bezel)] uppercase">CURRENT TIME (LIVE)</span>
+          <span class="w-3 h-3 rounded-full bg-[#10B981] shadow-[0_0_10px_#10B981] animate-pulse"></span>
         </div>
         
-        <!-- Champagne Gold Time Capsule -->
-        <div class="w-full py-4 px-6 gold-glass-capsule flex flex-col items-center justify-center text-center">
-          <div id="liveClock" class="text-2xl md:text-3xl font-extrabold tracking-tight font-mono text-[#38240D]">00:00:00 AM</div>
-          <div id="liveDate" class="text-[11px] font-semibold tracking-wider text-[#8A7255] uppercase mt-0.5">Tuesday, May 18, 2026</div>
+        <!-- Central Oval Vault Frame from reference[cite: 18] -->
+        <div class="clock-oval-vault">
+          <!-- Time in HH : MM : SS[cite: 18] -->
+          <div id="liveClockTime" class="text-3xl font-black tracking-wider text-[var(--clock-text)] font-sans">
+            12 : 06 : 15
+          </div>
+          <!-- AM/PM display[cite: 18] -->
+          <div id="liveClockAmPm" class="text-xl font-black text-[var(--clock-text)] tracking-wider mt-0.5">
+            PM
+          </div>
+
+          <!-- Vertically stacked Date lines[cite: 18] -->
+          <div class="pt-3 space-y-0.5">
+            <div id="liveDayName" class="text-xs font-extrabold tracking-widest text-[var(--clock-date)] uppercase">
+              TUESDAY,
+            </div>
+            <div id="liveMonthDay" class="text-xs font-extrabold tracking-widest text-[var(--clock-date)] uppercase">
+              SEPTEMBER 22,
+            </div>
+            <div id="liveYear" class="text-xs font-extrabold tracking-widest text-[var(--clock-date)]">
+              2026
+            </div>
+          </div>
         </div>
 
-        <button onclick="openDayDrawer(getTodayDateStr())" class="w-full py-2.5 gold-glass-capsule text-xs font-bold text-[#3B2914] flex items-center justify-center gap-2 cursor-pointer">
-          <svg class="w-3.5 h-3.5 stroke-current stroke-2" fill="none" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+        <!-- Full-Width Bottom Pill Button[cite: 18] -->
+        <button onclick="openDayDrawer(getTodayDateStr())" class="w-full py-3 gold-glass-capsule text-xs font-extrabold text-[var(--text-main)] hover:text-[var(--gold-bezel)] flex items-center justify-center gap-2 cursor-pointer shadow-md">
+          <span class="text-base leading-none font-bold text-[var(--gold-bezel)]">+</span>
           <span>Inspect Today's Schedule</span>
         </button>
       </div>
 
       <!-- Box 2: Segmented Selectors inside Gold Rim -->
-      <div class="gold-glass-slab p-6 space-y-4">
-        <div class="text-xs font-bold uppercase tracking-wider text-[#93774D]">View Selection</div>
-        
-        <!-- Segmented Tab Capsule -->
-        <div class="p-1 gold-glass-capsule flex">
-          <button id="tabA" onclick="switchView('month')" class="flex-1 py-2 text-xs rounded-full transition gold-segment-active">Month</button>
-          <button id="tabB" onclick="switchView('week')" class="flex-1 py-2 text-xs rounded-full text-[#6D5E4E] hover:text-[#2E2010] transition">Week</button>
-          <button id="tabC" onclick="switchView('agenda')" class="flex-1 py-2 text-xs rounded-full text-[#6D5E4E] hover:text-[#2E2010] transition">Agenda</button>
+      <div class="gold-glass-slab p-6 space-y-4 flex flex-col justify-between">
+        <div>
+          <div class="text-xs font-extrabold uppercase tracking-wider text-[var(--gold-bezel)] mb-3">View Selection</div>
+          
+          <!-- Segmented Tab Capsule -->
+          <div class="p-1 gold-glass-capsule flex">
+            <button id="tabA" onclick="switchView('month')" class="flex-1 py-2 text-xs rounded-full transition gold-segment-active">Month</button>
+            <button id="tabB" onclick="switchView('week')" class="flex-1 py-2 text-xs rounded-full text-[var(--text-muted)] hover:text-[var(--text-main)] transition font-bold">Week</button>
+            <button id="tabC" onclick="switchView('agenda')" class="flex-1 py-2 text-xs rounded-full text-[var(--text-muted)] hover:text-[var(--text-main)] transition font-bold">Agenda</button>
+          </div>
         </div>
 
         <!-- Filter Capsule -->
-        <div class="py-1 px-1.5 gold-glass-capsule flex items-center text-xs text-[#6D5E4E] font-medium">
-          <button onclick="filterPriority('all')" class="flex-1 py-1.5 rounded-full text-center hover:text-[#2E2010] font-bold gold-segment-active">All</button>
-          <button onclick="filterPriority('high')" class="flex-1 py-1.5 rounded-full text-center hover:text-[#2E2010]">VIP</button>
-          <button onclick="filterPriority('focus')" class="flex-1 py-1.5 rounded-full text-center hover:text-[#2E2010]">Focus</button>
+        <div>
+          <div class="text-xs font-extrabold uppercase tracking-wider text-[var(--gold-bezel)] mb-2">Priority Filter</div>
+          <div class="py-1 px-1.5 gold-glass-capsule flex items-center text-xs text-[var(--text-muted)] font-medium">
+            <button onclick="filterPriority('all')" class="flex-1 py-1.5 rounded-full text-center font-bold gold-segment-active">All</button>
+            <button onclick="filterPriority('high')" class="flex-1 py-1.5 rounded-full text-center hover:text-[var(--text-main)] font-extrabold">VIP</button>
+            <button onclick="filterPriority('focus')" class="flex-1 py-1.5 rounded-full text-center hover:text-[var(--text-main)] font-extrabold">Focus</button>
+          </div>
+        </div>
+
+        <div class="text-[11px] text-[var(--text-sub)] font-semibold flex items-center justify-between border-t border-[var(--border-separator)] pt-2">
+          <span>Active View: <strong id="activeViewLabel" class="text-[var(--text-main)]">Month Matrix</strong></span>
+          <span class="text-[var(--gold-bezel)] font-bold">Sync: Live</span>
         </div>
       </div>
 
       <!-- Box 3: Quick Event Entry -->
       <div class="gold-glass-slab p-6 space-y-4 flex flex-col justify-between">
         <div>
-          <div class="text-xs font-bold uppercase tracking-wider text-[#93774D] mb-2">Quick Event Entry</div>
-          <input type="text" id="quickInput" placeholder="Add schedule item for selected date..." 
-            class="w-full gold-glass-input px-4 py-2.5 text-xs placeholder-[#9E9080]">
+          <div class="text-xs font-extrabold uppercase tracking-wider text-[var(--gold-bezel)] mb-2">Quick Event Entry</div>
+          <input type="text" id="quickInput" placeholder="Add schedule item for date..." 
+            class="w-full gold-glass-input px-4 py-2.5 text-xs font-medium placeholder-[var(--text-sub)]">
         </div>
 
-        <button onclick="quickAdd()" class="w-full py-3 gold-glass-capsule text-xs font-bold text-[#3B2914] flex items-center justify-center gap-2 cursor-pointer">
-          <svg class="w-3.5 h-3.5 stroke-current stroke-2" fill="none" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+        <button onclick="quickAdd()" class="w-full py-3 gold-glass-capsule text-xs font-extrabold text-[var(--text-main)] hover:text-[var(--gold-bezel)] flex items-center justify-center gap-2 cursor-pointer shadow-md">
+          <svg class="w-4 h-4 text-[var(--gold-bezel)] stroke-current stroke-2" fill="none" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
           <span>Add to Schedule</span>
         </button>
+
+        <div class="text-[11px] text-[var(--text-sub)] font-medium">
+          Fast-adds to current active date. Open inspector to edit timing or details.
+        </div>
       </div>
 
     </div>
@@ -288,24 +380,24 @@
     <div class="gold-glass-slab p-6 md:p-8 space-y-8">
       
       <!-- Calendar Controls -->
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[#D8C7B4]/50">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[var(--border-separator)]">
         <div class="flex items-center gap-4">
-          <div class="w-12 h-12 gold-glass-capsule flex items-center justify-center text-[#5C411E]">
+          <div class="w-12 h-12 gold-glass-capsule flex items-center justify-center text-[var(--gold-bezel)]">
             <svg class="w-5 h-5 stroke-current stroke-2" fill="none" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
           </div>
           <div>
-            <h2 id="calendarTitle" class="text-xl font-extrabold">May 2026</h2>
-            <p class="text-xs text-[#7E7063] font-medium">Click any day card to inspect all appointments &amp; details</p>
+            <h2 id="calendarTitle" class="text-xl font-extrabold text-[var(--text-main)]">September 2026</h2>
+            <p class="text-xs text-[var(--text-muted)] font-bold">Click any date card to inspect all appointments &amp; full details</p>
           </div>
         </div>
 
         <!-- Navigation Pills -->
         <div class="flex items-center gap-2">
-          <button onclick="prevMonth()" class="gold-glass-capsule w-9 h-9 flex items-center justify-center text-[#5C411E] hover:scale-105 cursor-pointer">
+          <button onclick="prevMonth()" class="gold-glass-capsule w-9 h-9 flex items-center justify-center text-[var(--gold-bezel)] hover:scale-105 cursor-pointer">
             <svg class="w-4 h-4 stroke-current stroke-2" fill="none" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
           </button>
-          <button onclick="currentMonth()" class="gold-glass-capsule px-5 py-2 text-xs font-bold text-[#3B2914] cursor-pointer">Today</button>
-          <button onclick="nextMonth()" class="gold-glass-capsule w-9 h-9 flex items-center justify-center text-[#5C411E] hover:scale-105 cursor-pointer">
+          <button onclick="currentMonth()" class="gold-glass-capsule px-5 py-2 text-xs font-black text-[var(--text-main)] cursor-pointer">Today</button>
+          <button onclick="nextMonth()" class="gold-glass-capsule w-9 h-9 flex items-center justify-center text-[var(--gold-bezel)] hover:scale-105 cursor-pointer">
             <svg class="w-4 h-4 stroke-current stroke-2" fill="none" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
           </button>
         </div>
@@ -313,8 +405,8 @@
 
       <!-- VIEW 1: MONTH GRID -->
       <div id="monthView" class="space-y-4">
-        <div class="grid grid-cols-7 text-center text-xs font-bold text-[#8A755D]">
-          <div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div><div>Sun</div>
+        <div class="grid grid-cols-7 text-center text-xs font-black text-[var(--gold-bezel)] tracking-wider">
+          <div>MON</div><div>TUE</div><div>WED</div><div>THU</div><div>FRI</div><div>SAT</div><div>SUN</div>
         </div>
 
         <div id="calendarGrid" class="grid grid-cols-7 gap-2.5 md:gap-3.5">
@@ -337,41 +429,40 @@
       
       <!-- Actions -->
       <div class="gold-glass-slab p-5 space-y-3">
-        <div class="text-xs font-bold uppercase tracking-wider text-[#93774D]">Bespoke Tools</div>
+        <div class="text-xs font-extrabold uppercase tracking-wider text-[var(--gold-bezel)]">Bespoke Tools</div>
         
         <div class="space-y-2">
-          <button onclick="exportICS()" class="w-full text-left px-4 py-2.5 gold-glass-capsule text-xs font-bold text-[#3B2914] flex items-center gap-3 cursor-pointer">
-            <svg class="w-4 h-4 text-[#8A6F44] stroke-current stroke-2" fill="none" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          <button onclick="exportICS()" class="w-full text-left px-4 py-2.5 gold-glass-capsule text-xs font-extrabold text-[var(--text-main)] hover:text-[var(--gold-bezel)] flex items-center gap-3 cursor-pointer">
+            <svg class="w-4 h-4 text-[var(--gold-bezel)] stroke-current stroke-2" fill="none" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
             <span>Export Calendar Sync (.ics)</span>
           </button>
-          <button onclick="currentMonth()" class="w-full text-left px-4 py-2.5 gold-glass-capsule text-xs font-bold text-[#3B2914] flex items-center gap-3 cursor-pointer">
-            <svg class="w-4 h-4 text-[#8A6F44] stroke-current stroke-2" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          <button onclick="currentMonth()" class="w-full text-left px-4 py-2.5 gold-glass-capsule text-xs font-extrabold text-[var(--text-main)] hover:text-[var(--gold-bezel)] flex items-center gap-3 cursor-pointer">
+            <svg class="w-4 h-4 text-[var(--gold-bezel)] stroke-current stroke-2" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
             <span>Reset View Coordinates</span>
           </button>
         </div>
       </div>
 
-      <!-- Material Refraction & Screen Transparency Controller -->
+      <!-- Refraction / Transparency Controller -->
       <div class="gold-glass-slab p-5 space-y-3 col-span-1 md:col-span-2 flex flex-col justify-between">
         <div class="flex items-center justify-between">
-          <span class="text-xs font-bold uppercase tracking-wider text-[#93774D]">Material Refraction Ratio (Adjust Transparency)</span>
-          <span id="transparencyLabel" class="text-xs font-mono font-bold text-[#3B2914]">85% Optical Clarity</span>
+          <span class="text-xs font-extrabold uppercase tracking-wider text-[var(--gold-bezel)]">Material Refraction Ratio (Adjust Transparency)</span>
+          <span id="transparencyLabel" class="text-xs font-mono font-black text-[var(--gold-bezel)]">95% Optical Clarity</span>
         </div>
         
-        <!-- Interactive Transparency / Brightness Slider -->
         <div class="space-y-1">
-          <input type="range" id="refractionSlider" min="20" max="100" value="85" 
-            class="w-full accent-[#C8A366] cursor-pointer" oninput="adjustGlassTransparency(this.value)">
-          <div class="flex justify-between text-[11px] text-[#7D7063]">
-            <span>More Transparent (Subtle)</span>
+          <input type="range" id="refractionSlider" min="20" max="100" value="95" 
+            class="w-full accent-[var(--gold-bezel)] cursor-pointer" oninput="adjustGlassTransparency(this.value)">
+          <div class="flex justify-between text-[11px] text-[var(--text-muted)] font-bold">
+            <span>More Transparent</span>
             <span>Balanced Frosted Glass</span>
-            <span>Solid Cast Specular</span>
+            <span>Solid High-Contrast</span>
           </div>
         </div>
 
-        <div class="flex items-center justify-between text-[11px] text-[#7D7063] pt-1 border-t border-[#D8C7B4]/30">
-          <span>Glass Blur: <strong id="blurVal">24px</strong></span>
-          <span>Bezel Rim: <strong>1.5px Metallic Champagne Gold</strong></span>
+        <div class="flex items-center justify-between text-[11px] text-[var(--text-sub)] font-semibold pt-1 border-t border-[var(--border-separator)]">
+          <span>Glass Blur: <strong id="blurVal" class="text-[var(--text-main)] font-bold">24px</strong></span>
+          <span>Bezel Rim: <strong class="text-[var(--gold-bezel)] font-bold">1.5px High-Luminance Gold</strong></span>
         </div>
       </div>
 
@@ -379,49 +470,47 @@
 
   </div>
 
-  <!-- SLIDE-OVER DAY INSPECTOR DRAWER (SHOWS ALL DETAILS ON CLICK) -->
-  <div id="dayDrawerBackdrop" class="fixed inset-0 bg-black/30 backdrop-blur-sm z-40 hidden" onclick="closeDayDrawer()"></div>
+  <!-- SLIDE-OVER DAY INSPECTOR DRAWER -->
+  <div id="dayDrawerBackdrop" class="fixed inset-0 bg-black/70 backdrop-blur-md z-40 hidden" onclick="closeDayDrawer()"></div>
   
   <div id="dayDrawer" class="drawer-closed fixed top-0 right-0 bottom-0 w-full max-w-md gold-glass-slab z-50 p-6 md:p-8 flex flex-col justify-between overflow-y-auto rounded-l-[32px] rounded-r-none border-r-0 shadow-2xl">
     <div class="space-y-6">
       
       <!-- Drawer Top Bar -->
-      <div class="flex items-center justify-between pb-4 border-b border-[#D8C7B4]/50">
+      <div class="flex items-center justify-between pb-4 border-b border-[var(--border-separator)]">
         <div>
-          <span class="text-[11px] font-bold uppercase tracking-wider text-[#93774D]">Day Inspector</span>
-          <h3 id="drawerDateTitle" class="text-2xl font-extrabold text-[#2B2117]">May 18, 2026</h3>
+          <span class="text-[11px] font-extrabold uppercase tracking-wider text-[var(--gold-bezel)]">Day Inspector</span>
+          <h3 id="drawerDateTitle" class="text-2xl font-extrabold text-[var(--text-main)]">September 22, 2026</h3>
         </div>
-        <button onclick="closeDayDrawer()" class="w-9 h-9 gold-glass-capsule flex items-center justify-center text-lg font-bold text-[#5C411E] cursor-pointer">&times;</button>
+        <button onclick="closeDayDrawer()" class="w-9 h-9 gold-glass-capsule flex items-center justify-center text-lg font-bold text-[var(--gold-bezel)] hover:scale-105 cursor-pointer">&times;</button>
       </div>
 
       <!-- Quick Metrics on this day -->
       <div class="flex items-center gap-3">
-        <span id="drawerCountBadge" class="gold-glass-capsule px-3.5 py-1 text-xs font-bold text-[#3B2914]">2 Appointments</span>
-        <span class="text-xs text-[#7E7063]">All times confirmed</span>
+        <span id="drawerCountBadge" class="gold-glass-capsule px-3.5 py-1 text-xs font-black text-[var(--text-main)]">2 Appointments</span>
+        <span class="text-xs text-[var(--text-muted)] font-bold">All times verified</span>
       </div>
 
       <!-- Full List of Appointments on this Date -->
-      <div class="space-y-3" id="drawerAppointmentsList">
-        <!-- Rendered dynamically with full details -->
-      </div>
+      <div class="space-y-3" id="drawerAppointmentsList"></div>
 
       <!-- In-Drawer Quick Add Form -->
-      <div class="gold-glass-slab p-4 space-y-3 bg-white/40">
-        <h4 class="text-xs font-bold uppercase tracking-wider text-[#93774D]">Add Appointment to this Date</h4>
-        <input type="text" id="drawerEventTitle" placeholder="Title (e.g. VIP Atelier Fitting)" class="w-full gold-glass-input px-3.5 py-2 text-xs">
+      <div class="gold-glass-slab p-4 space-y-3 bg-black/20 border border-[var(--border-separator)]">
+        <h4 class="text-xs font-extrabold uppercase tracking-wider text-[var(--gold-bezel)]">Add Appointment to this Date</h4>
+        <input type="text" id="drawerEventTitle" placeholder="Title (e.g. Atelier VIP Review)" class="w-full gold-glass-input px-3.5 py-2 text-xs font-semibold placeholder-[var(--text-sub)]">
         
         <div class="grid grid-cols-2 gap-2">
-          <input type="time" id="drawerEventTime" value="14:00" class="w-full gold-glass-input px-3.5 py-2 text-xs">
-          <select id="drawerEventPriority" class="w-full gold-glass-input px-3.5 py-2 text-xs">
+          <input type="time" id="drawerEventTime" value="14:00" class="w-full gold-glass-input px-3.5 py-2 text-xs font-semibold">
+          <select id="drawerEventPriority" class="w-full gold-glass-input px-3.5 py-2 text-xs font-semibold">
             <option value="high">VIP Priority</option>
             <option value="normal" selected>Normal</option>
             <option value="focus">Deep Focus</option>
           </select>
         </div>
 
-        <input type="text" id="drawerEventNotes" placeholder="Location or Notes..." class="w-full gold-glass-input px-3.5 py-2 text-xs">
+        <input type="text" id="drawerEventNotes" placeholder="Location or Notes..." class="w-full gold-glass-input px-3.5 py-2 text-xs font-semibold placeholder-[var(--text-sub)]">
 
-        <button onclick="saveEventFromDrawer()" class="w-full py-2.5 gold-glass-capsule text-xs font-bold text-[#3B2914] shadow-md cursor-pointer">
+        <button onclick="saveEventFromDrawer()" class="w-full py-2.5 gold-glass-capsule text-xs font-extrabold text-[var(--text-main)] hover:text-[var(--gold-bezel)] shadow-md cursor-pointer">
           Confirm &amp; Schedule
         </button>
       </div>
@@ -429,22 +518,22 @@
     </div>
 
     <!-- Drawer Footer Close -->
-    <div class="pt-6 border-t border-[#D8C7B4]/50">
-      <button onclick="closeDayDrawer()" class="w-full py-2.5 gold-glass-capsule text-xs font-bold text-[#6D5D4B]">Close Inspector</button>
+    <div class="pt-6 border-t border-[var(--border-separator)]">
+      <button onclick="closeDayDrawer()" class="w-full py-2.5 gold-glass-capsule text-xs font-bold text-[var(--text-muted)] hover:text-[var(--text-main)]">Close Inspector</button>
     </div>
   </div>
 
   <script>
-    // State management
-    let currentDate = new Date(2026, 4, 18); // May 18, 2026
-    let activeInspectorDate = '2026-05-18';
+    // State management: Defaulted to current time September 2026
+    let currentDate = new Date(2026, 8, 22); // Month is 0-indexed: 8 = September
+    let activeInspectorDate = '2026-09-22';
     let currentFilter = 'all';
 
     let events = [
-      { id: 1, date: '2026-05-18', time: '10:00', title: 'Atelier Fitting Consultation', priority: 'high', notes: 'Private Suite 4 &bull; Measurement review with Lead Stylist' },
-      { id: 2, date: '2026-05-18', time: '14:30', title: 'Champagne Gem Calibration', priority: 'focus', notes: 'Optical laboratory session &bull; Specular ratio test' },
-      { id: 3, date: '2026-05-20', time: '11:00', title: 'Private Client Milestone', priority: 'normal', notes: 'Virtual luxury showroom call' },
-      { id: 4, date: '2026-05-22', time: '16:00', title: 'Runway Showcase Review', priority: 'high', notes: 'Grand Ballroom &bull; Final fabric lighting check' }
+      { id: 1, date: '2026-09-22', time: '10:00', title: 'Atelier Fitting Consultation', priority: 'high', notes: 'Private Suite 4 • Lead Stylist measurement review' },
+      { id: 2, date: '2026-09-22', time: '14:30', title: 'Champagne Gem Calibration', priority: 'focus', notes: 'Optical laboratory session • Specular test' },
+      { id: 3, date: '2026-09-24', time: '11:00', title: 'Private Client Milestone', priority: 'normal', notes: 'Virtual luxury showroom call' },
+      { id: 4, date: '2026-09-28', time: '16:00', title: 'Runway Showcase Review', priority: 'high', notes: 'Grand Ballroom • Lighting and silhouette check' }
     ];
 
     window.addEventListener('DOMContentLoaded', () => {
@@ -452,17 +541,31 @@
       startLiveClock();
     });
 
-    // 1. LIVE CLOCK REPLACING THE PRIMARY CAPSULE
+    // 1. LIVE CLOCK MATCHING EXACT ARCH/OVAL DESIGN (image_f72bb8.png)
     function startLiveClock() {
       function update() {
         const now = new Date();
-        const timeStr = now.toLocaleTimeString('en-US', { hour12: true, hour: '2-digit', minute: '2-digit', second: '2-digit' });
-        const dateStr = now.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-        
-        const clockEl = document.getElementById('liveClock');
-        const dateEl = document.getElementById('liveDate');
-        if (clockEl) clockEl.innerText = timeStr;
-        if (dateEl) dateEl.innerText = dateStr;
+        let hours = now.getHours();
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const seconds = String(now.getSeconds()).padStart(2, '0');
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12;
+        hours = hours ? hours : 12; // 0 becomes 12
+        const formattedHours = String(hours).padStart(2, '0');
+
+        // Render "HH : MM : SS" and "PM" separately[cite: 18]
+        document.getElementById('liveClockTime').innerText = `${formattedHours} : ${minutes} : ${seconds}`;
+        document.getElementById('liveClockAmPm').innerText = ampm;
+
+        // Render stacked date: e.g. TUESDAY, / SEPTEMBER 22, / 2026[cite: 18]
+        const dayName = now.toLocaleDateString('en-US', { weekday: 'long' }).toUpperCase() + ',';
+        const monthName = now.toLocaleDateString('en-US', { month: 'long' }).toUpperCase();
+        const dayNumber = now.getDate();
+        const yearNumber = now.getFullYear();
+
+        document.getElementById('liveDayName').innerText = dayName;
+        document.getElementById('liveMonthDay').innerText = `${monthName} ${dayNumber},`;
+        document.getElementById('liveYear').innerText = yearNumber;
       }
       update();
       setInterval(update, 1000);
@@ -475,19 +578,7 @@
       return `${year}-${month}-${day}`;
     }
 
-    // 2. DYNAMIC REFRACTION / TRANSPARENCY ADJUSTMENT
-    function adjustGlassTransparency(val) {
-      const opacity = (val / 100).toFixed(2);
-      const blurVal = Math.round((val / 100) * 32);
-      
-      document.documentElement.style.setProperty('--glass-opacity', opacity);
-      document.documentElement.style.setProperty('--glass-blur', `${blurVal}px`);
-      
-      document.getElementById('transparencyLabel').innerText = `${val}% Optical Clarity`;
-      document.getElementById('blurVal').innerText = `${blurVal}px`;
-    }
-
-    // 3. BRIGHT / DARK MODE TOGGLE
+    // 2. BRIGHT / DARK MODE TOGGLE
     function toggleTheme() {
       const body = document.body;
       const isDark = body.classList.toggle('dark-mode');
@@ -501,6 +592,22 @@
         icon.innerText = '☀️';
         label.innerText = 'Bright';
       }
+      renderCalendar();
+      if (!document.getElementById('dayDrawer').classList.contains('drawer-closed')) {
+        renderDrawerAppointments();
+      }
+    }
+
+    // 3. DYNAMIC REFRACTION / TRANSPARENCY ADJUSTMENT
+    function adjustGlassTransparency(val) {
+      const opacity = (val / 100).toFixed(2);
+      const blurVal = Math.round((val / 100) * 32);
+      
+      document.documentElement.style.setProperty('--glass-opacity', opacity);
+      document.documentElement.style.setProperty('--glass-blur', `${blurVal}px`);
+      
+      document.getElementById('transparencyLabel').innerText = `${val}% Optical Clarity`;
+      document.getElementById('blurVal').innerText = `${blurVal}px`;
     }
 
     // 4. CALENDAR MATRIX RENDERER
@@ -521,7 +628,7 @@
       // Empty Lead Cells
       for (let i = 0; i < startDay; i++) {
         const emptyCell = document.createElement('div');
-        emptyCell.className = 'h-24 md:h-28 rounded-3xl opacity-10 border border-[#C5A066]/30';
+        emptyCell.className = 'h-24 md:h-28 rounded-3xl opacity-15 border border-[var(--gold-bezel)]/30';
         grid.appendChild(emptyCell);
       }
 
@@ -533,17 +640,16 @@
           dayEvents = dayEvents.filter(e => e.priority === currentFilter);
         }
 
-        const isToday = (day === 18 && month === 4 && year === 2026);
+        const isToday = (day === 22 && month === 8 && year === 2026);
         const cell = document.createElement('div');
         
-        // Clicking on any day opens the Full Details Drawer
-        cell.className = `gold-glass-slab p-2.5 h-24 md:h-28 flex flex-col justify-between cursor-pointer transition transform hover:scale-[1.02] ${isToday ? 'ring-2 ring-[#C5A066]' : ''}`;
+        cell.className = `gold-glass-slab p-2.5 h-24 md:h-28 flex flex-col justify-between cursor-pointer transition transform hover:scale-[1.02] ${isToday ? 'ring-2 ring-[var(--gold-bezel)]' : ''}`;
         cell.onclick = () => openDayDrawer(dateStr);
 
         cell.innerHTML = `
           <div class="flex items-center justify-between">
-            <span class="text-xs font-bold ${isToday ? 'w-5 h-5 rounded-full bg-[#3B2914] text-[#F5EDE4] flex items-center justify-center' : ''}">${day}</span>
-            ${dayEvents.length > 0 ? `<span class="w-1.5 h-1.5 rounded-full bg-[#C5A066]"></span>` : ''}
+            <span class="text-xs font-black ${isToday ? 'w-6 h-6 rounded-full bg-[var(--gold-bezel)] text-[#120D06] flex items-center justify-center' : 'text-[var(--text-main)]'}">${day}</span>
+            ${dayEvents.length > 0 ? `<span class="w-2 h-2 rounded-full bg-[var(--gold-bezel)] shadow-[0_0_6px_var(--gold-bezel)]"></span>` : ''}
           </div>
           <div class="space-y-1 overflow-hidden">
             ${dayEvents.map(e => `
@@ -558,7 +664,7 @@
       }
     }
 
-    // 5. DAY INSPECTOR DRAWER (SHOWS ALL APPOINTMENTS & THEIR COMPLETE DETAILS)
+    // 5. DAY INSPECTOR DRAWER
     function openDayDrawer(dateStr) {
       activeInspectorDate = dateStr;
       
@@ -585,7 +691,7 @@
 
       if (dayEvents.length === 0) {
         container.innerHTML = `
-          <div class="p-6 text-center text-xs text-[#8A755D] italic gold-glass-slab">
+          <div class="p-6 text-center text-xs text-[var(--text-muted)] font-bold italic gold-glass-slab">
             No appointments scheduled for this date. Use the form below to add one.
           </div>
         `;
@@ -593,25 +699,25 @@
       }
 
       container.innerHTML = dayEvents.map(e => `
-        <div class="gold-glass-slab p-4 space-y-2 border border-[#C5A066]/30">
+        <div class="gold-glass-slab p-4 space-y-2 border border-[var(--border-separator)]">
           <div class="flex items-center justify-between">
-            <span class="text-xs font-mono font-bold text-[#93774D] bg-[#C5A066]/15 px-2.5 py-0.5 rounded-full">${e.time}</span>
-            <span class="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full ${e.priority === 'high' ? 'bg-[#3B2914] text-white' : 'bg-[#C5A066]/20 text-[#3B2914]'}">
+            <span class="text-xs font-mono font-black text-[var(--gold-bezel)] bg-[var(--gold-bezel)]/15 px-2.5 py-0.5 rounded-full border border-[var(--gold-bezel)]/30">${e.time}</span>
+            <span class="text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full ${e.priority === 'high' ? 'bg-[var(--gold-bezel)] text-[#120D06]' : 'bg-[var(--gold-bezel)]/20 text-[var(--text-main)] border border-[var(--gold-bezel)]/30'}">
               ${e.priority}
             </span>
           </div>
 
-          <div class="text-sm font-bold">${e.title}</div>
+          <div class="text-sm font-extrabold text-[var(--text-main)]">${e.title}</div>
           
           ${e.notes ? `
-            <div class="text-xs text-[#7E7063] bg-white/40 p-2 rounded-xl flex items-start gap-1.5">
-              <svg class="w-3.5 h-3.5 text-[#93774D] mt-0.5 flex-shrink-0 stroke-current stroke-2" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+            <div class="text-xs text-[var(--text-muted)] font-semibold bg-black/10 p-2.5 rounded-xl flex items-start gap-2 border border-[var(--border-separator)]">
+              <svg class="w-3.5 h-3.5 text-[var(--gold-bezel)] mt-0.5 flex-shrink-0 stroke-current stroke-2" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
               <span>${e.notes}</span>
             </div>
           ` : ''}
 
           <div class="flex justify-end pt-1">
-            <button onclick="deleteEvent(${e.id})" class="text-[11px] text-red-600 hover:text-red-700 font-semibold cursor-pointer">
+            <button onclick="deleteEvent(${e.id})" class="text-[11px] text-rose-500 hover:text-rose-400 font-extrabold cursor-pointer">
               Cancel Event
             </button>
           </div>
@@ -680,7 +786,7 @@
       renderCalendar();
     }
     function currentMonth() {
-      currentDate = new Date(2026, 4, 18);
+      currentDate = new Date(2026, 8, 22);
       renderCalendar();
     }
 
@@ -691,6 +797,7 @@
       const monthView = document.getElementById('monthView');
       const weekView = document.getElementById('weekView');
       const agendaView = document.getElementById('agendaView');
+      const label = document.getElementById('activeViewLabel');
 
       monthView.classList.add('hidden');
       weekView.classList.add('hidden');
@@ -699,13 +806,16 @@
       if (mode === 'month') {
         document.getElementById('tabA').classList.add('gold-segment-active');
         monthView.classList.remove('hidden');
+        label.innerText = 'Month Matrix';
       } else if (mode === 'week') {
         document.getElementById('tabB').classList.add('gold-segment-active');
         weekView.classList.remove('hidden');
+        label.innerText = 'Week Timeline';
         renderWeekView();
       } else {
         document.getElementById('tabC').classList.add('gold-segment-active');
         agendaView.classList.remove('hidden');
+        label.innerText = 'Agenda List';
         renderAgendaView();
       }
     }
@@ -713,21 +823,21 @@
     function renderWeekView() {
       const weekGrid = document.getElementById('weekGrid');
       weekGrid.innerHTML = '';
-      const days = ['Mon 18', 'Tue 19', 'Wed 20', 'Thu 21', 'Fri 22', 'Sat 23', 'Sun 24'];
+      const days = ['Mon 21', 'Tue 22', 'Wed 23', 'Thu 24', 'Fri 25', 'Sat 26', 'Sun 27'];
 
       days.forEach((dayName, idx) => {
         const col = document.createElement('div');
         col.className = 'gold-glass-slab p-3 space-y-3 min-h-[220px] cursor-pointer';
-        const dateStr = `2026-05-${18 + idx}`;
+        const dateStr = `2026-09-${21 + idx}`;
         col.onclick = () => openDayDrawer(dateStr);
 
         col.innerHTML = `
-          <div class="text-xs font-bold border-b border-[#D8C7B4]/50 pb-1.5">${dayName}</div>
+          <div class="text-xs font-black text-[var(--gold-bezel)] border-b border-[var(--border-separator)] pb-1.5">${dayName}</div>
           <div class="space-y-2">
-            ${idx === 0 ? `
-              <div class="p-2 chip-gold text-[11px] font-semibold">10:00 Fitting</div>
-              <div class="p-2 chip-priority-gold text-[11px] font-semibold">14:30 Calibration</div>
-            ` : `<div class="text-[10px] text-[#A6998A] italic">No slots</div>`}
+            ${idx === 1 ? `
+              <div class="p-2 chip-gold text-[11px] font-bold">10:00 Fitting</div>
+              <div class="p-2 chip-priority-gold text-[11px] font-black">14:30 Calibration</div>
+            ` : `<div class="text-[10px] text-[var(--text-sub)] italic">No slots</div>`}
           </div>
         `;
         weekGrid.appendChild(col);
@@ -737,15 +847,15 @@
     function renderAgendaView() {
       const agendaList = document.getElementById('agendaView');
       agendaList.innerHTML = events.map(e => `
-        <div onclick="openDayDrawer('${e.date}')" class="gold-glass-slab p-4 flex items-center justify-between cursor-pointer hover:scale-[1.01] transition">
+        <div onclick="openDayDrawer('${e.date}')" class="gold-glass-slab p-4 flex items-center justify-between cursor-pointer hover:scale-[1.01] transition border border-[var(--border-separator)]">
           <div class="flex items-center gap-4">
-            <span class="text-xs font-mono font-bold text-[#93774D]">${e.time}</span>
+            <span class="text-xs font-mono font-black text-[var(--gold-bezel)] bg-[var(--gold-bezel)]/15 px-2.5 py-1 rounded-full border border-[var(--gold-bezel)]/30">${e.time}</span>
             <div>
-              <div class="text-sm font-bold">${e.title}</div>
-              <div class="text-[11px] text-[#7E7063]">Date: ${e.date} &bull; ${e.notes || 'Confirmed'}</div>
+              <div class="text-sm font-extrabold text-[var(--text-main)]">${e.title}</div>
+              <div class="text-[11px] text-[var(--text-muted)] font-semibold">Date: ${e.date} &bull; ${e.notes || 'Confirmed'}</div>
             </div>
           </div>
-          <span class="text-xs font-bold px-3 py-1 ${e.priority === 'high' ? 'chip-priority-gold' : 'chip-gold'}">
+          <span class="text-xs font-black px-3 py-1 ${e.priority === 'high' ? 'chip-priority-gold' : 'chip-gold'}">
             ${e.priority.toUpperCase()}
           </span>
         </div>
