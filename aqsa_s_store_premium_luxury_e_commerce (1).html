@@ -1,0 +1,2618 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AQSA’S STORE — Atelier Fashion & Haute Couture</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Three.js for 3D Crimson Silk Hero Simulation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <!-- Google Fonts for Editorial Luxury Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              blackcherry: '#420516',
+              wine: '#7D1935',
+              ruby: '#B42B51',
+              rose: '#E63E6D',
+              cream: '#FAF7F5',
+              ivory: '#F4EFEB',
+              softdark: '#1C060E'
+            }
+          },
+          fontFamily: {
+            serif: ['"Cormorant Garamond"', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom Luxury Styling */
+    body {
+      background-color: #FAF7F5;
+      color: #1C060E;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow-x: hidden;
+    }
+    .font-editorial {
+      font-family: 'Cormorant Garamond', serif;
+    }
+    /* 3D Canvas Container */
+    #hero-canvas-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: auto;
+      cursor: grab;
+    }
+    #hero-canvas-container:active {
+      cursor: grabbing;
+    }
+    /* Custom Scrollbars */
+    ::-webkit-scrollbar {
+      width: 7px;
+      height: 7px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #F4EFEB;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #7D1935;
+      border-radius: 9999px;
+    }
+    .arched-frame {
+      border-radius: 120px 120px 24px 24px;
+    }
+    .medium-card-frame {
+      border-radius: 28px;
+    }
+    .luxury-gallery-frame {
+      padding: 10px;
+      background: #FAF7F5;
+      border: 1px solid rgba(125, 25, 53, 0.25);
+      box-shadow: 0 16px 36px -12px rgba(66, 5, 22, 0.15), inset 0 0 0 1px rgba(255, 255, 255, 0.8);
+      position: relative;
+    }
+    .luxury-gallery-frame::after {
+      content: '';
+      position: absolute;
+      inset: 6px;
+      border: 1px solid rgba(180, 43, 81, 0.2);
+      pointer-events: none;
+      border-radius: inherit;
+    }
+    .craft-corner-tag {
+      font-family: 'Cormorant Garamond', serif;
+      letter-spacing: 0.18em;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-brand-rose selection:text-white">
+
+  <div class="bg-brand-blackcherry text-[#FCEEF2] text-xs tracking-widest uppercase py-2.5 px-4 text-center font-medium border-b border-white/10 flex flex-wrap items-center justify-center gap-3">
+    <span>Aqsa’s Collection 2026</span>
+    <span class="w-1.5 h-1.5 rounded-full bg-brand-rose inline-block"></span>
+    <span>Complimentary Nationwide Delivery Over PKR 6,000</span>
+    <span class="hidden md:inline w-1.5 h-1.5 rounded-full bg-brand-rose"></span>
+    <a href="https://wa.me/923087259054" target="_blank" class="text-rose-300 hover:text-white transition flex items-center gap-1.5 font-semibold">
+      <span>WhatsApp: 0308 7259054</span>
+    </a>
+    <span class="hidden lg:inline text-stone-400">&bull;</span>
+    <a href="mailto:aqsanadeemwattoo@gmail.com" class="hidden lg:inline text-stone-300 hover:text-white transition">
+      aqsanadeemwattoo@gmail.com
+    </a>
+  </div>
+
+  <header class="sticky top-0 z-50 bg-[#FAF7F5]/90 backdrop-blur-md border-b border-brand-wine/10 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <!-- Mobile Menu Button -->
+      <button onclick="toggleMobileNav()" class="md:hidden p-2 text-brand-blackcherry focus:outline-none" aria-label="Toggle menu">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+
+      <!-- Brand Logo -->
+      <div class="flex items-center gap-2">
+        <a href="#/" class="group text-left">
+          <span class="text-2xl sm:text-3xl font-editorial tracking-[0.18em] font-bold text-brand-blackcherry block group-hover:text-brand-ruby transition-colors">
+            AQSA’S STORE
+          </span>
+          <span class="text-[9px] tracking-[0.35em] text-brand-wine/80 uppercase block -mt-1 font-sans">
+            Haute Couture & Lifestyle
+          </span>
+        </a>
+      </div>
+
+      <!-- Desktop Navigation Links -->
+      <nav class="hidden md:flex items-center space-x-7 text-xs font-semibold tracking-widest uppercase text-stone-800">
+        <a href="#/" class="hover:text-brand-ruby transition-colors py-2">Home</a>
+        <a href="#/ladies" class="hover:text-brand-ruby transition-colors py-2">Ladies</a>
+        <a href="#/gents" class="hover:text-brand-ruby transition-colors py-2">Gents</a>
+        <a href="#/kids" class="hover:text-brand-ruby transition-colors py-2">Kids</a>
+        <a href="#/shoes" class="hover:text-brand-ruby transition-colors py-2">Footwear</a>
+      </nav>
+
+      <!-- Right Action Icons (Search, Wishlist, Cart) -->
+      <div class="flex items-center gap-4 text-brand-blackcherry">
+        <!-- Quick Search -->
+        <button onclick="openSearchModal()" class="p-2 hover:text-brand-ruby transition-colors" title="Search catalog">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        </button>
+
+        <!-- Wishlist Icon with Counter -->
+        <a href="#/wishlist" class="relative p-2 hover:text-brand-ruby transition-colors" title="Wishlist">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+          <span id="wishlist-badge" class="absolute top-1 right-1 bg-brand-ruby text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
+        </a>
+
+        <!-- Cart Icon with Counter -->
+        <a href="#/cart" class="relative p-2 hover:text-brand-ruby transition-colors" title="Shopping Bag">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+          <span id="cart-badge" class="absolute top-1 right-1 bg-brand-wine text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer Navigation -->
+    <div id="mobile-menu" class="hidden md:hidden bg-brand-ivory border-t border-brand-wine/10 px-6 py-5 space-y-4">
+      <a href="#/" onclick="toggleMobileNav()" class="block text-sm font-semibold tracking-wider uppercase text-brand-blackcherry">Home</a>
+      <a href="#/ladies" onclick="toggleMobileNav()" class="block text-sm font-semibold tracking-wider uppercase text-brand-blackcherry">Ladies Atelier</a>
+      <a href="#/gents" onclick="toggleMobileNav()" class="block text-sm font-semibold tracking-wider uppercase text-brand-blackcherry">Gents Collection</a>
+      <a href="#/kids" onclick="toggleMobileNav()" class="block text-sm font-semibold tracking-wider uppercase text-brand-blackcherry">Kids Couture</a>
+      <a href="#/shoes" onclick="toggleMobileNav()" class="block text-sm font-semibold tracking-wider uppercase text-brand-blackcherry">Signature Footwear</a>
+      <a href="#/wishlist" onclick="toggleMobileNav()" class="block text-sm font-semibold tracking-wider uppercase text-brand-ruby">My Wishlist</a>
+      <a href="#/cart" onclick="toggleMobileNav()" class="block text-sm font-semibold tracking-wider uppercase text-brand-wine">Shopping Bag</a>
+    </div>
+  </header>
+
+  <main id="app-root" class="flex-grow"></main>
+
+  <footer class="bg-brand-blackcherry text-[#F6ECEF] pt-16 pb-10 border-t border-brand-wine/30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Newsletter & Brand Promise -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 pb-14 border-b border-brand-wine/40">
+        <div class="lg:col-span-6 space-y-4">
+          <span class="text-xs uppercase tracking-[0.3em] text-brand-rose font-semibold">Haute Couture Newsletter</span>
+          <h3 class="text-3xl sm:text-4xl font-editorial font-normal text-white">Join the Atelier Society</h3>
+          <p class="text-stone-300 text-sm max-w-md font-light leading-relaxed">
+            Receive private exhibition invitations, seasonal lookbooks, and previews of limited-run festive ensembles.
+          </p>
+          <form onsubmit="handleNewsletter(event)" class="flex flex-col sm:flex-row gap-2 max-w-md pt-2">
+            <input type="email" required placeholder="Enter your email address" class="px-5 py-3 rounded-full bg-white/10 border border-white/20 text-white placeholder-stone-400 text-xs focus:outline-none focus:border-brand-rose flex-grow">
+            <button type="submit" class="px-7 py-3 rounded-full bg-brand-rose hover:bg-brand-ruby text-white text-xs font-semibold tracking-wider uppercase transition shadow-lg">Subscribe</button>
+          </form>
+        </div>
+
+        <!-- 3 Brand Guarantees -->
+        <div class="lg:col-span-6 grid grid-cols-1 sm:grid-cols-3 gap-6 items-center">
+          <div class="p-5 rounded-2xl bg-white/5 border border-white/10 text-center space-y-2">
+            <div class="w-10 h-10 mx-auto rounded-full bg-brand-ruby/40 flex items-center justify-center text-brand-rose">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M5 13l4 4L19 7"/></svg>
+            </div>
+            <h4 class="text-sm font-semibold text-white">100% Authentic</h4>
+            <p class="text-[11px] text-stone-300">Pure silks, organzas & bespoke tailoring</p>
+          </div>
+          <div class="p-5 rounded-2xl bg-white/5 border border-white/10 text-center space-y-2">
+            <div class="w-10 h-10 mx-auto rounded-full bg-brand-ruby/40 flex items-center justify-center text-brand-rose">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+            <h4 class="text-sm font-semibold text-white">Express Delivery</h4>
+            <p class="text-[11px] text-stone-300">Carefully packaged across all cities</p>
+          </div>
+          <div class="p-5 rounded-2xl bg-white/5 border border-white/10 text-center space-y-2">
+            <div class="w-10 h-10 mx-auto rounded-full bg-brand-ruby/40 flex items-center justify-center text-brand-rose">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+            </div>
+            <h4 class="text-sm font-semibold text-white">WhatsApp Care</h4>
+            <p class="text-[11px] text-stone-300">Personal stylists ready to assist</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Columns & Social Presence -->
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-8 py-12 border-b border-brand-wine/30 text-xs">
+        <div class="space-y-3">
+          <h5 class="font-bold uppercase tracking-widest text-brand-rose">Ladies Wardrobe</h5>
+          <ul class="space-y-2 text-stone-300 font-light">
+            <li><a href="#/ladies?sub=partywear" class="hover:text-white transition">Partywear Formals</a></li>
+            <li><a href="#/ladies?sub=casual" class="hover:text-white transition">Casual Daywear</a></li>
+            <li><a href="#/ladies?sub=occasional" class="hover:text-white transition">Festive Occasions</a></li>
+            <li><a href="#/ladies?sub=office" class="hover:text-white transition">Office & Modest Suits</a></li>
+          </ul>
+        </div>
+        <div class="space-y-3">
+          <h5 class="font-bold uppercase tracking-widest text-brand-rose">Gents Tailoring</h5>
+          <ul class="space-y-2 text-stone-300 font-light">
+            <li><a href="#/gents?sub=suits" class="hover:text-white transition">Formal Tuxedos & Suits</a></li>
+            <li><a href="#/gents?sub=threepiece" class="hover:text-white transition">3-Piece Luxury Sets</a></li>
+            <li><a href="#/gents?sub=casual" class="hover:text-white transition">Smart Casuals</a></li>
+            <li><a href="#/gents?sub=shalwarkameez" class="hover:text-white transition">Traditional Shalwar Kameez</a></li>
+          </ul>
+        </div>
+        <div class="space-y-3">
+          <h5 class="font-bold uppercase tracking-widest text-brand-rose">Kids & Shoes</h5>
+          <ul class="space-y-2 text-stone-300 font-light">
+            <li><a href="#/kids?sub=girls" class="hover:text-white transition">Girls Dresses</a></li>
+            <li><a href="#/kids?sub=boys" class="hover:text-white transition">Boys Wear</a></li>
+            <li><a href="#/shoes" class="hover:text-white transition">Ladies Luxury Heels</a></li>
+            <li><a href="#/shoes" class="hover:text-white transition">Gents Leather Shoes</a></li>
+          </ul>
+        </div>
+        <div class="space-y-3">
+          <h5 class="font-bold uppercase tracking-widest text-brand-rose">Personal Concierge</h5>
+          <ul class="space-y-2 text-stone-300 font-light">
+            <li>
+              <a href="https://wa.me/923087259054" target="_blank" class="hover:text-white transition flex items-center gap-1.5 text-rose-300 font-medium">
+                <span>WhatsApp: 0308 7259054</span>
+              </a>
+            </li>
+            <li>
+              <a href="mailto:aqsanadeemwattoo@gmail.com" class="hover:text-white transition break-all">
+                aqsanadeemwattoo@gmail.com
+              </a>
+            </li>
+            <li><a href="#/cart" class="hover:text-white transition">My Shopping Bag</a></li>
+            <li><a href="#/wishlist" class="hover:text-white transition">Saved Ensembles</a></li>
+            <li><span class="text-stone-400">Atelier Studio: Lahore, Pakistan</span></li>
+          </ul>
+        </div>
+        <div class="col-span-2 md:col-span-1 space-y-3">
+          <h5 class="font-bold uppercase tracking-widest text-brand-rose">Connect With Us</h5>
+          <p class="text-stone-300 text-xs">Direct styling inquiries with Aqsa Nadeem.</p>
+          <div class="flex items-center gap-3 pt-2">
+            <!-- WhatsApp -->
+            <a href="https://wa.me/923087259054" target="_blank" class="w-8 h-8 rounded-full bg-white/10 hover:bg-emerald-600 transition flex items-center justify-center text-white" title="WhatsApp 0308 7259054">
+              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.969.586 1.761.884 2.79.884 3.179 0 5.766-2.587 5.767-5.766.002-3.18-2.585-5.77-5.766-5.77zm0 10.455c-.911 0-1.684-.27-2.434-.731l-.174-.107-1.579.414.421-1.54-.117-.186c-.521-.828-.796-1.579-.795-2.539.001-2.582 2.103-4.684 4.68-4.684 2.578 0 4.679 2.102 4.68 4.684 0 2.583-2.102 4.689-4.685 4.689z"/></svg>
+            </a>
+            <!-- Email -->
+            <a href="mailto:aqsanadeemwattoo@gmail.com" class="w-8 h-8 rounded-full bg-white/10 hover:bg-brand-rose transition flex items-center justify-center text-white" title="Email aqsanadeemwattoo@gmail.com">
+              <svg class="w-4 h-4 fill-none stroke-current" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            </a>
+            <!-- Instagram -->
+            <a href="https://instagram.com" target="_blank" class="w-8 h-8 rounded-full bg-white/10 hover:bg-brand-rose transition flex items-center justify-center text-white" title="Instagram">
+              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </a>
+            <!-- TikTok -->
+            <a href="https://tiktok.com" target="_blank" class="w-8 h-8 rounded-full bg-white/10 hover:bg-black transition flex items-center justify-center text-white" title="TikTok">
+              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-1.01-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.24 1.07-.14 1.61.24 1.16 1.18 2.09 2.35 2.27.77.12 1.57-.03 2.24-.44.75-.46 1.25-1.25 1.34-2.13.09-1.42.06-2.85.06-4.28V.02z"/></svg>
+            </a>
+            <!-- Facebook -->
+            <a href="https://facebook.com" target="_blank" class="w-8 h-8 rounded-full bg-white/10 hover:bg-blue-600 transition flex items-center justify-center text-white" title="Facebook">
+              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.374 14.5 5 15.667 5H18V0h-3.808C10.595 0 9 1.582 9 4.615V8z"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Copyright & Location -->
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-[11px] text-stone-400 gap-4">
+        <p>&copy; 2026 AQSA’S STORE. Handcrafted by Aqsa Nadeem. All rights reserved.</p>
+        <div class="flex items-center gap-6">
+          <span>WhatsApp: 0308 7259054</span>
+          <span>Bespoke Hand-Finishing</span>
+          <span>Lahore Atelier</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div id="toast" class="fixed bottom-6 right-6 z-50 bg-brand-blackcherry text-white border border-brand-ruby/50 px-5 py-3 rounded-2xl shadow-2xl text-xs flex items-center gap-3 transform translate-y-24 opacity-0 transition-all duration-300">
+    <span class="w-2.5 h-2.5 rounded-full bg-brand-rose"></span>
+    <span id="toast-message">Notification</span>
+  </div>
+
+  <!-- Search Modal -->
+  <div id="search-modal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-md hidden items-center justify-center p-4">
+    <div class="bg-brand-cream border border-brand-wine/20 w-full max-w-xl rounded-3xl p-6 shadow-2xl space-y-4">
+      <div class="flex justify-between items-center pb-2 border-b border-brand-wine/10">
+        <h3 class="text-lg font-editorial font-bold text-brand-blackcherry">Search AQSA’S STORE</h3>
+        <button onclick="closeSearchModal()" class="text-stone-500 hover:text-black">&times;</button>
+      </div>
+      <input type="text" id="catalogSearchInput" oninput="handleSearchQuery(this.value)" placeholder="Type to search: Partywear, Suit, Kurta, Pumps..." class="w-full px-5 py-3.5 rounded-2xl border border-brand-wine/20 bg-white text-sm focus:outline-none focus:border-brand-ruby">
+      <div id="search-results-box" class="max-h-64 overflow-y-auto space-y-2 divide-y divide-stone-100">
+        <p class="text-xs text-stone-400 py-4 text-center">Start typing to browse 100+ unique pieces...</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /*
+      ========================================================================
+      STRICT AUDIENCE & SUBCATEGORY DATABASE
+      Zero image repetition. Strict gender/category isolation.
+      ========================================================================
+    */
+    const WHATSAPP_NUMBER = "923087259054";
+    const STORE_EMAIL = "aqsanadeemwattoo@gmail.com";
+
+    const PRODUCTS = [
+      // -------------------------------------------------------------
+      // LADIES: 1. PARTYWEAR (10 Unique Dresses)
+      // -------------------------------------------------------------
+      {
+        id: "lp-01",
+        title: "Crimson Velvet Embroidered Gala Gown",
+        audience: "Ladies",
+        category: "Dress",
+        subCategory: "partywear",
+        price: 34500,
+        image: "https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=800&q=80",
+        tag: "Bespoke Gala",
+        desc: "Exquisite hand-worked zardozi embellishments on deep crimson velvet, complete with flared royal train."
+      },
+      {
+        id: "lp-02",
+        title: "Rosewood Silk Flared Anarkali Ensemble",
+        audience: "Ladies",
+        category: "Dress",
+        subCategory: "partywear",
+        price: 28900,
+        image: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=800&q=80",
+        tag: "Partywear",
+        desc: "Tiered pure chiffon and raw silk anarkali accented with delicate antique tilla needlework."
+      },
+      {
+        id: "lp-03",
+        title: "Burgundy Chantilly Lace Evening Maxi",
+        audience: "Ladies",
+        category: "Dress",
+        subCategory: "partywear",
+        price: 32000,
+        image: "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&w=800&q=80",
+        tag: "Formal Gown",
+        desc: "French chantilly lace over silk lining with sculpted bodice and graceful floor-skimming silhouette."
+      },
+      {
+        id: "lp-04",
+        title: "Wine Chiffon Hand-Sequined Peshwas",
+        audience: "Ladies",
+        category: "Dress",
+        subCategory: "partywear",
+        price: 36000,
+        image: "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?auto=format&fit=crop&w=800&q=80",
+        tag: "Royal Party",
+        desc: "Rich flared kalidaar peshwas adorned with fine micro-sequins and embroidered silk dupatta."
+      },
+      {
+        id: "lp-05",
+        title: "Scarlet Organza Draped Cocktail Gown",
+        audience: "Ladies",
+        category: "Dress",
+        subCategory: "partywear",
+        price: 29500,
+        image: "https://images.unsplash.com/photo-1581044777550-4cfa60707c03?auto=format&fit=crop&w=800&q=80",
+        tag: "Couture",
+        desc: "Architectural pleated organza wrap with structured corset waist and luminous ruby sheen."
+      },
+      {
+        id: "lp-06",
+        title: "Ruby Red Net Cutwork Formal Maxi",
+        audience: "Ladies",
+        category: "Dress",
+        subCategory: "partywear",
+        price: 31200,
+        image: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=800&q=80",
+        tag: "Partywear",
+        desc: "Intricate cutwork borders on shimmering ruby net with crystal-embellished sleeves."
+      },
+      {
+        id: "lp-07",
+        title: "Mulberry Satin Backless Gala Slip",
+        audience: "Ladies",
+        category: "Dress",
+        subCategory: "partywear",
+        price: 24000,
+        image: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=800&q=80",
+        tag: "Evening Slip",
+        desc: "Heavyweight fluid satin silk slip dress with cowled backline and soft liquid drape."
+      },
+      {
+        id: "lp-08",
+        title: "Deep Garnet Hand-Embellished Kaftan",
+        audience: "Ladies",
+        category: "Dress",
+        subCategory: "partywear",
+        price: 27500,
+        image: "https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=800&q=80",
+        tag: "Luxe Kaftan",
+        desc: "Relaxed haute silhouette finished with ornate neckline beadwork and flared slit sleeves."
+      },
+      {
+        id: "lp-09",
+        title: "Bordeaux Silk Tiered Ruffle Ballgown",
+        audience: "Ladies",
+        category: "Dress",
+        subCategory: "partywear",
+        price: 41000,
+        image: "https://images.unsplash.com/photo-1550614000-4895a10e1bfd?auto=format&fit=crop&w=800&q=80",
+        tag: "Statement Gown",
+        desc: "Dramatic tiered ballgown skirt in crinkle organza paired with an embroidered sweetheart bodice."
+      },
+      {
+        id: "lp-10",
+        title: "Crimson Banarasi Brocade Formal Frock",
+        audience: "Ladies",
+        category: "Dress",
+        subCategory: "partywear",
+        price: 33800,
+        image: "https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?auto=format&fit=crop&w=800&q=80",
+        tag: "Brocade Royal",
+        desc: "Heritage gold zari motifs handwoven into crimson Banarasi silk with coordinating cigarette pants."
+      },
+
+      // -------------------------------------------------------------
+      // LADIES: 2. CASUAL DRESSES (10 Unique Everyday Outfits)
+      // -------------------------------------------------------------
+      {
+        id: "lc-01",
+        title: "Rose Clay Linen Daily Kurti Set",
+        audience: "Ladies",
+        category: "Dress",
+        subCategory: "casual",
+        price: 8500,
+        image: "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=800&q=80",
+        tag: "Casual Chic",
+        desc: "Breathable pure Egyptian linen straight cut tunic with straight palazzo trousers."
+      },
+      {
+        id: "lc-02",
+        title: "Terracotta Cotton Tiered Day Dress",
+        audience: "Ladies",
+        category: "Dress",
+        subCategory: "casual",
+        price: 7900,
+        image: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=800&q=80",
+        tag: "Day Dress",
+        desc: "Lightweight organic cotton midi dress with relaxed silhouette and puff sleeves."
+      },
+      {
+        id: "lc-03",
+        title: "Burgundy Block-Printed Lawn 2-Piece",
+        audience: "Ladies",
+        category: "Dress",
+        subCategory: "casual",
+        price: 9200,
+        image: "https://images.unsplash.com/photo-1485968579580-b6d095142e6e?auto=format&fit=crop&w=800&q=80",
+        tag: "Printed Daily",
+        desc: "Traditional artisan wooden block prints on soft premium summer lawn with lace edging."
+      },
+      {
+        id: "lc-04",
+        title: "Wine Khaddar Minimalist Tunic",
+        audience: "Ladies",
+        category: "Dress",
+        subCategory: "casual",
+        price: 7400,
+        image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80",
+        tag: "Minimalist",
+        desc: "Hand-spun winter khaddar with wooden button details and comfortable side slits."
+      },
+      {
+        id: "lc-05",
+        title: "Dusty Berry Slub-Cotton Kurta Set",
+        audience: "Ladies",
+        category: "Dress",
+        subCategory: "casual",
+        price: 8800,
+        image: "https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&w=800&q=80",
+        tag: "Everyday Wear",
+        desc: "Textured slub-cotton with subtle thread motifs and culotte trousers."
+      },
+      {
+        id: "lc-06",
+        title: "Chai Spice Crinkle Chiffon Frock",
+        audience: "Ladies",
+        category: "Dress",
+        subCategory: "casual",
+        price: 9800,
+        image: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80",
+        tag: "Casual Flare",
+        desc: "Subtle gathers along the drop-waist with balloon sleeves and floral motifs."
+      },
+      {
+        id: "lc-07",
+        title: "Maroon Washed Cotton Shirt Dress",
+        audience: "Ladies",
+        category: "Dress",
+        subCategory: "casual",
+        price: 8100,
+        image: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=800&q=80",
+        tag: "Shirt Dress",
+        desc: "Contemporary button-down midi with fabric belt tie and cuffed sleeves."
+      },
+      {
+        id: "lc-08",
+        title: "Soft Plum Jacquard Summer Tunic",
+        audience: "Ladies",
+        category: "Dress",
+        subCategory: "casual",
+        price: 8900,
+        image: "https://images.unsplash.com/photo-1469334031218-e382a71b716b?auto=format&fit=crop&w=800&q=80",
+        tag: "Jacquard Casual",
+        desc: "Tone-on-tone self-weaving jacquard with scalloped embroidery on neckline and hem."
+      },
+      {
+        id: "lc-09",
+        title: "Ruby Meadow Floral Printed Midi",
+        audience: "Ladies",
+        category: "Dress",
+        subCategory: "casual",
+        price: 7600,
+        image: "https://images.unsplash.com/photo-1552874869-5c39ec9288dc?auto=format&fit=crop&w=800&q=80",
+        tag: "Floral Day",
+        desc: "Romantic small-scale botanical print on breathable cambric cotton."
+      },
+      {
+        id: "lc-10",
+        title: "Brick Red Co-Ord Lounge Kurta",
+        audience: "Ladies",
+        category: "Dress",
+        subCategory: "casual",
+        price: 9400,
+        image: "https://images.unsplash.com/photo-1579546929518-9e396f3cc809?auto=format&fit=crop&w=800&q=80",
+        tag: "Casual Co-ord",
+        desc: "Modern matching coordinates with tailored straight fit and understated aesthetic."
+      },
+
+      // -------------------------------------------------------------
+      // LADIES: 3. OCCASIONAL DRESSES (10 Festive/Wedding Pieces)
+      // -------------------------------------------------------------
+      {
+        id: "lo-01",
+        title: "Burgundy Handwoven Raw Silk Angrakha",
+        audience: "Ladies",
+        category: "Dress",
+        subCategory: "occasional",
+        price: 45000,
+        image: "https://images.unsplash.com/photo-1617922001439-4a2e6562f328?auto=format&fit=crop&w=800&q=80",
+        tag: "Festive Occasion",
+        desc: "Classic overlap angrakha embellished with gota patti, kora dabka, and gotta border dupatta."
+      },
+      {
+        id: "lo-02",
+        title: "Garnet Jamawar Festive Kurta & Sharara",
+        audience: "Ladies",
+        category: "Dress",
+        subCategory: "occasional",
+        price: 48000,
+        image: "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&fit=crop&w=800&q=80",
+        tag: "Wedding Guest",
+        desc: "Lustrous woven jamawar fabric in wine red with flared sharara pants and organza veil."
+      },
+      {
+        id: "lo-03",
+        title: "Crimson Chanderi Silk Festive Kalidaar",
+        audience: "Ladies",
+        category: "Dress",
+        subCategory: "occasional",
+        price: 42500,
+        image: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=800&q=80",
+        tag: "Occasional Luxe",
+        desc: "Shimmering Chanderi silk with antique copper marori work and scalloped tilla borders."
+      },
+      {
+        id: "lo-04",
+        title: "Wine Organza Tissue Embroidered Gharara",
+        audience: "Ladies",
+        category: "Dress",
+        subCategory: "occasional",
+        price: 52000,
+        image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=800&q=80",
+        tag: "Shehnai Festive",
+        desc: "Luminous tissue fabric with intricate hand-embroidered floral vines and statement flare."
+      },
+      {
+        id: "lo-05",
+        title: "Ruby Crushed Silk Festive Sari Ensemble",
+        audience: "Ladies",
+        category: "Dress",
+        subCategory: "occasional",
+        price: 38500,
+        image: "https://images.unsplash.com/photo-1618932260643-eee4a2f652a6?auto=format&fit=crop&w=800&q=80",
+        tag: "Festive Sari",
+        desc: "Pre-draped liquid silk saree with hand-embellished sweetheart velvet blouse."
+      },
+      {
+        id: "lo-06",
+        title: "Deep Cherry Kathan Silk Kurti & Dhoti",
+        audience: "Ladies",
+        category: "Dress",
+        subCategory: "occasional",
+        price: 39000,
+        image: "https://images.unsplash.com/photo-1549576490-b0b4831ef60a?auto=format&fit=crop&w=800&q=80",
+        tag: "Festive Fusion",
+        desc: "Contemporary dhoti ensemble paired with a structured mirror-work silk short tunic."
+      },
+      {
+        id: "lo-07",
+        title: "Scarlet Net Festive Lehnga Choli",
+        audience: "Ladies",
+        category: "Dress",
+        subCategory: "occasional",
+        price: 59000,
+        image: "https://images.unsplash.com/photo-1563178406-4cdc2923acbc?auto=format&fit=crop&w=800&q=80",
+        tag: "Bridal Guest",
+        desc: "Heavy gold and pearl embroidery on flared scarlet net, finished with silk can-can."
+      },
+      {
+        id: "lo-08",
+        title: "Mulberry Silk Brocade Festive Maxima",
+        audience: "Ladies",
+        category: "Dress",
+        subCategory: "occasional",
+        price: 44000,
+        image: "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&w=800&q=80",
+        tag: "Occasional",
+        desc: "Floor-sweeping royal silhouette with contrasting zari borders and hand-beaded cuffs."
+      },
+      {
+        id: "lo-09",
+        title: "Rosewood Velvet Resham Embroidered Suit",
+        audience: "Ladies",
+        category: "Dress",
+        subCategory: "occasional",
+        price: 46000,
+        image: "https://images.unsplash.com/photo-1609357605129-26f69add5d6e?auto=format&fit=crop&w=800&q=80",
+        tag: "Winter Festive",
+        desc: "Plush micro-velvet shirt with resham silk thread embroidery and Banarasi shawl."
+      },
+      {
+        id: "lo-10",
+        title: "Crimson Organza Mirror-Work Peshwas",
+        audience: "Ladies",
+        category: "Dress",
+        subCategory: "occasional",
+        price: 47500,
+        image: "https://images.unsplash.com/photo-1574634534894-89d7576c8259?auto=format&fit=crop&w=800&q=80",
+        tag: "Festive Glam",
+        desc: "Sparkling glass mirror embellishments set in pure organza with a tiered silk underskirt."
+      },
+
+      // -------------------------------------------------------------
+      // LADIES: 4. OFFICE DRESSES (10 Formal/Corporate Pieces)
+      // -------------------------------------------------------------
+      {
+        id: "lof-01",
+        title: "Burgundy Tailored Wool Blazer Suit",
+        audience: "Ladies",
+        category: "Dress",
+        subCategory: "office",
+        price: 26000,
+        image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80",
+        tag: "Executive",
+        desc: "Sharp notch-lapel double-breasted suit tailored from Italian tropical wool blend."
+      },
+      {
+        id: "lof-02",
+        title: "Deep Wine Minimalist Sheath Dress",
+        audience: "Ladies",
+        category: "Dress",
+        subCategory: "office",
+        price: 19500,
+        image: "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&w=800&q=80",
+        tag: "Boardroom",
+        desc: "Structured knee-length crepe dress with high boat neckline and darted waistline."
+      },
+      {
+        id: "lof-03",
+        title: "Plum Structured Trench Style Shirt Dress",
+        audience: "Ladies",
+        category: "Dress",
+        subCategory: "office",
+        price: 21000,
+        image: "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?auto=format&fit=crop&w=800&q=80",
+        tag: "Corporate",
+        desc: "Double-breasted trench silhouette featuring horn buttons and a fabric belt tie."
+      },
+      {
+        id: "lof-04",
+        title: "Crimson Solid Silk Formal Office Kurta",
+        audience: "Ladies",
+        category: "Dress",
+        subCategory: "office",
+        price: 16500,
+        image: "https://images.unsplash.com/photo-1581044777550-4cfa60707c03?auto=format&fit=crop&w=800&q=80",
+        tag: "Corporate Kurti",
+        desc: "Clean-line collar kurta in raw silk with hidden placket and tailored straight pants."
+      },
+      {
+        id: "lof-05",
+        title: "Bordeaux Pleated A-Line Midi Dress",
+        audience: "Ladies",
+        category: "Dress",
+        subCategory: "office",
+        price: 18500,
+        image: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=800&q=80",
+        tag: "Smart Formal",
+        desc: "Fine accordion-pleated skirt with clean fitted long sleeves and point collar."
+      },
+      {
+        id: "lof-06",
+        title: "Garnet Linen Wrap Vest & Trouser Set",
+        audience: "Ladies",
+        category: "Dress",
+        subCategory: "office",
+        price: 22000,
+        image: "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=800&q=80",
+        tag: "Workwear Set",
+        desc: "Sleeveless longline vest with matching wide-leg trousers in heavyweight structured linen."
+      },
+      {
+        id: "lof-07",
+        title: "Wine High-Neck Modest Workwear Dress",
+        audience: "Ladies",
+        category: "Dress",
+        subCategory: "office",
+        price: 17800,
+        image: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=800&q=80",
+        tag: "Modest Formal",
+        desc: "Subtle mock-neck silhouette with cuffed bishop sleeves and rear concealed zip."
+      },
+      {
+        id: "lof-08",
+        title: "Scarlet Tweed Tailored Jacket & Skirt",
+        audience: "Ladies",
+        category: "Dress",
+        subCategory: "office",
+        price: 27500,
+        image: "https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=800&q=80",
+        tag: "Haute Tweed",
+        desc: "Classic Parisian textured boucle tweed suit with woven gold thread accents."
+      },
+      {
+        id: "lof-09",
+        title: "Rich Cherry Georgette Formal Peplum Suit",
+        audience: "Ladies",
+        category: "Dress",
+        subCategory: "office",
+        price: 19800,
+        image: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=800&q=80",
+        tag: "Executive Peplum",
+        desc: "Flattering structured peplum waistline paired with ankle-grazer pencil pants."
+      },
+      {
+        id: "lof-10",
+        title: "Dark Berry Belted Utility Jumpsuit",
+        audience: "Ladies",
+        category: "Dress",
+        subCategory: "office",
+        price: 18900,
+        image: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=800&q=80",
+        tag: "Modern Office",
+        desc: "Tailored formal jumpsuit with lapel collar, cargo pockets, and tapered cuffs."
+      },
+
+      // -------------------------------------------------------------
+      // GENTS: 1. SUITS (10 Tailored Suits & Tuxedos)
+      // -------------------------------------------------------------
+      {
+        id: "gs-01",
+        title: "Midnight Burgundy Peak Lapel Tuxedo",
+        audience: "Gents",
+        category: "Dress",
+        subCategory: "suits",
+        price: 42000,
+        image: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80",
+        tag: "Black Tie",
+        desc: "Bespoke wool-cashmere tuxedo with black satin peak lapels and flat-front trousers."
+      },
+      {
+        id: "gs-02",
+        title: "Charcoal Cherry Two-Piece Italian Suit",
+        audience: "Gents",
+        category: "Dress",
+        subCategory: "suits",
+        price: 36500,
+        image: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=800&q=80",
+        tag: "Executive Suit",
+        desc: "Super 150s Merino wool with soft shoulder padding and double rear vent."
+      },
+      {
+        id: "gs-03",
+        title: "Deep Wine Double-Breasted Wool Blazer Suit",
+        audience: "Gents",
+        category: "Dress",
+        subCategory: "suits",
+        price: 39000,
+        image: "https://images.unsplash.com/photo-1593030761757-71fae45fa0e7?auto=format&fit=crop&w=800&q=80",
+        tag: "Double Breasted",
+        desc: "Six-button front in heavy burgundy flannel with genuine horn buttons."
+      },
+      {
+        id: "gs-04",
+        title: "Crimson Velvet Smoking Dinner Jacket Suit",
+        audience: "Gents",
+        category: "Dress",
+        subCategory: "suits",
+        price: 44000,
+        image: "https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?auto=format&fit=crop&w=800&q=80",
+        tag: "Gala Velvet",
+        desc: "Ultra-plush velvet smoking jacket paired with tailored black evening trousers."
+      },
+      {
+        id: "gs-05",
+        title: "Burgundy Glen Plaid Check Modern Suit",
+        audience: "Gents",
+        category: "Dress",
+        subCategory: "suits",
+        price: 37500,
+        image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=800&q=80",
+        tag: "Plaid Sartorial",
+        desc: "Subtle tonal windowpane check woven into luxury English wool."
+      },
+      {
+        id: "gs-06",
+        title: "Dark Garnet Minimalist Single-Breasted Suit",
+        audience: "Gents",
+        category: "Dress",
+        subCategory: "suits",
+        price: 35000,
+        image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=800&q=80",
+        tag: "Slim Fit",
+        desc: "Contemporary slim-cut two-button jacket with tapered trousers."
+      },
+      {
+        id: "gs-07",
+        title: "Mulberry Shawl-Lapel Formal Gala Tux",
+        audience: "Gents",
+        category: "Dress",
+        subCategory: "suits",
+        price: 43000,
+        image: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=800&q=80",
+        tag: "Shawl Collar",
+        desc: "Curved satin shawl lapel with matching satin side-stripes on trousers."
+      },
+      {
+        id: "gs-08",
+        title: "Bordeaux Jacquard Evening Dinner Suit",
+        audience: "Gents",
+        category: "Dress",
+        subCategory: "suits",
+        price: 46000,
+        image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=800&q=80",
+        tag: "Jacquard Luxe",
+        desc: "Intricate tone-on-tone damask motif woven with silk threads."
+      },
+      {
+        id: "gs-09",
+        title: "Rosewood Structured Flannel Winter Suit",
+        audience: "Gents",
+        category: "Dress",
+        subCategory: "suits",
+        price: 38000,
+        image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=800&q=80",
+        tag: "Winter Tailoring",
+        desc: "Heavyweight brushed wool flannel providing natural warmth and structured drape."
+      },
+      {
+        id: "gs-10",
+        title: "Classic Crimson Serge Classic Fit Suit",
+        audience: "Gents",
+        category: "Dress",
+        subCategory: "suits",
+        price: 34000,
+        image: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&w=800&q=80",
+        tag: "Classic Serge",
+        desc: "Durable twill weave serge wool for timeless elegance and long-lasting shape."
+      },
+
+      // -------------------------------------------------------------
+      // GENTS: 2. 3 PIECE (10 Bespoke 3-Piece Waistcoat Ensembles)
+      // -------------------------------------------------------------
+      {
+        id: "g3-01",
+        title: "Imperial Burgundy 3-Piece Wedding Suit",
+        audience: "Gents",
+        category: "Dress",
+        subCategory: "threepiece",
+        price: 49500,
+        image: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=800&q=80",
+        tag: "3-Piece Wedding",
+        desc: "Includes jacket, double-breasted horseshoe waistcoat, and tailored trousers."
+      },
+      {
+        id: "g3-02",
+        title: "Wine Tweed Heritage 3-Piece Country Suit",
+        audience: "Gents",
+        category: "Dress",
+        subCategory: "threepiece",
+        price: 47000,
+        image: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80",
+        tag: "Heritage Tweed",
+        desc: "Yorkshire tweed with five-button waistcoat and leather knot buttons."
+      },
+      {
+        id: "g3-03",
+        title: "Deep Cherry Pinstripe 3-Piece Executive",
+        audience: "Gents",
+        category: "Dress",
+        subCategory: "threepiece",
+        price: 46000,
+        image: "https://images.unsplash.com/photo-1593030761757-71fae45fa0e7?auto=format&fit=crop&w=800&q=80",
+        tag: "Sartorial 3-Piece",
+        desc: "Subtle chalk stripes on rich plum wool with matched patterned vest."
+      },
+      {
+        id: "g3-04",
+        title: "Crimson Velvet Waistcoat 3-Piece Ensemble",
+        audience: "Gents",
+        category: "Dress",
+        subCategory: "threepiece",
+        price: 52000,
+        image: "https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?auto=format&fit=crop&w=800&q=80",
+        tag: "Festive Tux 3-Piece",
+        desc: "Contrast embossed velvet vest paired with black-tie trousers and peak jacket."
+      },
+      {
+        id: "g3-05",
+        title: "Garnet Birdseye Weave 3-Piece Set",
+        audience: "Gents",
+        category: "Dress",
+        subCategory: "threepiece",
+        price: 45000,
+        image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=800&q=80",
+        tag: "Birdseye Wool",
+        desc: "Fine textured micro-dots in pure wool with notched lapel waistcoat."
+      },
+      {
+        id: "g3-06",
+        title: "Bordeaux Satin-Back Vest 3-Piece Dinner Suit",
+        audience: "Gents",
+        category: "Dress",
+        subCategory: "threepiece",
+        price: 48500,
+        image: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=800&q=80",
+        tag: "Gala 3-Piece",
+        desc: "Silky satin-backed waistcoat with adjustable strap for a glove-like fit."
+      },
+      {
+        id: "g3-07",
+        title: "Scarlet Prince of Wales 3-Piece Suit",
+        audience: "Gents",
+        category: "Dress",
+        subCategory: "threepiece",
+        price: 49000,
+        image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=800&q=80",
+        tag: "Prince of Wales",
+        desc: "Heritage check weave with high-gorge waistcoat and bespoke horn buttons."
+      },
+      {
+        id: "g3-08",
+        title: "Mulberry Brocade Waistcoat Festive 3-Piece",
+        audience: "Gents",
+        category: "Dress",
+        subCategory: "threepiece",
+        price: 54000,
+        image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=800&q=80",
+        tag: "Bridal Ensemble",
+        desc: "Handcrafted golden zari brocade vest layered with fine worsted wool jacket."
+      },
+      {
+        id: "g3-09",
+        title: "Rosewood Gabardine 3-Piece Suit",
+        audience: "Gents",
+        category: "Dress",
+        subCategory: "threepiece",
+        price: 44500,
+        image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=800&q=80",
+        tag: "Smooth Gabardine",
+        desc: "High-twist gabardine wool that naturally resists creasing during long formal events."
+      },
+      {
+        id: "g3-10",
+        title: "Deep Wine Double-Breasted 3-Piece Royal",
+        audience: "Gents",
+        category: "Dress",
+        subCategory: "threepiece",
+        price: 51000,
+        image: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&w=800&q=80",
+        tag: "Atelier Special",
+        desc: "Statement 6x2 double-breasted jacket with matching single-breasted waistcoat."
+      },
+
+      // -------------------------------------------------------------
+      // GENTS: 3. CASUAL (10 Everyday Shirts & Polos)
+      // -------------------------------------------------------------
+      {
+        id: "gc-01",
+        title: "Burgundy Egyptian Cotton Oxford Shirt",
+        audience: "Gents",
+        category: "Dress",
+        subCategory: "casual",
+        price: 8500,
+        image: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=800&q=80",
+        tag: "Casual Shirt",
+        desc: "Heavyweight 100% combed cotton oxford cloth with button-down collar."
+      },
+      {
+        id: "gc-02",
+        title: "Wine Pure Linen Relaxed Summer Shirt",
+        audience: "Gents",
+        category: "Dress",
+        subCategory: "casual",
+        price: 9200,
+        image: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=800&q=80",
+        tag: "Linen Shirt",
+        desc: "Pre-washed French flax linen offering airy comfort and relaxed casual drape."
+      },
+      {
+        id: "gc-03",
+        title: "Deep Cherry Pima Cotton Pique Polo",
+        audience: "Gents",
+        category: "Dress",
+        subCategory: "casual",
+        price: 6800,
+        image: "https://images.unsplash.com/photo-1625910513413-5b8226490696?auto=format&fit=crop&w=800&q=80",
+        tag: "Luxury Polo",
+        desc: "Peruvian Pima cotton with mother-of-pearl buttons and embroidered brand crest."
+      },
+      {
+        id: "gc-04",
+        title: "Garnet Corduroy Casual Overshirt",
+        audience: "Gents",
+        category: "Dress",
+        subCategory: "casual",
+        price: 11500,
+        image: "https://images.unsplash.com/photo-1578587018452-892bacefd3f2?auto=format&fit=crop&w=800&q=80",
+        tag: "Overshirt",
+        desc: "Fine 14-wale cotton corduroy with dual chest flap pockets and tortoise buttons."
+      },
+      {
+        id: "gc-05",
+        title: "Scarlet Slub Yarn Casual Button-Down",
+        audience: "Gents",
+        category: "Dress",
+        subCategory: "casual",
+        price: 7900,
+        image: "https://images.unsplash.com/photo-1516257984-b1b4d707412e?auto=format&fit=crop&w=800&q=80",
+        tag: "Slub Cotton",
+        desc: "Rich organic slub texture with tailored fit and curved hemline."
+      },
+      {
+        id: "gc-06",
+        title: "Crimson Flannel Casual Plaid Shirt",
+        audience: "Gents",
+        category: "Dress",
+        subCategory: "casual",
+        price: 8900,
+        image: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=800&q=80",
+        tag: "Plaid Flannel",
+        desc: "Brushed double-face cotton flannel for cool evening comfort."
+      },
+      {
+        id: "gc-07",
+        title: "Mulberry Silk-Cotton Knit Polo",
+        audience: "Gents",
+        category: "Dress",
+        subCategory: "casual",
+        price: 12500,
+        image: "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=800&q=80",
+        tag: "Knit Polo",
+        desc: "Fine-gauge lightweight knit featuring ribbed collar and tailored sleeve bands."
+      },
+      {
+        id: "gc-08",
+        title: "Rosewood Chambray Everyday Shirt",
+        audience: "Gents",
+        category: "Dress",
+        subCategory: "casual",
+        price: 7500,
+        image: "https://images.unsplash.com/photo-1603252109303-2751441dd157?auto=format&fit=crop&w=800&q=80",
+        tag: "Chambray Casual",
+        desc: "Lightweight indigo-washed chambray with contrast topstitching."
+      },
+      {
+        id: "gc-09",
+        title: "Brick Red Heavyweight French Terry Sweatshirt",
+        audience: "Gents",
+        category: "Dress",
+        subCategory: "casual",
+        price: 9800,
+        image: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=800&q=80",
+        tag: "Lounge Casual",
+        desc: "450 GSM loopback cotton fleece with raglan sleeves and ribbed gusset."
+      },
+      {
+        id: "gc-10",
+        title: "Bordeaux Camp Collar Cuban Short-Sleeve",
+        audience: "Gents",
+        category: "Dress",
+        subCategory: "casual",
+        price: 7200,
+        image: "https://images.unsplash.com/photo-1598033129183-c4f50c736f10?auto=format&fit=crop&w=800&q=80",
+        tag: "Cuban Collar",
+        desc: "Retro camp collar with straight hem, crafted from fluid breathable modal."
+      },
+
+      // -------------------------------------------------------------
+      // GENTS: 4. SHALWAR KAMEEZ (10 Traditional Kurta Sets)
+      // -------------------------------------------------------------
+      {
+        id: "gsk-01",
+        title: "Royal Burgundy Egyptian Cotton Kurta Shalwar",
+        audience: "Gents",
+        category: "Dress",
+        subCategory: "shalwarkameez",
+        price: 15500,
+        image: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=800&q=80",
+        tag: "Traditional Luxury",
+        desc: "Lustrous Giza Egyptian cotton featuring hand-embroidered ban collar and cuffs."
+      },
+      {
+        id: "gsk-02",
+        title: "Deep Wine Wash & Wear Festive Kameez Set",
+        audience: "Gents",
+        category: "Dress",
+        subCategory: "shalwarkameez",
+        price: 13500,
+        image: "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&fit=crop&w=800&q=80",
+        tag: "Wash & Wear",
+        desc: "Wrinkle-resistant luxury fabric with metal button accents and pleated cuff sleeves."
+      },
+      {
+        id: "gsk-03",
+        title: "Charcoal Cherry Raw Silk Kurta with Embroidered Waistcoat",
+        audience: "Gents",
+        category: "Dress",
+        subCategory: "shalwarkameez",
+        price: 24500,
+        image: "https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?auto=format&fit=crop&w=800&q=80",
+        tag: "Kurta & Waistcoat",
+        desc: "Pure raw silk kurta shalwar paired with self-embossed Jamawar festive waistcoat."
+      },
+      {
+        id: "gsk-04",
+        title: "Crimson Boski Silk Heritage Kurta Set",
+        audience: "Gents",
+        category: "Dress",
+        subCategory: "shalwarkameez",
+        price: 28000,
+        image: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80",
+        tag: "Authentic Boski",
+        desc: "Genuine Chinese spun silk offering unmatchable softness and signature cooling comfort."
+      },
+      {
+        id: "gsk-05",
+        title: "Garnet Khaddar Winter Formal Shalwar Suit",
+        audience: "Gents",
+        category: "Dress",
+        subCategory: "shalwarkameez",
+        price: 14000,
+        image: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=800&q=80",
+        tag: "Winter Khaddar",
+        desc: "Heavy handloom khaddar with neat thread detailing along the placket."
+      },
+      {
+        id: "gsk-06",
+        title: "Mulberry Jacquard Self-Weave Kurta",
+        audience: "Gents",
+        category: "Dress",
+        subCategory: "shalwarkameez",
+        price: 16800,
+        image: "https://images.unsplash.com/photo-1593030761757-71fae45fa0e7?auto=format&fit=crop&w=800&q=80",
+        tag: "Self Jacquard",
+        desc: "Subtle woven geometric pattern with matching tone trousers and collar piping."
+      },
+      {
+        id: "gsk-07",
+        title: "Scarlet Karandi Embroidered Festive Set",
+        audience: "Gents",
+        category: "Dress",
+        subCategory: "shalwarkameez",
+        price: 18500,
+        image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=800&q=80",
+        tag: "Pure Karandi",
+        desc: "Natural Karandi texture with minimal threadwork on chest pocket and ban."
+      },
+      {
+        id: "gsk-08",
+        title: "Bordeaux Silk Blend Festive Sherwani Kurta",
+        audience: "Gents",
+        category: "Dress",
+        subCategory: "shalwarkameez",
+        price: 29000,
+        image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=800&q=80",
+        tag: "Sherwani Cut",
+        desc: "Structured front with gold button placket designed for festive celebrations."
+      },
+      {
+        id: "gsk-09",
+        title: "Rosewood Linen Traditional Kurta Pajama",
+        audience: "Gents",
+        category: "Dress",
+        subCategory: "shalwarkameez",
+        price: 12900,
+        image: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=800&q=80",
+        tag: "Linen Kurta",
+        desc: "Natural linen paired with churidar pajama for classic festive sophistication."
+      },
+      {
+        id: "gsk-10",
+        title: "Deep Wine Latha Stiff Finish Kurta Shalwar",
+        audience: "Gents",
+        category: "Dress",
+        subCategory: "shalwarkameez",
+        price: 15000,
+        image: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&w=800&q=80",
+        tag: "Latha Finish",
+        desc: "Crisp glazed cotton latha with mother-of-pearl buttons and relaxed shalwar."
+      },
+
+      // -------------------------------------------------------------
+      // KIDS: 1. GIRLS DRESSES (10 Kids Girls Frocks & Sets)
+      // -------------------------------------------------------------
+      {
+        id: "kg-01",
+        title: "Little Princess Crimson Velvet Party Frock",
+        audience: "Kids",
+        category: "Dress",
+        subCategory: "girls",
+        price: 12500,
+        image: "https://images.unsplash.com/photo-1518831959646-742c3a14ebf7?auto=format&fit=crop&w=800&q=80",
+        tag: "Girls Party",
+        desc: "Plush crimson velvet with satin bow sash and soft cotton-lined flared tulle skirt."
+      },
+      {
+        id: "kg-02",
+        title: "Rose Gold Tulle Birthday Ballerina Dress",
+        audience: "Kids",
+        category: "Dress",
+        subCategory: "girls",
+        price: 11000,
+        image: "https://images.unsplash.com/photo-1622290291468-a28f7a7dc6a8?auto=format&fit=crop&w=800&q=80",
+        tag: "Tulle Dress",
+        desc: "Multilayered shimmering tulle with sequin-embroidered floral bodice."
+      },
+      {
+        id: "kg-03",
+        title: "Wine Chiffon Festive Embroidered Gharara Set",
+        audience: "Kids",
+        category: "Dress",
+        subCategory: "girls",
+        price: 14500,
+        image: "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=800&q=80",
+        tag: "Kids Gharara",
+        desc: "Traditional gota work on wine red chiffon paired with mini flared gharara pants."
+      },
+      {
+        id: "kg-04",
+        title: "Cherry Blossom Tiered Cotton Midi Frock",
+        audience: "Kids",
+        category: "Dress",
+        subCategory: "girls",
+        price: 7200,
+        image: "https://images.unsplash.com/photo-1471286174890-9c112ffca56a?auto=format&fit=crop&w=800&q=80",
+        tag: "Everyday Girls",
+        desc: "Breathable pure lawn cotton with delicate flutter sleeves and tiered hem."
+      },
+      {
+        id: "kg-05",
+        title: "Ruby Silk Peplum Kurti & Tulip Shalwar",
+        audience: "Kids",
+        category: "Dress",
+        subCategory: "girls",
+        price: 13200,
+        image: "https://images.unsplash.com/photo-1596870230751-ebdfce98ec42?auto=format&fit=crop&w=800&q=80",
+        tag: "Festive Set",
+        desc: "Raw silk peplum with hand-placed pearls and matching tulip pants."
+      },
+      {
+        id: "kg-06",
+        title: "Burgundy Tartan Check Smocked Dress",
+        audience: "Kids",
+        category: "Dress",
+        subCategory: "girls",
+        price: 8900,
+        image: "https://images.unsplash.com/photo-1524503033411-c9566986fc8f?auto=format&fit=crop&w=800&q=80",
+        tag: "Smocked Dress",
+        desc: "Hand-smocked chest detailing with Peter Pan collar in heritage check."
+      },
+      {
+        id: "kg-07",
+        title: "Scarlet Net Ruffle Maxi with Organza Cape",
+        audience: "Kids",
+        category: "Dress",
+        subCategory: "girls",
+        price: 15000,
+        image: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=800&q=80",
+        tag: "Wedding Guest",
+        desc: "High-drama ruffled train with detachable sheer organza capelet."
+      },
+      {
+        id: "kg-08",
+        title: "Dusty Plum Floral Brocade Festive Anarkali",
+        audience: "Kids",
+        category: "Dress",
+        subCategory: "girls",
+        price: 13900,
+        image: "https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?auto=format&fit=crop&w=800&q=80",
+        tag: "Mini Anarkali",
+        desc: "Banarasi woven borders with gold tassels and lightweight net dupatta."
+      },
+      {
+        id: "kg-09",
+        title: "Garnet Corduroy Winter Pinafore Set",
+        audience: "Kids",
+        category: "Dress",
+        subCategory: "girls",
+        price: 8500,
+        image: "https://images.unsplash.com/photo-1491013516836-7db643ee125a?auto=format&fit=crop&w=800&q=80",
+        tag: "Pinafore",
+        desc: "Soft baby corduroy overall dress paired with cream knit long-sleeve tee."
+      },
+      {
+        id: "kg-10",
+        title: "Deep Wine Organza Tiered Flower Girl Dress",
+        audience: "Kids",
+        category: "Dress",
+        subCategory: "girls",
+        price: 14000,
+        image: "https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&w=800&q=80",
+        tag: "Flower Girl",
+        desc: "Voluminous gathered organza tiers with a satin waistband and pearl pin."
+      },
+
+      // -------------------------------------------------------------
+      // KIDS: 2. BOYS WEAR (10 STRICT Boys Outfits - NO Girls Photos)
+      // -------------------------------------------------------------
+      {
+        id: "kb-01",
+        title: "Boys Burgundy Prince Waistcoat & Kurta Set",
+        audience: "Kids",
+        category: "Dress",
+        subCategory: "boys",
+        price: 12000,
+        image: "https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?auto=format&fit=crop&w=800&q=80",
+        tag: "Boys Festive",
+        desc: "Self-embossed raw silk waistcoat paired with crisp off-white kurta and pajama."
+      },
+      {
+        id: "kb-02",
+        title: "Junior Wine Velvet Shawl Lapel Tuxedo",
+        audience: "Kids",
+        category: "Dress",
+        subCategory: "boys",
+        price: 16500,
+        image: "https://images.unsplash.com/photo-1503919545889-aef636e10ad4?auto=format&fit=crop&w=800&q=80",
+        tag: "Boys Tuxedo",
+        desc: "Tailored plush velvet dinner jacket with satin collar and black dress trousers."
+      },
+      {
+        id: "kb-03",
+        title: "Little Gents Deep Cherry 3-Piece Suit Set",
+        audience: "Kids",
+        category: "Dress",
+        subCategory: "boys",
+        price: 14800,
+        image: "https://images.unsplash.com/photo-1519457431-44ccd64a579b?auto=format&fit=crop&w=800&q=80",
+        tag: "Boys 3-Piece",
+        desc: "Classic three-piece set with fitted vest, jacket, clip bowtie, and trousers."
+      },
+      {
+        id: "kb-04",
+        title: "Garnet Linen Boys Summer Kurta Shalwar",
+        audience: "Kids",
+        category: "Dress",
+        subCategory: "boys",
+        price: 7800,
+        image: "https://images.unsplash.com/photo-1508873696983-2df5703bc398?auto=format&fit=crop&w=800&q=80",
+        tag: "Boys Kurta",
+        desc: "Pure breathable linen with thread detailing on ban collar and chest pocket."
+      },
+      {
+        id: "kb-05",
+        title: "Ruby Jamawar Festive Embroidered Sherwani",
+        audience: "Kids",
+        category: "Dress",
+        subCategory: "boys",
+        price: 17500,
+        image: "https://images.unsplash.com/photo-1595454223600-91fb55979841?auto=format&fit=crop&w=800&q=80",
+        tag: "Mini Sherwani",
+        desc: "Traditional ceremonial cut with gold metallic buttons and brocade lining."
+      },
+      {
+        id: "kb-06",
+        title: "Burgundy Oxford Cloth Casual Button Shirt",
+        audience: "Kids",
+        category: "Dress",
+        subCategory: "boys",
+        price: 5800,
+        image: "https://images.unsplash.com/photo-1543332164-6e82f355badc?auto=format&fit=crop&w=800&q=80",
+        tag: "Casual Shirt",
+        desc: "Classic button-down collar with embroidered emblem and rollup sleeves."
+      },
+      {
+        id: "kb-07",
+        title: "Scarlet Cotton Pique Polo & Chino Shorts",
+        audience: "Kids",
+        category: "Dress",
+        subCategory: "boys",
+        price: 6900,
+        image: "https://images.unsplash.com/photo-1485546246426-74dc88dec4d9?auto=format&fit=crop&w=800&q=80",
+        tag: "Everyday Set",
+        desc: "Sporty casual set featuring stretch cotton shorts and breathable polo tee."
+      },
+      {
+        id: "kb-08",
+        title: "Plum Fine-Wale Corduroy Blazer",
+        audience: "Kids",
+        category: "Dress",
+        subCategory: "boys",
+        price: 11500,
+        image: "https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&w=800&q=80",
+        tag: "Smart Casual",
+        desc: "Soft unstructured blazer with elbow patches and contrast lining."
+      },
+      {
+        id: "kb-09",
+        title: "Deep Wine Jacquard Kurta with Gold Buttons",
+        audience: "Kids",
+        category: "Dress",
+        subCategory: "boys",
+        price: 8900,
+        image: "https://images.unsplash.com/photo-1520466809213-7b9a56adcd45?auto=format&fit=crop&w=800&q=80",
+        tag: "Festive Kurta",
+        desc: "Geometric self-weave fabric offering a crisp traditional look for celebrations."
+      },
+      {
+        id: "kb-10",
+        title: "Rosewood Tweed Winter Waistcoat Set",
+        audience: "Kids",
+        category: "Dress",
+        subCategory: "boys",
+        price: 10200,
+        image: "https://images.unsplash.com/photo-1472162072942-cd5147eb3902?auto=format&fit=crop&w=800&q=80",
+        tag: "Winter Vest",
+        desc: "Warm wool-blend vest paired with cotton collar shirt and matching trousers."
+      },
+
+      // -------------------------------------------------------------
+      // FOOTWEAR / SHOES: LADIES & GENTS (10 Strict Footwear Items)
+      // -------------------------------------------------------------
+      {
+        id: "sh-01",
+        title: "Burgundy Velvet Pointed Court Stilettos",
+        audience: "Ladies",
+        category: "Shoes",
+        subCategory: "footwear",
+        price: 16500,
+        image: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=800&q=80",
+        tag: "Ladies Stiletto",
+        desc: "Handcrafted 90mm stiletto pump wrapped in plush Italian velvet with crystal buckle."
+      },
+      {
+        id: "sh-02",
+        title: "Crimson Silk Ankle-Strap Evening Pumps",
+        audience: "Ladies",
+        category: "Shoes",
+        subCategory: "footwear",
+        price: 14800,
+        image: "https://images.unsplash.com/photo-1581101767113-1677fc2beaa8?auto=format&fit=crop&w=800&q=80",
+        tag: "Ladies Pumps",
+        desc: "Delicate silk satin with fine gold ankle strap and memory-foam cushioned insole."
+      },
+      {
+        id: "sh-03",
+        title: "Wine Suede Strappy Block Heel Sandals",
+        audience: "Ladies",
+        category: "Shoes",
+        subCategory: "footwear",
+        price: 13200,
+        image: "https://images.unsplash.com/photo-1535043934128-cf0b28d52f95?auto=format&fit=crop&w=800&q=80",
+        tag: "Ladies Heels",
+        desc: "Comfortable 65mm block heel with criss-cross suede straps and gold buckle."
+      },
+      {
+        id: "sh-04",
+        title: "Garnet Hand-Embellished Tilla Khussa",
+        audience: "Ladies",
+        category: "Shoes",
+        subCategory: "footwear",
+        price: 7800,
+        image: "https://images.unsplash.com/photo-1560769629-975ec94e6a86?auto=format&fit=crop&w=800&q=80",
+        tag: "Traditional Khussa",
+        desc: "Pure cowhide leather khussa covered in antique copper dabka needlework."
+      },
+      {
+        id: "sh-05",
+        title: "Deep Cherry Patent Leather Slingback Kitten Heels",
+        audience: "Ladies",
+        category: "Shoes",
+        subCategory: "footwear",
+        price: 15400,
+        image: "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=800&q=80",
+        tag: "Ladies Kitten",
+        desc: "Glossy mirrored patent leather with elasticated slingback strap and 50mm heel."
+      },
+      {
+        id: "sh-06",
+        title: "Burgundy Hand-Burnished Calfskin Oxford Shoes",
+        audience: "Gents",
+        category: "Shoes",
+        subCategory: "footwear",
+        price: 26000,
+        image: "https://images.unsplash.com/photo-1614252235316-8c857d38b5f4?auto=format&fit=crop&w=800&q=80",
+        tag: "Gents Oxford",
+        desc: "Full-grain calfskin leather featuring closed lacing and Goodyear welted sole."
+      },
+      {
+        id: "sh-07",
+        title: "Deep Wine Leather Double Monk Strap Shoes",
+        audience: "Gents",
+        category: "Shoes",
+        subCategory: "footwear",
+        price: 24500,
+        image: "https://images.unsplash.com/photo-1533867617858-e7b97e060509?auto=format&fit=crop&w=800&q=80",
+        tag: "Gents Monk",
+        desc: "Polished brass double buckles with hand-stained antique burgundy patina."
+      },
+      {
+        id: "sh-08",
+        title: "Charcoal Cherry Velvet Embroidered Smoking Slippers",
+        audience: "Gents",
+        category: "Shoes",
+        subCategory: "footwear",
+        price: 19800,
+        image: "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?auto=format&fit=crop&w=800&q=80",
+        tag: "Gents Loafer",
+        desc: "Plush velvet slip-on shoes embroidered with gold crest and quilted silk lining."
+      },
+      {
+        id: "sh-09",
+        title: "Mulberry Leather Penny Loafers with Tassel",
+        audience: "Gents",
+        category: "Shoes",
+        subCategory: "footwear",
+        price: 21500,
+        image: "https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=800&q=80",
+        tag: "Gents Loafers",
+        desc: "Classic apron toe stitching with leather sole and stacked wooden heel."
+      },
+      {
+        id: "sh-10",
+        title: "Bordeaux Suede Chelsea Ankle Boots",
+        audience: "Gents",
+        category: "Shoes",
+        subCategory: "footwear",
+        price: 27000,
+        image: "https://images.unsplash.com/photo-1608231387042-66d1773070a5?auto=format&fit=crop&w=800&q=80",
+        tag: "Gents Boots",
+        desc: "Water-resistant suede leather boots with elasticated side gussets and pull tabs."
+      }
+    ];
+
+    // Local Storage Cart & Wishlist State
+    let cart = JSON.parse(localStorage.getItem('aqsa_cart') || '[]');
+    let wishlist = JSON.parse(localStorage.getItem('aqsa_wishlist') || '[]');
+
+    function saveState() {
+      localStorage.setItem('aqsa_cart', JSON.stringify(cart));
+      localStorage.setItem('aqsa_wishlist', JSON.stringify(wishlist));
+      updateBadges();
+    }
+
+    function updateBadges() {
+      const cartCount = cart.reduce((total, item) => total + item.qty, 0);
+      document.getElementById('cart-badge').innerText = cartCount;
+      document.getElementById('wishlist-badge').innerText = wishlist.length;
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toast-message');
+      toastMsg.innerText = msg;
+      toast.classList.remove('opacity-0', 'translate-y-24');
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-24');
+      }, 3200);
+    }
+  </script>
+
+  <script>
+    /*
+      ========================================================================
+      REAL-TIME 3D CRIMSON SILK WEBGL SYSTEM
+      Photorealistic fluid billowing matching the reference red satin cloth.
+      ========================================================================
+    */
+    let scene, camera, renderer, silkMesh, animId;
+    let mouse = { x: 0, y: 0, targetX: 0, targetY: 0 };
+    let isDragging = false, prevMouse = { x: 0, y: 0 };
+
+    const vertexShader = `
+      uniform float uTime;
+      varying vec2 vUv;
+      varying vec3 vNormal;
+      varying vec3 vWorldPosition;
+      varying vec3 vTangent;
+
+      float getDisplacement(vec2 uv, float t) {
+        vec2 d1 = vec2(0.70, 0.71);
+        vec2 d2 = vec2(-0.80, 0.60);
+        float z = 0.0;
+        z += sin(dot(uv, d1) * 3.6 - t * 0.9) * 0.75;
+        z += cos(dot(uv, d2) * 2.9 + t * 0.7) * 0.55;
+        z += sin(uv.x * 5.4 + z * 1.6 - t * 1.2) * 0.28;
+        z += cos(uv.y * 6.8 + z * 1.4 + t * 1.0) * 0.18;
+        z += sin((uv.x + uv.y) * 12.0 - t * 2.0) * 0.05;
+        return z;
+      }
+
+      void main() {
+        vUv = uv;
+        vec3 pos = position;
+        float h = getDisplacement(uv, uTime) * 1.35;
+        pos.z += h;
+
+        float eps = 0.009;
+        float hX = getDisplacement(uv + vec2(eps, 0.0), uTime) * 1.35;
+        float hY = getDisplacement(uv + vec2(0.0, eps), uTime) * 1.35;
+
+        vec3 tan = normalize(vec3(eps, 0.0, hX - h));
+        vec3 bitan = normalize(vec3(0.0, eps, hY - h));
+        vec3 norm = normalize(cross(tan, bitan));
+
+        vNormal = normalize(normalMatrix * norm);
+        vTangent = normalize(normalMatrix * tan);
+
+        vec4 worldPos = modelMatrix * vec4(pos, 1.0);
+        vWorldPosition = worldPos.xyz;
+        gl_Position = projectionMatrix * viewMatrix * worldPos;
+      }
+    `;
+
+    const fragmentShader = `
+      uniform vec3 uBaseColor;
+      uniform vec3 uShadowColor;
+      uniform vec3 uHighlightColor;
+      varying vec2 vUv;
+      varying vec3 vNormal;
+      varying vec3 vWorldPosition;
+      varying vec3 vTangent;
+
+      void main() {
+        vec3 N = normalize(vNormal);
+        vec3 V = normalize(cameraPosition - vWorldPosition);
+
+        vec3 keyL = normalize(vec3(1.4, 2.0, 2.2));
+        vec3 fillL = normalize(vec3(-2.2, -1.0, 1.2));
+        
+        float NdotL = max(dot(N, keyL), 0.0);
+        float fillNdotL = max(dot(N, fillL), 0.0) * 0.45;
+
+        // Anisotropic Heidrich-Seidel satin sheen
+        vec3 T = normalize(vTangent);
+        float TdotL = dot(T, keyL);
+        float TdotV = dot(T, V);
+        float sinTL = sqrt(max(0.0, 1.0 - TdotL * TdotL));
+        float sinTV = sqrt(max(0.0, 1.0 - TdotV * TdotV));
+        float aniso = max(0.0, sinTL * sinTV - TdotL * TdotV);
+        float sharpSpec = pow(aniso, 30.0) * 1.6;
+        float broadSpec = pow(aniso, 7.0) * 0.7;
+
+        float fresnel = pow(1.0 - max(dot(N, V), 0.0), 3.2);
+
+        // Blending deep wine shadow into luminous scarlet
+        vec3 shade = mix(uShadowColor, uBaseColor, clamp(NdotL * 1.4 + fillNdotL, 0.0, 1.0));
+        vec3 spec = uHighlightColor * sharpSpec + vec3(0.9, 0.3, 0.45) * broadSpec;
+        vec3 rim = uHighlightColor * fresnel * 0.5;
+
+        vec3 color = shade + spec + rim;
+        gl_FragColor = vec4(color, 1.0);
+      }
+    `;
+
+    function initHeroSilk3D() {
+      const container = document.getElementById('hero-canvas-container');
+      if (!container) return;
+
+      // Clean old instance if exists
+      if (renderer) {
+        cancelAnimationFrame(animId);
+        container.innerHTML = '';
+      }
+
+      scene = new THREE.Scene();
+      scene.background = new THREE.Color(0x2A020B);
+
+      camera = new THREE.PerspectiveCamera(40, container.clientWidth / container.clientHeight, 0.1, 100);
+      camera.position.set(0, -0.2, 5.8);
+
+      renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: "high-performance" });
+      renderer.setSize(container.clientWidth, container.clientHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      renderer.toneMappingExposure = 1.1;
+      container.appendChild(renderer.domElement);
+
+      const geom = new THREE.PlaneGeometry(9.0, 6.5, 180, 140);
+      const pos = geom.attributes.position;
+      for (let i = 0; i < pos.count; i++) {
+        const x = pos.getX(i);
+        const y = pos.getY(i);
+        pos.setZ(i, Math.sin(x * 0.6 + y * 0.5) * 0.4);
+      }
+      geom.computeVertexNormals();
+
+      const mat = new THREE.ShaderMaterial({
+        vertexShader: vertexShader,
+        fragmentShader: fragmentShader,
+        uniforms: {
+          uTime: { value: 0 },
+          uBaseColor: { value: new THREE.Color('#7D1935') },       // Crimson Red (#7D1935)
+          uShadowColor: { value: new THREE.Color('#420516') },     // Deep Black-Cherry (#420516)
+          uHighlightColor: { value: new THREE.Color('#E63E6D') }  // Radiant Rose (#E63E6D)
+        },
+        side: THREE.DoubleSide
+      });
+
+      silkMesh = new THREE.Mesh(geom, mat);
+      silkMesh.rotation.z = -0.15;
+      scene.add(silkMesh);
+
+      // Mouse drag controls for interactive camera tilt
+      container.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        prevMouse = { x: e.clientX, y: e.clientY };
+      });
+      window.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        const dx = (e.clientX - prevMouse.x) * 0.0035;
+        const dy = (e.clientY - prevMouse.y) * 0.0035;
+        mouse.targetX -= dx * 2.5;
+        mouse.targetY += dy * 2.5;
+        mouse.targetX = Math.max(-3.0, Math.min(3.0, mouse.targetX));
+        mouse.targetY = Math.max(-1.8, Math.min(1.8, mouse.targetY));
+        prevMouse = { x: e.clientX, y: e.clientY };
+      });
+      window.addEventListener('mouseup', () => { isDragging = false; });
+
+      // Resize listener
+      window.addEventListener('resize', onHeroResize);
+
+      const clock = new THREE.Clock();
+      function animate() {
+        animId = requestAnimationFrame(animate);
+        const elapsed = clock.getElapsedTime() * 0.85;
+
+        if (silkMesh) {
+          silkMesh.material.uniforms.uTime.value = elapsed;
+          silkMesh.rotation.y = Math.sin(elapsed * 0.2) * 0.04;
+          silkMesh.rotation.x = Math.cos(elapsed * 0.18) * 0.03;
+        }
+
+        camera.position.x += (mouse.targetX - camera.position.x) * 0.05;
+        camera.position.y += (mouse.targetY - camera.position.y) * 0.05;
+        camera.lookAt(0, 0, 0);
+
+        renderer.render(scene, camera);
+      }
+      animate();
+    }
+
+    function onHeroResize() {
+      const container = document.getElementById('hero-canvas-container');
+      if (!container || !renderer || !camera) return;
+      camera.aspect = container.clientWidth / container.clientHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(container.clientWidth, container.clientHeight);
+    }
+  </script>
+
+  <script>
+    /*
+      ========================================================================
+      SPA ROUTER & VIEW RENDERING SYSTEM
+      Hash-based seamless navigation: #/, #/ladies, #/gents, #/kids, etc.
+      ========================================================================
+    */
+    function renderHome() {
+      const root = document.getElementById('app-root');
+      
+      // Select exactly 6 non-repetitive featured items for the homepage
+      const featuredSix = [
+        PRODUCTS.find(p => p.id === 'lp-01'), // Ladies Partywear Dress
+        PRODUCTS.find(p => p.id === 'lc-01'), // Ladies Casual Linen Set
+        PRODUCTS.find(p => p.id === 'gs-01'), // Gents Tuxedo
+        PRODUCTS.find(p => p.id === 'gsk-01'),// Gents Kurta Shalwar
+        PRODUCTS.find(p => p.id === 'kg-01'), // Kids Girls Velvet Dress
+        PRODUCTS.find(p => p.id === 'kb-01')  // Kids Boys Prince Set
+      ];
+
+      root.innerHTML = `
+        <!-- 1. Real-Time 3D Crimson Silk Hero Section -->
+        <section class="relative w-full h-[88vh] min-h-[580px] max-h-[900px] overflow-hidden bg-brand-softdark flex items-center justify-center">
+          <div id="hero-canvas-container"></div>
+          
+          <!-- Subtle Radial Vignette Gradient Overlay -->
+          <div class="absolute inset-0 bg-gradient-to-t from-brand-blackcherry/85 via-transparent to-brand-blackcherry/50 pointer-events-none z-10"></div>
+          <div class="absolute inset-0 bg-radial-gradient from-transparent via-black/20 to-black/60 pointer-events-none z-10"></div>
+
+          <!-- Foreground Atelier Typography -->
+          <div class="relative z-20 text-center px-4 max-w-4xl mx-auto space-y-6 pointer-events-none">
+            <div class="inline-flex items-center gap-2.5 px-5 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white text-xs font-medium tracking-[0.25em] uppercase pointer-events-auto shadow-2xl">
+              <span class="w-2 h-2 rounded-full bg-brand-rose animate-pulse"></span>
+              Aqsa’s Collection 2026
+            </div>
+            
+            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-editorial font-normal tracking-wide text-white leading-tight drop-shadow-xl">
+              Timeless Luxury, <br><span class="italic font-light text-rose-200">Sculpted in Liquid Silk</span>
+            </h1>
+
+            <p class="text-sm sm:text-base text-stone-200 max-w-xl mx-auto font-light leading-relaxed drop-shadow">
+              Hand-finished couture and bespoke tailoring personally overseen by Aqsa Nadeem. Pure fabrics, meticulous needlework, and timeless silken beauty.
+            </p>
+
+            <div class="pt-4 flex flex-wrap items-center justify-center gap-4 pointer-events-auto">
+              <a href="#/ladies" class="px-8 py-3.5 rounded-full bg-brand-rose hover:bg-brand-ruby text-white text-xs font-semibold tracking-widest uppercase transition-all duration-300 shadow-[0_10px_25px_rgba(230,62,109,0.35)] transform hover:-translate-y-0.5">
+                Explore Ladies
+              </a>
+              <a href="#/gents" class="px-8 py-3.5 rounded-full bg-white/15 hover:bg-white/25 text-white text-xs font-semibold tracking-widest uppercase backdrop-blur-md border border-white/30 transition-all duration-300 transform hover:-translate-y-0.5">
+                Explore Gents
+              </a>
+              <a href="#/kids" class="px-8 py-3.5 rounded-full bg-brand-blackcherry/80 hover:bg-brand-blackcherry text-stone-200 text-xs font-semibold tracking-widest uppercase backdrop-blur-md border border-brand-rose/40 transition-all duration-300 transform hover:-translate-y-0.5">
+                Kids World
+              </a>
+            </div>
+
+            <!-- Visual Drag Indicator -->
+            <p class="text-[11px] text-white/50 tracking-wider font-light pt-2">
+              (Interactive 3D: Click & drag to glide across the fluid silk folds)
+            </p>
+          </div>
+        </section>
+
+        <!-- Personal Artisan Seal / Human-Made Introduction -->
+        <section class="max-w-4xl mx-auto px-4 pt-16 sm:pt-20 text-center space-y-3">
+          <div class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-brand-ruby font-semibold">
+            <span class="w-8 h-px bg-brand-ruby/40"></span>
+            <span>Handmade Atelier Legacy</span>
+            <span class="w-8 h-px bg-brand-ruby/40"></span>
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-editorial text-brand-blackcherry font-normal">
+            Aqsa’s Collection 2026
+          </h2>
+          <p class="text-xs sm:text-sm text-stone-600 max-w-2xl mx-auto font-light leading-relaxed">
+            Every garment is tailored with individual craftsmanship, avoiding mass-market factory shortcuts. Hand-selected silks, hand-cut silhouettes, and personal fittings via direct concierge.
+          </p>
+          <div class="pt-2 text-[11px] text-brand-wine font-medium craft-corner-tag">
+            DIRECT DESIGNER INQUIRY: <a href="https://wa.me/923087259054" class="underline font-bold text-brand-rose">0308 7259054</a> &bull; <a href="mailto:aqsanadeemwattoo@gmail.com" class="underline text-brand-rose">aqsanadeemwattoo@gmail.com</a>
+          </div>
+        </section>
+
+        <!-- 2. Three Categories (Ladies, Gents, Kids) LOWER than the Hero with Ornate Gallery Frames -->
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 relative z-20">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-10">
+            
+            <!-- Ladies Frame with Matting & Architectural Border -->
+            <div class="luxury-gallery-frame rounded-[36px] group transition-all duration-500 hover:-translate-y-2">
+              <a href="#/ladies" class="relative h-[420px] rounded-[28px] overflow-hidden bg-stone-900 block shadow-md">
+                <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=900&q=80" alt="Ladies Fashion" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter brightness-90">
+                <div class="absolute inset-0 bg-gradient-to-t from-brand-blackcherry/95 via-black/30 to-transparent"></div>
+                
+                <!-- Ornate Corner Frame Trim -->
+                <div class="absolute top-4 left-4 right-4 flex justify-between items-center text-[10px] tracking-[0.25em] text-white/80 uppercase font-sans">
+                  <span class="bg-black/40 backdrop-blur-md px-3 py-1 rounded-full border border-white/20">Wardrobe 01</span>
+                  <span class="text-rose-300 font-bold">40 Pieces</span>
+                </div>
+
+                <div class="absolute bottom-6 left-6 right-6 text-white space-y-1">
+                  <span class="text-[10px] tracking-[0.25em] text-brand-rose font-bold uppercase">Haute Couture</span>
+                  <h3 class="text-3xl font-editorial font-bold">Ladies Atelier</h3>
+                  <p class="text-xs text-stone-300 line-clamp-2">Partywear gowns, occasion peshwas, casual linen sets & tailored suits.</p>
+                  <div class="pt-2 flex items-center gap-2 text-xs font-semibold tracking-wider text-rose-300 group-hover:text-white transition-colors">
+                    <span>Explore Ladies Catalog</span>
+                    <span>&rarr;</span>
+                  </div>
+                </div>
+              </a>
+            </div>
+
+            <!-- Gents Frame with Matting & Architectural Border -->
+            <div class="luxury-gallery-frame rounded-[36px] group transition-all duration-500 hover:-translate-y-2">
+              <a href="#/gents" class="relative h-[420px] rounded-[28px] overflow-hidden bg-stone-900 block shadow-md">
+                <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=900&q=80" alt="Gents Fashion" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter brightness-90">
+                <div class="absolute inset-0 bg-gradient-to-t from-brand-blackcherry/95 via-black/30 to-transparent"></div>
+                
+                <!-- Ornate Corner Frame Trim -->
+                <div class="absolute top-4 left-4 right-4 flex justify-between items-center text-[10px] tracking-[0.25em] text-white/80 uppercase font-sans">
+                  <span class="bg-black/40 backdrop-blur-md px-3 py-1 rounded-full border border-white/20">Wardrobe 02</span>
+                  <span class="text-rose-300 font-bold">40 Pieces</span>
+                </div>
+
+                <div class="absolute bottom-6 left-6 right-6 text-white space-y-1">
+                  <span class="text-[10px] tracking-[0.25em] text-brand-rose font-bold uppercase">Sartorial Craft</span>
+                  <h3 class="text-3xl font-editorial font-bold">Gents Tailoring</h3>
+                  <p class="text-xs text-stone-300 line-clamp-2">Peak lapel tuxedos, 3-piece wedding suits, casual shirts & traditional Boski.</p>
+                  <div class="pt-2 flex items-center gap-2 text-xs font-semibold tracking-wider text-rose-300 group-hover:text-white transition-colors">
+                    <span>Explore Gents Catalog</span>
+                    <span>&rarr;</span>
+                  </div>
+                </div>
+              </a>
+            </div>
+
+            <!-- Kids Frame with Matting & Architectural Border -->
+            <div class="luxury-gallery-frame rounded-[36px] group transition-all duration-500 hover:-translate-y-2">
+              <a href="#/kids" class="relative h-[420px] rounded-[28px] overflow-hidden bg-stone-900 block shadow-md">
+                <img src="https://images.unsplash.com/photo-1518831959646-742c3a14ebf7?auto=format&fit=crop&w=900&q=80" alt="Kids Fashion" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter brightness-90">
+                <div class="absolute inset-0 bg-gradient-to-t from-brand-blackcherry/95 via-black/30 to-transparent"></div>
+                
+                <!-- Ornate Corner Frame Trim -->
+                <div class="absolute top-4 left-4 right-4 flex justify-between items-center text-[10px] tracking-[0.25em] text-white/80 uppercase font-sans">
+                  <span class="bg-black/40 backdrop-blur-md px-3 py-1 rounded-full border border-white/20">Wardrobe 03</span>
+                  <span class="text-rose-300 font-bold">20 Pieces</span>
+                </div>
+
+                <div class="absolute bottom-6 left-6 right-6 text-white space-y-1">
+                  <span class="text-[10px] tracking-[0.25em] text-brand-rose font-bold uppercase">Festive Youth</span>
+                  <h3 class="text-3xl font-editorial font-bold">Kids World</h3>
+                  <p class="text-xs text-stone-300 line-clamp-2">Girls party frocks & ghararas, boys Prince sherwanis & tailored suits.</p>
+                  <div class="pt-2 flex items-center gap-2 text-xs font-semibold tracking-wider text-rose-300 group-hover:text-white transition-colors">
+                    <span>Explore Kids Catalog</span>
+                    <span>&rarr;</span>
+                  </div>
+                </div>
+              </a>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- 3. Curated 6 Display Items on the Landing Page in Framed Gallery Mounts -->
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-brand-wine/10">
+          <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+            <div>
+              <span class="text-xs font-bold uppercase tracking-[0.25em] text-brand-ruby">Exhibition Showcase</span>
+              <h2 class="text-3xl sm:text-4xl font-editorial font-bold text-brand-blackcherry mt-1">
+                Signature Atelier Highlights
+              </h2>
+            </div>
+            <p class="text-xs text-stone-500 max-w-sm mt-3 md:mt-0 font-light leading-relaxed">
+              Exactly 6 curated runway ensembles demonstrating our bespoke craftsmanship across ladies, gents, and children’s tailoring.
+            </p>
+          </div>
+
+          <!-- The 6 Curated Framed Cards Grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            ${featuredSix.map(item => generateProductCardHtml(item)).join('')}
+          </div>
+
+          <div class="mt-14 text-center">
+            <a href="#/ladies" class="inline-flex items-center gap-3 px-8 py-3.5 rounded-full border-2 border-brand-wine text-brand-wine hover:bg-brand-wine hover:text-white font-semibold text-xs uppercase tracking-widest transition-all shadow-md">
+              <span>View Full Shopping Archives</span>
+              <span>&rarr;</span>
+            </a>
+          </div>
+        </section>
+
+        <!-- 4. Editorial Lookbook Frame (Inspired by reference Image image_037d1e.jpg) -->
+        <section class="bg-brand-ivory py-20 border-y border-brand-wine/10">
+          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+            
+            <div class="text-center max-w-xl mx-auto space-y-2">
+              <span class="text-xs font-bold uppercase tracking-[0.3em] text-brand-ruby">Editorial Lookbook</span>
+              <h2 class="text-3xl sm:text-5xl font-editorial text-brand-blackcherry font-normal">
+                Shop by Occasion
+              </h2>
+              <p class="text-xs text-stone-600 font-light">Direct aesthetic inspiration curated for timeless celebrations.</p>
+            </div>
+
+            <!-- Editorial Asymmetrical Row with Luxury Double Frames -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+              
+              <!-- Left Arched Tall Frame -->
+              <div class="md:col-span-5 luxury-gallery-frame arched-frame overflow-hidden shadow-xl">
+                <div class="h-[480px] arched-frame overflow-hidden relative group">
+                  <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=80" alt="Boho Chic" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                  <div class="absolute inset-0 bg-gradient-to-t from-brand-blackcherry/80 via-transparent to-transparent"></div>
+                  <div class="absolute bottom-8 left-8 right-8 text-white space-y-1">
+                    <span class="text-[10px] tracking-widest uppercase text-brand-rose font-bold">Curated Occasion</span>
+                    <h4 class="text-3xl font-editorial">Boho Elegance</h4>
+                    <p class="text-xs text-stone-200">Fluid tiered silks for sunset celebrations.</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Center & Right Editorial Panels -->
+              <div class="md:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6">
+                
+                <div class="luxury-gallery-frame rounded-3xl overflow-hidden shadow-lg">
+                  <div class="h-72 rounded-2xl overflow-hidden relative group">
+                    <img src="https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=800&q=80" alt="Gents Sharp" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors"></div>
+                    <div class="absolute bottom-5 left-5 right-5 text-white">
+                      <span class="text-[10px] uppercase tracking-wider text-rose-300">Sartorial Edit</span>
+                      <h5 class="text-xl font-editorial">Black Tie Suiting</h5>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="luxury-gallery-frame rounded-3xl overflow-hidden shadow-lg">
+                  <div class="h-72 rounded-2xl overflow-hidden relative group">
+                    <img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=800&q=80" alt="Luxury Shoes" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors"></div>
+                    <div class="absolute bottom-5 left-5 right-5 text-white">
+                      <span class="text-[10px] uppercase tracking-wider text-rose-300">Footwear Edit</span>
+                      <h5 class="text-xl font-editorial">Velvet Pumps</h5>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Brand Philosophy Banner with Direct Contact Links -->
+                <div class="sm:col-span-2 p-8 rounded-3xl bg-brand-blackcherry text-white flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl border border-white/10">
+                  <div class="space-y-1.5">
+                    <span class="text-[10px] tracking-[0.3em] uppercase text-brand-rose font-bold">Personal Atelier Fitting</span>
+                    <h4 class="text-2xl font-editorial">Every stitch tells your story</h4>
+                    <p class="text-xs text-stone-300 font-light">Custom measurements and bespoke styling directly supervised by Aqsa Nadeem.</p>
+                    <p class="text-[11px] text-rose-300 pt-1 font-mono">Direct WhatsApp: 0308 7259054 &bull; aqsanadeemwattoo@gmail.com</p>
+                  </div>
+                  <a href="https://wa.me/923087259054" target="_blank" class="px-6 py-3 rounded-full bg-brand-rose hover:bg-brand-ruby text-white text-xs font-semibold tracking-wider uppercase transition shadow-lg shrink-0 flex items-center gap-2">
+                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.969.586 1.761.884 2.79.884 3.179 0 5.766-2.587 5.767-5.766.002-3.18-2.585-5.77-5.766-5.77zm0 10.455c-.911 0-1.684-.27-2.434-.731l-.174-.107-1.579.414.421-1.54-.117-.186c-.521-.828-.796-1.579-.795-2.539.001-2.582 2.103-4.684 4.68-4.684 2.578 0 4.679 2.102 4.68 4.684 0 2.583-2.102 4.689-4.685 4.689z"/></svg>
+                    <span>Contact Stylist</span>
+                  </a>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+        </section>
+      `;
+
+      // Re-initialize 3D canvas on the landing page
+      setTimeout(initHeroSilk3D, 50);
+    }
+
+    // Helper: Generate Clean Product Card HTML with Luxury Matting Frame
+    function generateProductCardHtml(item) {
+      const isFavorited = wishlist.some(w => w.id === item.id);
+      return `
+        <div class="luxury-gallery-frame rounded-[32px] group flex flex-col transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 bg-white">
+          <!-- Card Image Container with Inset Passe-Partout -->
+          <div class="relative w-full aspect-[3/4] overflow-hidden rounded-[24px] bg-stone-100">
+            <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+            
+            <!-- Category Tag Badge -->
+            <span class="absolute top-4 left-4 bg-brand-blackcherry/90 backdrop-blur-md text-white text-[10px] font-bold tracking-widest uppercase px-3 py-1 rounded-full border border-white/10 shadow-md">
+              ${item.tag}
+            </span>
+
+            <!-- Heart Wishlist Toggle Button -->
+            <button onclick="toggleWishlist('${item.id}')" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/95 hover:bg-white text-brand-blackcherry flex items-center justify-center shadow-md transition-transform active:scale-90" title="Add to Wishlist">
+              <svg class="w-4 h-4 ${isFavorited ? 'fill-brand-rose text-brand-rose' : 'fill-none stroke-current'}" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+            </button>
+
+            <!-- Quick View Hover Button -->
+            <div class="absolute inset-x-4 bottom-4 translate-y-12 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 flex gap-2">
+              <a href="#/product/${item.id}" class="flex-1 py-2.5 rounded-xl bg-white/95 hover:bg-white text-brand-blackcherry text-center text-xs font-semibold tracking-wider uppercase shadow-lg transition">
+                View Piece
+              </a>
+              <button onclick="addToBag('${item.id}')" class="px-4 py-2.5 rounded-xl bg-brand-rose hover:bg-brand-ruby text-white text-xs font-semibold shadow-lg transition" title="Add to Bag">
+                <svg class="w-4 h-4 fill-none stroke-current" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Product Details with Fine Typography -->
+          <div class="pt-4 pb-2 px-3 flex-1 flex flex-col justify-between space-y-2">
+            <div>
+              <div class="flex items-center justify-between text-[11px] text-stone-500 font-medium">
+                <span class="uppercase tracking-wider text-[10px] text-brand-wine font-semibold">${item.audience} &bull; ${item.subCategory}</span>
+                <span class="text-emerald-700 font-semibold">&check; In Stock</span>
+              </div>
+              <h3 class="font-editorial text-lg font-bold text-brand-blackcherry mt-0.5 line-clamp-1 group-hover:text-brand-ruby transition-colors">
+                <a href="#/product/${item.id}">${item.title}</a>
+              </h3>
+            </div>
+
+            <div class="flex items-center justify-between pt-2 border-t border-brand-wine/10">
+              <span class="text-xs text-stone-400 font-medium">Bespoke Price</span>
+              <span class="text-sm font-bold text-brand-wine font-sans">
+                PKR ${item.price.toLocaleString()}
+              </span>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // Catalog Page Renderer (Ladies, Gents, Kids, Shoes)
+    function renderCatalog(audienceName, activeSub = 'all') {
+      const root = document.getElementById('app-root');
+      
+      let filteredProducts = [];
+      let subheadings = [];
+
+      if (audienceName === 'Ladies') {
+        subheadings = [
+          { key: 'all', label: 'All Ladies (40)' },
+          { key: 'partywear', label: 'Partywear Dresses (10)' },
+          { key: 'casual', label: 'Casual Dresses (10)' },
+          { key: 'occasional', label: 'Occasional Dresses (10)' },
+          { key: 'office', label: 'Office Dresses (10)' }
+        ];
+        filteredProducts = PRODUCTS.filter(p => p.audience === 'Ladies' && p.category === 'Dress');
+      } else if (audienceName === 'Gents') {
+        subheadings = [
+          { key: 'all', label: 'All Gents (40)' },
+          { key: 'suits', label: 'Suits (10)' },
+          { key: 'threepiece', label: '3 Piece Sets (10)' },
+          { key: 'casual', label: 'Casual Shirts (10)' },
+          { key: 'shalwarkameez', label: 'Shalwar Kameez (10)' }
+        ];
+        filteredProducts = PRODUCTS.filter(p => p.audience === 'Gents' && p.category === 'Dress');
+      } else if (audienceName === 'Kids') {
+        subheadings = [
+          { key: 'all', label: 'All Kids (20)' },
+          { key: 'girls', label: 'Girls Dresses (10)' },
+          { key: 'boys', label: 'Boys Wear (10)' }
+        ];
+        filteredProducts = PRODUCTS.filter(p => p.audience === 'Kids');
+      } else if (audienceName === 'Shoes') {
+        subheadings = [
+          { key: 'all', label: 'All Footwear (10)' },
+          { key: 'footwear', label: 'Luxury Heels & Shoes (10)' }
+        ];
+        filteredProducts = PRODUCTS.filter(p => p.category === 'Shoes');
+      }
+
+      if (activeSub !== 'all') {
+        filteredProducts = filteredProducts.filter(p => p.subCategory === activeSub);
+      }
+
+      root.innerHTML = `
+        <div class="bg-brand-ivory border-b border-brand-wine/10 py-12 px-4 text-center">
+          <div class="max-w-3xl mx-auto space-y-2">
+            <span class="text-xs uppercase tracking-[0.3em] text-brand-ruby font-bold">Atelier Collection</span>
+            <h1 class="text-4xl sm:text-5xl font-editorial font-bold text-brand-blackcherry">${audienceName} Wardrobe</h1>
+            <p class="text-xs text-stone-600 font-light">Each piece is individually tailored with strictly categorized fashion images.</p>
+          </div>
+
+          <!-- Subcategory Heading Filter Tabs -->
+          <div class="mt-8 flex flex-wrap items-center justify-center gap-2 max-w-4xl mx-auto">
+            ${subheadings.map(sub => `
+              <button onclick="switchSubCategory('${audienceName.toLowerCase()}', '${sub.key}')" class="px-5 py-2.5 rounded-full text-xs font-semibold tracking-wider transition ${activeSub === sub.key ? 'bg-brand-wine text-white shadow-md' : 'bg-white border border-brand-wine/20 text-stone-700 hover:bg-stone-50'}">
+                ${sub.label}
+              </button>
+            `).join('')}
+          </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+          <div class="flex items-center justify-between pb-6 mb-8 border-b border-stone-200 text-xs text-stone-500">
+            <span>Showing <strong class="text-brand-blackcherry font-bold">${filteredProducts.length}</strong> strictly verified items</span>
+            <span class="text-emerald-700 font-semibold">&check; Zero duplication &bullet; Strictly ${audienceName}</span>
+          </div>
+
+          <!-- Product Catalog Grid (10 - 40 items without duplication) -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-7">
+            ${filteredProducts.map(p => generateProductCardHtml(p)).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    function switchSubCategory(audienceKey, subKey) {
+      window.location.hash = `#/${audienceKey}?sub=${subKey}`;
+    }
+
+    // Product Detail Page Renderer
+    function renderProductDetail(productId) {
+      const root = document.getElementById('app-root');
+      const product = PRODUCTS.find(p => p.id === productId);
+
+      if (!product) {
+        root.innerHTML = `
+          <div class="py-24 text-center">
+            <h2 class="text-2xl font-editorial">Piece Not Found</h2>
+            <a href="#/" class="mt-4 inline-block px-6 py-2 rounded-full bg-brand-wine text-white text-xs">Return Home</a>
+          </div>
+        `;
+        return;
+      }
+
+      // Related products (strictly from same audience/subcategory)
+      const related = PRODUCTS.filter(p => p.audience === product.audience && p.subCategory === product.subCategory && p.id !== product.id).slice(0, 3);
+
+      root.innerHTML = `
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <!-- Breadcrumbs -->
+          <div class="text-xs text-stone-500 mb-8 flex items-center gap-2">
+            <a href="#/" class="hover:text-black">Home</a>
+            <span>&rsaquo;</span>
+            <a href="#/${product.audience.toLowerCase()}" class="hover:text-black">${product.audience}</a>
+            <span>&rsaquo;</span>
+            <span class="text-brand-ruby font-semibold capitalize">${product.subCategory}</span>
+            <span>&rsaquo;</span>
+            <span class="text-stone-800">${product.title}</span>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+            
+            <!-- Gallery Image -->
+            <div class="lg:col-span-6 rounded-3xl overflow-hidden shadow-2xl border border-stone-200 aspect-[3/4] bg-stone-100">
+              <img src="${product.image}" alt="${product.title}" class="w-full h-full object-cover">
+            </div>
+
+            <!-- Product Purchase Console -->
+            <div class="lg:col-span-6 space-y-6">
+              <div>
+                <span class="text-xs font-bold uppercase tracking-widest text-brand-rose px-3 py-1 rounded-full bg-brand-blackcherry/10 inline-block mb-2">
+                  ${product.tag} &bull; ${product.subCategory.toUpperCase()}
+                </span>
+                <h1 class="text-3xl sm:text-4xl font-editorial font-bold text-brand-blackcherry">${product.title}</h1>
+                <p class="text-2xl font-bold text-brand-wine mt-2 font-sans">PKR ${product.price.toLocaleString()}</p>
+              </div>
+
+              <p class="text-stone-600 text-sm leading-relaxed">${product.desc}</p>
+
+              <!-- Size Picker -->
+              <div class="space-y-2 pt-2 border-t border-stone-200">
+                <span class="text-xs font-bold uppercase tracking-wider text-stone-800">Select Size:</span>
+                <div class="flex gap-2.5">
+                  ${['XS', 'S', 'M', 'L', 'XL', 'Custom'].map(sz => `
+                    <button onclick="selectSize(this)" class="size-btn px-4 py-2 rounded-xl border border-stone-300 text-xs font-semibold hover:border-brand-wine transition ${sz === 'M' ? 'border-brand-wine bg-brand-wine text-white' : 'bg-white'}">
+                      ${sz}
+                    </button>
+                  `).join('')}
+                </div>
+              </div>
+
+              <!-- Action Buttons -->
+              <div class="flex flex-col sm:flex-row gap-3 pt-4">
+                <button onclick="addToBag('${product.id}')" class="flex-1 py-4 rounded-full bg-brand-wine hover:bg-brand-blackcherry text-white text-xs font-semibold tracking-wider uppercase transition shadow-xl flex items-center justify-center gap-2">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+                  <span>Add to Shopping Bag</span>
+                </button>
+                <button onclick="instantWhatsAppInquiry('${product.title}', '${product.price}', '${product.id}')" class="px-6 py-4 rounded-full bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-semibold tracking-wider uppercase transition shadow-xl flex items-center justify-center gap-2">
+                  <span>Direct WhatsApp</span>
+                </button>
+              </div>
+
+              <!-- Accordions for Material & Delivery -->
+              <div class="space-y-3 pt-6 border-t border-stone-200 text-xs">
+                <details class="bg-stone-50 p-4 rounded-2xl border border-stone-200" open>
+                  <summary class="font-bold cursor-pointer text-stone-800">Bespoke Fabric & Care</summary>
+                  <p class="mt-2 text-stone-600">Dry clean only. Hand-crafted fabrics require gentle care and cool-temperature storage.</p>
+                </details>
+                <details class="bg-stone-50 p-4 rounded-2xl border border-stone-200">
+                  <summary class="font-bold cursor-pointer text-stone-800">Nationwide Express Shipping</summary>
+                  <p class="mt-2 text-stone-600">Dispatched in signature rigid luxury gift boxes within 48 to 72 hours across Pakistan.</p>
+                </details>
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- Related Products Section -->
+          ${related.length > 0 ? `
+            <div class="mt-20 pt-12 border-t border-stone-200">
+              <h3 class="text-2xl font-editorial font-bold text-brand-blackcherry mb-6">Coordinate With Related Ensembles</h3>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                ${related.map(r => generateProductCardHtml(r)).join('')}
+              </div>
+            </div>
+          ` : ''}
+        </div>
+      `;
+    }
+
+    function selectSize(btn) {
+      document.querySelectorAll('.size-btn').forEach(b => {
+        b.classList.remove('bg-brand-wine', 'text-white', 'border-brand-wine');
+        b.classList.add('bg-white');
+      });
+      btn.classList.add('bg-brand-wine', 'text-white', 'border-brand-wine');
+    }
+
+    // Shopping Bag (Cart) Renderer
+    function renderCart() {
+      const root = document.getElementById('app-root');
+      const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+      const shipping = subtotal > 6000 ? 0 : 350;
+      const total = subtotal + shipping;
+
+      root.innerHTML = `
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+          <h1 class="text-3xl sm:text-4xl font-editorial font-bold text-brand-blackcherry mb-2">Shopping Bag</h1>
+          <p class="text-xs text-stone-500 mb-8">Review your selected couture pieces before concierge checkout.</p>
+
+          ${cart.length === 0 ? `
+            <div class="bg-white rounded-3xl p-12 text-center border border-stone-200 space-y-4">
+              <svg class="w-12 h-12 mx-auto text-stone-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+              <h3 class="text-xl font-editorial font-bold text-stone-800">Your bag is currently empty</h3>
+              <p class="text-xs text-stone-500">Discover our handcrafted dresses, suits, and shoes.</p>
+              <a href="#/ladies" class="inline-block px-7 py-3 rounded-full bg-brand-wine text-white text-xs font-semibold tracking-wider uppercase">Explore Catalog</a>
+            </div>
+          ` : `
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+              
+              <!-- Items List -->
+              <div class="lg:col-span-7 space-y-4">
+                ${cart.map(item => `
+                  <div class="bg-white p-4 sm:p-5 rounded-2xl border border-stone-200 flex gap-4 items-center">
+                    <img src="${item.image}" alt="${item.title}" class="w-20 h-24 object-cover rounded-xl bg-stone-100">
+                    <div class="flex-1 min-w-0">
+                      <span class="text-[10px] font-bold text-brand-rose uppercase">${item.audience} &bull; ${item.subCategory}</span>
+                      <h4 class="font-editorial text-base font-bold text-brand-blackcherry truncate">${item.title}</h4>
+                      <p class="text-xs font-semibold text-brand-wine mt-1">PKR ${item.price.toLocaleString()}</p>
+                      
+                      <!-- Quantity Controls -->
+                      <div class="flex items-center gap-2 mt-3">
+                        <button onclick="updateCartQty('${item.id}', -1)" class="w-6 h-6 rounded-lg bg-stone-100 text-stone-700 flex items-center justify-center text-xs font-bold hover:bg-stone-200">-</button>
+                        <span class="text-xs font-bold px-2">${item.qty}</span>
+                        <button onclick="updateCartQty('${item.id}', 1)" class="w-6 h-6 rounded-lg bg-stone-100 text-stone-700 flex items-center justify-center text-xs font-bold hover:bg-stone-200">+</button>
+                      </div>
+                    </div>
+                    <button onclick="removeFromCart('${item.id}')" class="text-stone-400 hover:text-red-600 p-2" title="Remove item">
+                      &times;
+                    </button>
+                  </div>
+                `).join('')}
+              </div>
+
+              <!-- Order Summary & Direct WhatsApp Checkout -->
+              <div class="lg:col-span-5 bg-white p-6 sm:p-8 rounded-3xl border border-stone-200 shadow-xl space-y-6">
+                <h3 class="text-xl font-editorial font-bold text-brand-blackcherry pb-3 border-b border-stone-100">Order Summary</h3>
+                
+                <div class="space-y-2 text-xs">
+                  <div class="flex justify-between text-stone-600">
+                    <span>Subtotal</span>
+                    <span class="font-semibold text-stone-900">PKR ${subtotal.toLocaleString()}</span>
+                  </div>
+                  <div class="flex justify-between text-stone-600">
+                    <span>Delivery Charges</span>
+                    <span class="font-semibold text-emerald-700">${shipping === 0 ? 'FREE' : 'PKR ' + shipping}</span>
+                  </div>
+                  <div class="flex justify-between text-sm font-bold text-brand-blackcherry pt-3 border-t border-stone-100">
+                    <span>Estimated Total</span>
+                    <span class="text-brand-wine">PKR ${total.toLocaleString()}</span>
+                  </div>
+                </div>
+
+                <!-- Checkout Form -->
+                <form onsubmit="handleWhatsAppOrder(event)" class="space-y-3 pt-3">
+                  <div>
+                    <label class="block text-[11px] font-bold text-stone-700 uppercase mb-1">Your Full Name</label>
+                    <input type="text" id="custName" required placeholder="e.g. Ayesha Khan" class="w-full px-4 py-2.5 rounded-xl border border-stone-300 text-xs focus:outline-none focus:border-brand-wine">
+                  </div>
+                  <div>
+                    <label class="block text-[11px] font-bold text-stone-700 uppercase mb-1">Contact Phone</label>
+                    <input type="tel" id="custPhone" required placeholder="e.g. 0300 1234567" class="w-full px-4 py-2.5 rounded-xl border border-stone-300 text-xs focus:outline-none focus:border-brand-wine">
+                  </div>
+                  <div>
+                    <label class="block text-[11px] font-bold text-stone-700 uppercase mb-1">Delivery Address & City</label>
+                    <textarea id="custAddress" required rows="2" placeholder="House/Flat number, Street, City" class="w-full px-4 py-2.5 rounded-xl border border-stone-300 text-xs focus:outline-none focus:border-brand-wine"></textarea>
+                  </div>
+                  
+                  <button type="submit" class="w-full py-4 rounded-full bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-semibold tracking-wider uppercase transition shadow-xl flex items-center justify-center gap-2">
+                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.969.586 1.761.884 2.79.884 3.179 0 5.766-2.587 5.767-5.766.002-3.18-2.585-5.77-5.766-5.77zm0 10.455c-.911 0-1.684-.27-2.434-.731l-.174-.107-1.579.414.421-1.54-.117-.186c-.521-.828-.796-1.579-.795-2.539.001-2.582 2.103-4.684 4.68-4.684 2.578 0 4.679 2.102 4.68 4.684 0 2.583-2.102 4.689-4.685 4.689z"/></svg>
+                    <span>Send Order via WhatsApp</span>
+                  </button>
+                  <p class="text-[10px] text-stone-400 text-center">Prefills your order details into WhatsApp for instant confirmation.</p>
+                </form>
+
+              </div>
+
+            </div>
+          `}
+        </div>
+      `;
+    }
+
+    // Wishlist Renderer
+    function renderWishlist() {
+      const root = document.getElementById('app-root');
+      root.innerHTML = `
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+          <h1 class="text-3xl sm:text-4xl font-editorial font-bold text-brand-blackcherry mb-2">My Saved Wishlist</h1>
+          <p class="text-xs text-stone-500 mb-8">Personal curated collection of your dream luxury outfits.</p>
+
+          ${wishlist.length === 0 ? `
+            <div class="bg-white rounded-3xl p-12 text-center border border-stone-200 space-y-4">
+              <svg class="w-12 h-12 mx-auto text-stone-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+              <h3 class="text-xl font-editorial font-bold text-stone-800">Your wishlist is empty</h3>
+              <p class="text-xs text-stone-500">Tap the heart on any piece to save it here for later.</p>
+              <a href="#/ladies" class="inline-block px-7 py-3 rounded-full bg-brand-wine text-white text-xs font-semibold tracking-wider uppercase">Explore Collections</a>
+            </div>
+          ` : `
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-7">
+              ${wishlist.map(item => generateProductCardHtml(item)).join('')}
+            </div>
+          `}
+        </div>
+      `;
+    }
+  </script>
+
+  <script>
+    function addToBag(id) {
+      const product = PRODUCTS.find(p => p.id === id);
+      if (!product) return;
+      const existing = cart.find(c => c.id === id);
+      if (existing) {
+        existing.qty += 1;
+      } else {
+        cart.push({ ...product, qty: 1 });
+      }
+      saveState();
+      showToast(`Added "${product.title}" to Shopping Bag!`);
+    }
+
+    function updateCartQty(id, delta) {
+      const item = cart.find(c => c.id === id);
+      if (!item) return;
+      item.qty += delta;
+      if (item.qty <= 0) {
+        cart = cart.filter(c => c.id !== id);
+      }
+      saveState();
+      renderCart();
+    }
+
+    function removeFromCart(id) {
+      cart = cart.filter(c => c.id !== id);
+      saveState();
+      renderCart();
+      showToast('Item removed from bag');
+    }
+
+    function toggleWishlist(id) {
+      const product = PRODUCTS.find(p => p.id === id);
+      if (!product) return;
+      const index = wishlist.findIndex(w => w.id === id);
+      if (index > -1) {
+        wishlist.splice(index, 1);
+        showToast('Removed from Wishlist');
+      } else {
+        wishlist.push(product);
+        showToast('Saved to Wishlist!');
+      }
+      saveState();
+      router();
+    }
+
+    // Direct WhatsApp Single Item Inquiry
+    function instantWhatsAppInquiry(title, price, id) {
+      const message = `Assalam-o-Alaikum AQSA'S STORE,\n\nI am interested in this couture piece from Aqsa's Collection 2026:\n- Product: ${title}\n- Price: PKR ${Number(price).toLocaleString()}\n- Item ID: ${id}\n\nPlease confirm availability and custom sizing details. Thank you!`;
+      const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+      window.open(url, '_blank');
+    }
+
+    // Checkout Form Order Generation
+    function handleWhatsAppOrder(e) {
+      e.preventDefault();
+      const name = document.getElementById('custName').value.trim();
+      const phone = document.getElementById('custPhone').value.trim();
+      const address = document.getElementById('custAddress').value.trim();
+
+      const itemsSummary = cart.map(c => `• ${c.title} (Qty: ${c.qty}) — PKR ${(c.price * c.qty).toLocaleString()}`).join('\n');
+      const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+      const delivery = subtotal > 6000 ? 0 : 350;
+      const total = subtotal + delivery;
+
+      const orderText = `*NEW ORDER — AQSA'S COLLECTION 2026*\n\n` +
+        `*Customer Details:*\n` +
+        `• Name: ${name}\n` +
+        `• Contact: ${phone}\n` +
+        `• Shipping Address: ${address}\n\n` +
+        `*Ordered Items:*\n${itemsSummary}\n\n` +
+        `*Delivery Charges:* ${delivery === 0 ? 'FREE (Special Offer)' : 'PKR ' + delivery}\n` +
+        `*Total Order Value:* PKR ${total.toLocaleString()}\n\n` +
+        `Please confirm my order and share bank transfer / Cash on Delivery details. Thank you!`;
+
+      const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(orderText)}`;
+      window.open(waUrl, '_blank');
+    }
+
+    function openWhatsAppCheckoutModal() {
+      instantWhatsAppInquiry("Bespoke Styling Assistance", "Bespoke", "STYLING-01");
+    }
+
+    function handleNewsletter(e) {
+      e.preventDefault();
+      showToast("Thank you for joining the Atelier Society!");
+      e.target.reset();
+    }
+
+    function toggleMobileNav() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+    }
+
+    // Quick Search Functions
+    function openSearchModal() {
+      document.getElementById('search-modal').classList.remove('hidden');
+      document.getElementById('search-modal').classList.add('flex');
+      document.getElementById('catalogSearchInput').focus();
+    }
+    function closeSearchModal() {
+      document.getElementById('search-modal').classList.add('hidden');
+      document.getElementById('search-modal').classList.remove('flex');
+    }
+    function handleSearchQuery(query) {
+      const resultsBox = document.getElementById('search-results-box');
+      const q = query.toLowerCase().trim();
+      if (!q) {
+        resultsBox.innerHTML = '<p class="text-xs text-stone-400 py-4 text-center">Start typing to browse 100+ unique pieces...</p>';
+        return;
+      }
+      const matches = PRODUCTS.filter(p => 
+        p.title.toLowerCase().includes(q) || 
+        p.subCategory.toLowerCase().includes(q) || 
+        p.tag.toLowerCase().includes(q) ||
+        p.audience.toLowerCase().includes(q)
+      ).slice(0, 6);
+
+      if (matches.length === 0) {
+        resultsBox.innerHTML = '<p class="text-xs text-stone-500 py-4 text-center">No pieces matched your search.</p>';
+      } else {
+        resultsBox.innerHTML = matches.map(m => `
+          <a href="#/product/${m.id}" onclick="closeSearchModal()" class="flex items-center gap-3 p-2 hover:bg-stone-50 rounded-xl transition">
+            <img src="${m.image}" class="w-10 h-12 object-cover rounded-lg">
+            <div class="text-left flex-1 min-w-0">
+              <h5 class="text-xs font-bold text-stone-900 truncate">${m.title}</h5>
+              <span class="text-[10px] text-brand-rose uppercase font-bold">${m.audience} &bull; ${m.subCategory}</span>
+            </div>
+            <span class="text-xs font-bold text-brand-wine">PKR ${m.price.toLocaleString()}</span>
+          </a>
+        `).join('');
+      }
+    }
+  </script>
+
+  <script>
+    function router() {
+      const hash = window.location.hash || '#/';
+      window.scrollTo(0, 0);
+
+      // Route Matching
+      if (hash === '#/' || hash === '') {
+        renderHome();
+      } else if (hash.startsWith('#/ladies')) {
+        const sub = new URLSearchParams(hash.split('?')[1] || '').get('sub') || 'all';
+        renderCatalog('Ladies', sub);
+      } else if (hash.startsWith('#/gents')) {
+        const sub = new URLSearchParams(hash.split('?')[1] || '').get('sub') || 'all';
+        renderCatalog('Gents', sub);
+      } else if (hash.startsWith('#/kids')) {
+        const sub = new URLSearchParams(hash.split('?')[1] || '').get('sub') || 'all';
+        renderCatalog('Kids', sub);
+      } else if (hash.startsWith('#/shoes')) {
+        renderCatalog('Shoes', 'all');
+      } else if (hash.startsWith('#/product/')) {
+        const id = hash.replace('#/product/', '');
+        renderProductDetail(id);
+      } else if (hash === '#/cart') {
+        renderCart();
+      } else if (hash === '#/wishlist') {
+        renderWishlist();
+      } else {
+        renderHome();
+      }
+    }
+
+    window.addEventListener('hashchange', router);
+    window.addEventListener('load', () => {
+      updateBadges();
+      router();
+    });
+  </script>
+</body>
+</html>
