@@ -1,0 +1,1508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AETHER GLASS — Holographic Luxury Scheduler & Spatial Agenda</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Three.js for 3D Holographic Base & Floating Glass Spheres -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <!-- Tone.js for Delicate Crystalline Audio Synthesis -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+
+  <!-- Google Fonts: Space Grotesk & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            display: ['"Space Grotesk"', 'sans-serif']
+          },
+          colors: {
+            glass: {
+              obsidian: '#090810',
+              deep: '#0F0C1B',
+              frosted: 'rgba(255, 255, 255, 0.06)',
+              border: 'rgba(255, 255, 255, 0.16)'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    :root {
+      --glow-accent: #A855F7;
+      --glow-secondary: #38BDF8;
+      --glow-tertiary: #EC4899;
+      --glass-base: rgba(18, 14, 30, 0.65);
+      --glass-border: rgba(255, 255, 255, 0.18);
+      --glass-rim: rgba(200, 150, 255, 0.35);
+      --blur-strength: 32px;
+    }
+
+    /* Spectrum Themes */
+    body.theme-cyber {
+      --glow-accent: #A855F7;
+      --glow-secondary: #06B6D4;
+      --glow-tertiary: #F43F5E;
+      --glass-base: rgba(14, 11, 26, 0.68);
+      --glass-border: rgba(255, 255, 255, 0.18);
+      --glass-rim: rgba(168, 85, 247, 0.45);
+    }
+    body.theme-lavender {
+      --glow-accent: #C084FC;
+      --glow-secondary: #F472B6;
+      --glow-tertiary: #818CF8;
+      --glass-base: rgba(26, 18, 38, 0.72);
+      --glass-border: rgba(255, 220, 255, 0.22);
+      --glass-rim: rgba(244, 114, 182, 0.45);
+    }
+    body.theme-amber {
+      --glow-accent: #F59E0B;
+      --glow-secondary: #FB923C;
+      --glow-tertiary: #EF4444;
+      --glass-base: rgba(30, 18, 12, 0.72);
+      --glass-border: rgba(255, 230, 200, 0.22);
+      --glass-rim: rgba(245, 158, 11, 0.5);
+    }
+    body.theme-emerald {
+      --glow-accent: #10B981;
+      --glow-secondary: #06B6D4;
+      --glow-tertiary: #34D399;
+      --glass-base: rgba(8, 26, 20, 0.72);
+      --glass-border: rgba(200, 255, 230, 0.22);
+      --glass-rim: rgba(16, 185, 129, 0.45);
+    }
+
+    body {
+      background-color: #06040A;
+      color: #F8FAFC;
+      overflow-x: hidden;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    /* Master Refractive Glass Slab */
+    .glass-slab {
+      background: var(--glass-base);
+      backdrop-filter: blur(var(--blur-strength)) saturate(190%);
+      -webkit-backdrop-filter: blur(var(--blur-strength)) saturate(190%);
+      border: 1px solid var(--glass-border);
+      box-shadow: 
+        0 30px 60px -15px rgba(0, 0, 0, 0.8),
+        inset 0 1px 2px 0 rgba(255, 255, 255, 0.35),
+        inset 0 -1px 2px 0 rgba(0, 0, 0, 0.5),
+        0 0 40px -10px var(--glass-rim);
+      transition: border-color 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    /* Sub-cards and floating capsules */
+    .glass-capsule {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 
+        0 12px 24px -6px rgba(0, 0, 0, 0.45),
+        inset 0 1px 1px 0 rgba(255, 255, 255, 0.25);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .glass-capsule:hover {
+      border-color: rgba(255, 255, 255, 0.28);
+      transform: translateY(-2px);
+      box-shadow: 
+        0 18px 30px -8px rgba(0, 0, 0, 0.55),
+        inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.4),
+        0 0 25px -5px var(--glow-accent);
+    }
+
+    /* Iridescent Glass Pill Button */
+    .glass-pill {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.04) 100%);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.4), 0 4px 15px rgba(0, 0, 0, 0.3);
+      transition: all 0.25s ease;
+    }
+    .glass-pill:hover {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.08) 100%);
+      border-color: rgba(255, 255, 255, 0.4);
+      box-shadow: inset 0 1px 1.5px rgba(255, 255, 255, 0.6), 0 0 20px var(--glow-accent);
+    }
+    .glass-pill.active {
+      background: linear-gradient(135deg, var(--glow-accent) 0%, var(--glow-tertiary) 100%);
+      color: #FFFFFF;
+      border-color: rgba(255, 255, 255, 0.6);
+      box-shadow: 0 0 25px var(--glow-accent);
+    }
+
+    /* 3D Circular Control Dial inspired by Reference 5 */
+    .glass-dial-wrapper {
+      position: relative;
+      border-radius: 9999px;
+      padding: 3px;
+      background: conic-gradient(from 0deg, var(--glow-accent), var(--glow-secondary), var(--glow-tertiary), var(--glow-accent));
+      box-shadow: 0 0 35px -5px var(--glow-accent);
+      animation: rotateDialGlow 14s linear infinite;
+    }
+    @keyframes rotateDialGlow {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* Smooth animated fluid aurora background */
+    .aurora-bg-mesh {
+      background: radial-gradient(circle at 20% 15%, rgba(168, 85, 247, 0.25) 0%, transparent 45%),
+                  radial-gradient(circle at 80% 25%, rgba(6, 182, 212, 0.2) 0%, transparent 50%),
+                  radial-gradient(circle at 50% 80%, rgba(244, 63, 94, 0.18) 0%, transparent 60%),
+                  radial-gradient(circle at 10% 85%, rgba(16, 185, 129, 0.15) 0%, transparent 40%);
+      filter: blur(55px);
+    }
+
+    /* Specular glass edge line */
+    .specular-edge {
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(10, 8, 18, 0.4);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--glow-accent);
+    }
+  </style>
+</head>
+<body class="theme-cyber min-h-screen relative flex flex-col justify-between selection:bg-purple-500 selection:text-white">
+
+  <!-- Ambient Dynamic Mesh Background -->
+  <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+    <div class="aurora-bg-mesh absolute -inset-[20%] opacity-80 transition-all duration-700"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.08)_1px,transparent_1px)] [background-size:24px_24px] opacity-25"></div>
+  </div>
+
+  <!-- 3D Holographic Pedestal Canvas (Reference 1: Floating Hologram with Orbital Laser Rings) -->
+  <div class="fixed inset-0 pointer-events-none z-0 flex items-center justify-center">
+    <div id="hologram-3d-canvas" class="w-full h-full opacity-65"></div>
+  </div>
+
+  <!-- Floating Glass Island Navbar -->
+  <header class="relative z-30 px-4 sm:px-8 pt-5 pb-2">
+    <div class="max-w-[1720px] mx-auto glass-slab px-5 py-3.5 rounded-3xl flex flex-wrap items-center justify-between gap-4">
+      
+      <!-- Brand & Hologram Indicator -->
+      <div class="flex items-center gap-3.5">
+        <div class="relative w-11 h-11 rounded-2xl glass-capsule flex items-center justify-center border border-white/25 cursor-pointer group" onclick="pulseHologramCore()">
+          <div class="w-3.5 h-3.5 rounded-full bg-gradient-to-tr from-purple-400 to-cyan-300 animate-ping absolute opacity-60"></div>
+          <div class="w-5 h-5 rounded-full bg-gradient-to-tr from-purple-500 via-pink-400 to-cyan-300 shadow-[0_0_15px_#A855F7] flex items-center justify-center">
+            <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a8 8 0 100 16 8 8 0 000-16zm1 11H9v-2h2v2zm0-4H9V5h2v4z"/></svg>
+          </div>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-xl font-display font-bold tracking-wider text-white">AETHER<span class="text-purple-400 font-light">.GLASS</span></span>
+            <span class="px-2 py-0.5 rounded-full text-[9px] font-mono tracking-widest uppercase bg-purple-500/20 text-purple-200 border border-purple-400/30">HoloOS v4.2</span>
+          </div>
+          <p class="text-[10px] tracking-[0.25em] text-white/50 uppercase font-medium">Spatial Refractive Scheduler</p>
+        </div>
+      </div>
+
+      <!-- Quick Calendar Jump Bar & Current Date/Time -->
+      <div class="flex items-center gap-3 glass-capsule px-4 py-2 rounded-2xl">
+        <button onclick="navigateMonth(-1)" class="w-7 h-7 rounded-xl flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 transition" title="Previous Month">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+        </button>
+        <div class="text-center min-w-[170px]">
+          <div id="navDateHeader" class="text-xs font-display font-semibold tracking-wider text-white uppercase">September 2026</div>
+          <div id="navLiveTime" class="text-[11px] font-mono text-purple-300">11:29:35 AM PKT</div>
+        </div>
+        <button onclick="navigateMonth(1)" class="w-7 h-7 rounded-xl flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 transition" title="Next Month">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        </button>
+        <button onclick="jumpToPresent()" class="text-[10px] uppercase font-bold tracking-widest px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-purple-200 transition">Today</button>
+      </div>
+
+      <!-- Multi-View Segmented Switcher & Prism Glow Themes -->
+      <div class="flex items-center gap-3">
+        <!-- View Tabs -->
+        <div class="glass-capsule p-1 rounded-2xl flex items-center gap-1 text-xs">
+          <button id="viewBtn-month" onclick="switchView('month')" class="glass-pill active px-3.5 py-1.5 rounded-xl font-medium">Month</button>
+          <button id="viewBtn-week" onclick="switchView('week')" class="glass-pill px-3.5 py-1.5 rounded-xl text-white/70 font-medium">Timeline</button>
+          <button id="viewBtn-agenda" onclick="switchView('agenda')" class="glass-pill px-3.5 py-1.5 rounded-xl text-white/70 font-medium">Focus VIP</button>
+        </div>
+
+        <!-- Glass Spectrum Theme Switcher (Inspired by Reference 5 Colour Dial) -->
+        <div class="flex items-center gap-1.5 glass-capsule px-2.5 py-1.5 rounded-2xl">
+          <button onclick="setTheme('cyber')" class="w-5 h-5 rounded-full bg-gradient-to-tr from-purple-500 to-cyan-400 border border-white/40 shadow-sm hover:scale-110 transition" title="Cyber Violet"></button>
+          <button onclick="setTheme('lavender')" class="w-5 h-5 rounded-full bg-gradient-to-tr from-pink-400 to-indigo-300 border border-white/40 shadow-sm hover:scale-110 transition" title="Lavender Blossom"></button>
+          <button onclick="setTheme('amber')" class="w-5 h-5 rounded-full bg-gradient-to-tr from-amber-500 to-rose-400 border border-white/40 shadow-sm hover:scale-110 transition" title="Warm Solar Amber"></button>
+          <button onclick="setTheme('emerald')" class="w-5 h-5 rounded-full bg-gradient-to-tr from-emerald-400 to-teal-300 border border-white/40 shadow-sm hover:scale-110 transition" title="Emerald Prism"></button>
+        </div>
+
+        <!-- Audio Atmosphere Toggle -->
+        <button id="audioToggleBtn" onclick="toggleCrystalAudio()" class="w-10 h-10 rounded-2xl glass-capsule flex items-center justify-center text-white/80 hover:text-white transition" title="Delicate Crystal Audio">
+          <svg id="audioIconOn" class="w-4 h-4 text-purple-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg>
+          <svg id="audioIconOff" class="w-4 h-4 hidden text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z M17 14l4-4m0 4l-4-4"/></svg>
+        </button>
+
+        <!-- New Appointment Modal Trigger -->
+        <button onclick="openBookingModal()" class="px-5 py-2.5 rounded-2xl bg-gradient-to-r from-purple-500 via-pink-500 to-cyan-400 text-white font-display text-xs font-semibold uppercase tracking-wider shadow-[0_0_25px_rgba(168,85,247,0.5)] hover:brightness-110 active:scale-95 transition flex items-center gap-2">
+          <svg class="w-3.5 h-3.5 stroke-[2.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+          <span>Schedule Entry</span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <main class="relative z-10 flex-1 max-w-[1720px] w-full mx-auto p-4 sm:p-6 lg:p-8 grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+    <!-- LEFT COLUMN: Tactile Glass Dial Navigator & Category Filters (References 3, 5 & 6) -->
+    <aside class="lg:col-span-3 space-y-6 flex flex-col justify-between">
+      
+      <!-- Spatial Status Glass Card -->
+      <div class="glass-slab p-5 sm:p-6 rounded-3xl relative overflow-hidden group">
+        <div class="absolute -right-8 -top-8 w-32 h-32 bg-purple-500/20 rounded-full blur-2xl group-hover:scale-125 transition duration-700 pointer-events-none"></div>
+        <div class="flex items-center justify-between pb-3 border-b border-white/10">
+          <span class="text-[10px] tracking-[0.25em] uppercase text-purple-300 font-bold">Orbit Registry</span>
+          <span class="flex items-center gap-1.5 text-[11px] text-cyan-300 font-mono">
+            <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span> Synchronized
+          </span>
+        </div>
+
+        <!-- Metric Badges -->
+        <div class="pt-4 grid grid-cols-2 gap-3 text-center">
+          <div class="glass-capsule p-3 rounded-2xl">
+            <div id="statTotalSlots" class="text-2xl font-display font-bold text-white">18</div>
+            <div class="text-[10px] uppercase tracking-wider text-white/50">Events Logged</div>
+          </div>
+          <div class="glass-capsule p-3 rounded-2xl">
+            <div id="statPrioritySlots" class="text-2xl font-display font-bold text-purple-300">7</div>
+            <div class="text-[10px] uppercase tracking-wider text-white/50">Key Milestones</div>
+          </div>
+        </div>
+
+        <!-- Next Immediate Focus Capsule -->
+        <div class="mt-4 p-3 rounded-2xl bg-white/5 border border-white/10 flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl glass-capsule flex items-center justify-center text-purple-300 shrink-0">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+          <div class="min-w-0 flex-1">
+            <div class="text-[9px] uppercase tracking-wider text-white/40">Approaching Session</div>
+            <div id="nextSessionTitle" class="text-xs font-semibold text-white truncate">Spatial UI Keynote Rehearsal</div>
+            <div id="nextSessionTime" class="text-[10px] font-mono text-cyan-300">Today &bull; 02:00 PM</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Circular Category Dial Selector (Inspired by Reference 5 Rotary Dial) -->
+      <div class="glass-slab p-5 rounded-3xl space-y-4">
+        <div class="flex items-center justify-between">
+          <h3 class="text-xs font-bold tracking-widest uppercase text-white/80">Category Orbitals</h3>
+          <button onclick="resetCategoryFilter()" class="text-[10px] text-purple-300 hover:text-white transition">Show All</button>
+        </div>
+
+        <div class="space-y-2" id="categoryPillList">
+          <!-- Dynamically Injected with Glowing Status Beads -->
+        </div>
+      </div>
+
+      <!-- Ambient Soundscape Player (Reference 3 & 4 Audio Widget) -->
+      <div class="glass-slab p-5 rounded-3xl space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="text-[10px] tracking-widest uppercase text-white/60 font-semibold">Crystal Lo-Fi Audio</span>
+          <div id="eqBars" class="flex items-end gap-1 h-3">
+            <span class="w-1 h-2 bg-purple-400 rounded-full animate-bounce"></span>
+            <span class="w-1 h-3 bg-cyan-400 rounded-full animate-bounce [animation-delay:0.2s]"></span>
+            <span class="w-1 h-1.5 bg-pink-400 rounded-full animate-bounce [animation-delay:0.4s]"></span>
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <button id="ambientPlayBtn" onclick="toggleAmbientMusic()" class="w-10 h-10 rounded-2xl glass-capsule flex items-center justify-center text-purple-300 hover:text-white transition">
+            <svg id="ambientPlayIcon" class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            <svg id="ambientPauseIcon" class="w-4 h-4 fill-current hidden" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+          </button>
+          <div class="flex-1 min-w-0">
+            <div class="text-xs font-semibold text-white truncate">Ethereal Glass Resonance</div>
+            <div class="text-[10px] text-white/50">Generative 432Hz Soundscape</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Export & Synchronization Options -->
+      <div class="glass-slab p-4 rounded-3xl flex items-center justify-between gap-2">
+        <button onclick="exportToICS()" class="flex-1 py-2.5 rounded-2xl glass-capsule text-[11px] font-medium text-white flex items-center justify-center gap-2 hover:bg-white/15 transition">
+          <svg class="w-3.5 h-3.5 text-cyan-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+          <span>Sync iCal</span>
+        </button>
+        <button onclick="window.print()" class="px-3.5 py-2.5 rounded-2xl glass-capsule text-[11px] font-medium text-white/80 hover:text-white transition" title="Print Run-Sheet">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4H7v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+        </button>
+      </div>
+
+    </aside>
+
+    <!-- CENTER COLUMN: Glass Scheduler Core Matrix (References 1, 2 & 4) -->
+    <section class="lg:col-span-6 flex flex-col min-w-0">
+
+      <!-- View 1: Month Matrix Grid -->
+      <div id="viewWrapper-month" class="glass-slab p-5 sm:p-7 rounded-3xl flex-1 flex flex-col">
+        <!-- Weekday Labels -->
+        <div class="grid grid-cols-7 gap-1.5 pb-3 text-center border-b border-white/10 text-[10px] font-mono tracking-widest uppercase text-purple-300 font-bold">
+          <span>Sun</span>
+          <span>Mon</span>
+          <span>Tue</span>
+          <span>Wed</span>
+          <span>Thu</span>
+          <span>Fri</span>
+          <span>Sat</span>
+        </div>
+        <!-- 35/42 Cell Grid Container -->
+        <div id="monthGridCells" class="grid grid-cols-7 gap-1.5 sm:gap-2 flex-1 pt-3 min-h-[520px]">
+          <!-- Dynamically populated via JavaScript -->
+        </div>
+      </div>
+
+      <!-- View 2: Horizontal Timeline / Weekly Time-Blocking -->
+      <div id="viewWrapper-week" class="hidden glass-slab p-5 sm:p-7 rounded-3xl flex-1 flex-col overflow-x-auto">
+        <div class="flex items-center justify-between pb-3 border-b border-white/10">
+          <div>
+            <h3 id="weekTimelineTitle" class="text-base font-display font-bold text-white">Weekly Quantum Schedule</h3>
+            <p class="text-[11px] text-white/50">Click any hour slot to instantly book an appointment</p>
+          </div>
+          <span class="text-[10px] font-mono px-2.5 py-1 rounded-full bg-white/10 text-cyan-300">UTC+5 PKT</span>
+        </div>
+        <div class="flex-1 overflow-y-auto max-h-[550px] pt-3 pr-1">
+          <div id="weekTimelineContainer" class="min-w-[620px]">
+            <!-- Injected via JavaScript -->
+          </div>
+        </div>
+      </div>
+
+      <!-- View 3: Day VIP Focus / Executive Agenda -->
+      <div id="viewWrapper-agenda" class="hidden glass-slab p-5 sm:p-7 rounded-3xl flex-1 flex-col">
+        <div class="flex items-center justify-between pb-4 border-b border-white/10">
+          <div>
+            <span class="text-[10px] tracking-widest uppercase text-purple-300 font-bold">VIP Focus Agenda</span>
+            <h3 id="focusDayTitle" class="text-xl font-display font-bold text-white mt-0.5">Tuesday, September 22, 2026</h3>
+          </div>
+          <button onclick="openBookingModal(currentSelectedDate)" class="px-4 py-2 rounded-xl glass-capsule text-xs text-cyan-300 hover:text-white font-medium transition">
+            + Add To Day
+          </button>
+        </div>
+        <div id="focusAgendaItems" class="flex-1 overflow-y-auto space-y-3 pt-4 max-h-[540px] pr-2">
+          <!-- Injected via JavaScript -->
+        </div>
+      </div>
+
+    </section>
+
+    <!-- RIGHT COLUMN: Focus Timer Dial, Habit Matrix & Task Stack (References 2, 4 & 5) -->
+    <aside class="lg:col-span-3 space-y-6 flex flex-col justify-between">
+
+      <!-- Circular Deep Work Focus Timer (Reference 4 Circular Pomodoro) -->
+      <div class="glass-slab p-5 rounded-3xl space-y-4 text-center relative overflow-hidden">
+        <div class="flex items-center justify-between text-xs pb-1">
+          <span class="text-[10px] tracking-wider uppercase text-white/60 font-semibold">Deep Focus Ring</span>
+          <span id="focusModeTag" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-200">25m Work</span>
+        </div>
+
+        <!-- Circular SVG Progress Ring with Center Clock -->
+        <div class="relative w-40 h-40 mx-auto flex items-center justify-center">
+          <svg class="w-full h-full -rotate-90 transform" viewBox="0 0 120 120">
+            <!-- Background circle -->
+            <circle cx="60" cy="60" r="50" class="text-white/10" stroke-width="6" stroke="currentColor" fill="transparent" />
+            <!-- Animated Progress circle -->
+            <circle id="timerProgressCircle" cx="60" cy="60" r="50" class="text-purple-500 transition-all duration-300" stroke-width="6" stroke-linecap="round" stroke="currentColor" fill="transparent" stroke-dasharray="314" stroke-dashoffset="0" />
+          </svg>
+          <div class="absolute inset-0 flex flex-col items-center justify-center">
+            <span id="timerDisplay" class="text-2xl font-mono font-bold text-white tracking-wider">25:00</span>
+            <span class="text-[9px] uppercase tracking-widest text-white/50 mt-0.5">Flow State</span>
+          </div>
+        </div>
+
+        <!-- Timer Controls -->
+        <div class="flex items-center justify-center gap-3 pt-1">
+          <button id="timerToggleBtn" onclick="toggleFocusTimer()" class="px-5 py-2 rounded-xl bg-purple-500/30 hover:bg-purple-500/50 text-white font-semibold text-xs transition border border-purple-400/40 shadow-lg">
+            Start
+          </button>
+          <button onclick="resetFocusTimer()" class="p-2 rounded-xl glass-capsule text-white/60 hover:text-white transition" title="Reset Timer">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Quick Glass Checklist / Micro-Tasks (Reference 4 Task Card) -->
+      <div class="glass-slab p-5 rounded-3xl space-y-3">
+        <div class="flex items-center justify-between">
+          <h4 class="text-xs font-bold tracking-wider uppercase text-white/80">Glass Action Items</h4>
+          <span id="taskCountBadge" class="text-[10px] font-mono text-cyan-300">3 Pending</span>
+        </div>
+
+        <div id="taskListContainer" class="space-y-2 max-h-[160px] overflow-y-auto pr-1">
+          <!-- Injected via JavaScript -->
+        </div>
+
+        <!-- Add quick task inline -->
+        <div class="flex items-center gap-2 pt-1">
+          <input type="text" id="quickTaskInput" placeholder="Add rapid milestone..." onkeydown="handleTaskKeydown(event)" class="flex-1 bg-white/5 border border-white/10 rounded-xl px-3 py-1.5 text-xs text-white placeholder-white/30 focus:outline-none focus:border-purple-400">
+          <button onclick="addQuickTask()" class="w-7 h-7 rounded-xl glass-capsule flex items-center justify-center text-white/80 hover:text-white transition">+</button>
+        </div>
+      </div>
+
+      <!-- Daily Habit Matrix (Reference 4 Habit Grid) -->
+      <div class="glass-slab p-4 rounded-3xl space-y-2.5">
+        <div class="flex items-center justify-between text-[11px]">
+          <span class="text-white/60 font-semibold uppercase tracking-wider text-[10px]">Weekly Quantum Matrix</span>
+          <span class="text-purple-300 font-mono text-[10px]">88% Consistency</span>
+        </div>
+        <div class="grid grid-cols-7 gap-1 text-center text-[9px] text-white/40 pb-1">
+          <span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span>
+        </div>
+        <div class="space-y-1.5" id="habitRowsContainer">
+          <!-- Habit beads injected via JS -->
+        </div>
+      </div>
+
+    </aside>
+
+  </main>
+
+  <!-- Booking & Appointment Modal -->
+  <div id="bookingModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-2xl hidden items-center justify-center p-4">
+    <div class="glass-slab w-full max-w-lg rounded-3xl p-6 sm:p-8 space-y-5 relative border border-white/30 shadow-[0_0_50px_rgba(168,85,247,0.4)] animate-in fade-in zoom-in duration-300">
+      
+      <button onclick="closeBookingModal()" class="absolute top-5 right-5 w-8 h-8 rounded-full glass-capsule flex items-center justify-center text-white/60 hover:text-white transition">
+        &times;
+      </button>
+
+      <div>
+        <span class="text-[10px] tracking-[0.25em] uppercase text-purple-300 font-bold">Holographic Scheduler</span>
+        <h3 id="modalTitleText" class="text-xl font-display font-bold text-white mt-0.5">Book Spatial Timeline Slot</h3>
+      </div>
+
+      <form id="scheduleForm" onsubmit="handleFormSubmit(event)" class="space-y-4">
+        <input type="hidden" id="editSlotId" value="">
+
+        <div>
+          <label class="block text-[11px] font-semibold text-white/70 uppercase tracking-wider mb-1">Appointment Title</label>
+          <input type="text" id="slotTitle" required placeholder="e.g., Vision Pro Architecture Review" class="w-full bg-white/5 border border-white/15 focus:border-purple-400 rounded-2xl px-4 py-2.5 text-xs text-white placeholder-white/30 outline-none transition">
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-[11px] font-semibold text-white/70 uppercase tracking-wider mb-1">Date</label>
+            <input type="date" id="slotDate" required class="w-full bg-white/5 border border-white/15 focus:border-purple-400 rounded-2xl px-4 py-2.5 text-xs text-white outline-none transition">
+          </div>
+          <div>
+            <label class="block text-[11px] font-semibold text-white/70 uppercase tracking-wider mb-1">Time</label>
+            <input type="time" id="slotTime" required value="14:00" class="w-full bg-white/5 border border-white/15 focus:border-purple-400 rounded-2xl px-4 py-2.5 text-xs text-white outline-none transition">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-[11px] font-semibold text-white/70 uppercase tracking-wider mb-1">Duration</label>
+            <select id="slotDuration" class="w-full bg-[#161226] border border-white/15 focus:border-purple-400 rounded-2xl px-3 py-2.5 text-xs text-white outline-none cursor-pointer">
+              <option value="30">30 Minutes</option>
+              <option value="60" selected>60 Minutes (Standard)</option>
+              <option value="90">90 Minutes</option>
+              <option value="120">120 Minutes (Deep Sync)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-[11px] font-semibold text-white/70 uppercase tracking-wider mb-1">Category Orbit</label>
+            <select id="slotCategory" class="w-full bg-[#161226] border border-white/15 focus:border-purple-400 rounded-2xl px-3 py-2.5 text-xs text-white outline-none cursor-pointer">
+              <option value="creative">Spatial Design</option>
+              <option value="strategy">Executive Strategy</option>
+              <option value="dev">Quantum Code</option>
+              <option value="wellness">Personal Wellness</option>
+              <option value="press">Press & Media</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-semibold text-white/70 uppercase tracking-wider mb-1.5">Priority Spectrum</label>
+          <div class="grid grid-cols-3 gap-2">
+            <label class="cursor-pointer">
+              <input type="radio" name="slotPriority" value="normal" checked class="peer sr-only">
+              <div class="py-2 text-center rounded-xl glass-capsule text-xs text-white/70 peer-checked:bg-white/20 peer-checked:text-white peer-checked:border-white/40 transition">Standard</div>
+            </label>
+            <label class="cursor-pointer">
+              <input type="radio" name="slotPriority" value="high" class="peer sr-only">
+              <div class="py-2 text-center rounded-xl glass-capsule text-xs text-white/70 peer-checked:bg-purple-500/30 peer-checked:text-purple-200 peer-checked:border-purple-400/50 transition">Elevated</div>
+            </label>
+            <label class="cursor-pointer">
+              <input type="radio" name="slotPriority" value="vital" class="peer sr-only">
+              <div class="py-2 text-center rounded-xl glass-capsule text-xs text-white/70 peer-checked:bg-rose-500/30 peer-checked:text-rose-200 peer-checked:border-rose-400/50 transition">Vital Orbit</div>
+            </label>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-semibold text-white/70 uppercase tracking-wider mb-1">Brief Agenda Notes</label>
+          <textarea id="slotNotes" rows="2" placeholder="Spatial links, holographic deliverables, meeting room..." class="w-full bg-white/5 border border-white/15 focus:border-purple-400 rounded-2xl px-4 py-2 text-xs text-white placeholder-white/30 outline-none resize-none"></textarea>
+        </div>
+
+        <div class="pt-2 flex items-center justify-end gap-3">
+          <button type="button" onclick="closeBookingModal()" class="px-4 py-2.5 rounded-xl text-xs text-white/60 hover:text-white transition">Cancel</button>
+          <button type="submit" class="px-6 py-2.5 rounded-2xl bg-gradient-to-r from-purple-500 to-cyan-400 text-white font-semibold text-xs uppercase tracking-wider shadow-lg hover:brightness-110 active:scale-95 transition">Confirm Slot</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- Glass Holographic Notification Toast -->
+  <div id="glassToast" class="fixed bottom-6 right-6 z-50 glass-slab px-5 py-3 rounded-2xl text-xs text-white flex items-center gap-3 border border-purple-400/40 shadow-[0_0_30px_rgba(168,85,247,0.3)] transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+    <div class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-ping"></div>
+    <span id="glassToastText">Spatial timeline synchronized</span>
+  </div>
+
+  <script>
+    /*
+      ========================================================================
+      AETHER GLASS ENGINE: FULL STATE, PERSISTENCE, WEBGL & AUDIO
+      ========================================================================
+    */
+
+    const CATEGORIES = {
+      creative: { name: 'Spatial Design', color: '#C084FC', bg: 'rgba(192, 132, 252, 0.15)', border: 'rgba(192, 132, 252, 0.4)' },
+      strategy: { name: 'Executive Strategy', color: '#38BDF8', bg: 'rgba(56, 189, 248, 0.15)', border: 'rgba(56, 189, 248, 0.4)' },
+      dev: { name: 'Quantum Code', color: '#34D399', bg: 'rgba(52, 211, 153, 0.15)', border: 'rgba(52, 211, 153, 0.4)' },
+      wellness: { name: 'Personal Wellness', color: '#F472B6', bg: 'rgba(244, 114, 182, 0.15)', border: 'rgba(244, 114, 182, 0.4)' },
+      press: { name: 'Press & Media', color: '#FBBF24', bg: 'rgba(251, 191, 36, 0.15)', border: 'rgba(251, 191, 36, 0.4)' }
+    };
+
+    let activeFilterCategory = null;
+    let currentActiveView = 'month'; // 'month' | 'week' | 'agenda'
+    let audioActive = true;
+    let synth = null;
+    let ambientSynth = null;
+    let ambientPlaying = false;
+
+    // Default Anchor: September 22, 2026
+    let currentDate = new Date(2026, 8, 22);
+    let currentSelectedDate = new Date(2026, 8, 22);
+
+    // Initial Haute Appointments Sample Data
+    const INITIAL_APPOINTMENTS = [
+      {
+        id: "slot-01",
+        title: "Spatial UI Keynote Rehearsal",
+        date: "2026-09-22",
+        time: "14:00",
+        duration: "60",
+        category: "creative",
+        priority: "vital",
+        notes: "Run holographic presentation deck with live refractive shaders."
+      },
+      {
+        id: "slot-02",
+        title: "Apple Vision Pro Spatial Audio Sync",
+        date: "2026-09-22",
+        time: "16:30",
+        duration: "90",
+        category: "dev",
+        priority: "high",
+        notes: "Calibrate head-tracking impulse response for glass chimes."
+      },
+      {
+        id: "slot-03",
+        title: "Vogue Innovation Editorial Interview",
+        date: "2026-09-22",
+        time: "10:30",
+        duration: "60",
+        category: "press",
+        priority: "normal",
+        notes: "Discuss futuristic glass interfaces and emotional UX."
+      },
+      {
+        id: "slot-04",
+        title: "Mindfulness & Spatial Light Therapy",
+        date: "2026-09-23",
+        time: "08:30",
+        duration: "45",
+        category: "wellness",
+        priority: "normal",
+        notes: "Color bath session in 432Hz ambient soundscape."
+      },
+      {
+        id: "slot-05",
+        title: "Global Venture Round Strategy Meeting",
+        date: "2026-09-24",
+        time: "15:00",
+        duration: "60",
+        category: "strategy",
+        priority: "vital",
+        notes: "Series B spatial computing capital allocation plan."
+      },
+      {
+        id: "slot-06",
+        title: "WebGL 3D Shader Performance Audit",
+        date: "2026-09-18",
+        time: "11:00",
+        duration: "60",
+        category: "dev",
+        priority: "high",
+        notes: "Profile mobile GPU draw calls and glass refraction depth."
+      }
+    ];
+
+    // LocalStorage Persistent Slots
+    let appointments = JSON.parse(localStorage.getItem('aether_slots') || JSON.stringify(INITIAL_APPOINTMENTS));
+
+    // Tasks list
+    let tasks = JSON.parse(localStorage.getItem('aether_tasks') || JSON.stringify([
+      { id: 1, text: "Finish Glass Shader Specular Pass", done: true },
+      { id: 2, text: "Align Chronos Ring 60fps Animation", done: false },
+      { id: 3, text: "Refine Pomodoro Sound Feedback", done: false }
+    ]));
+
+    // Habit data
+    const habits = [
+      { name: "Deep Flow", checks: [true, true, true, true, true, false, true] },
+      { name: "Hydration", checks: [true, true, true, true, true, true, true] },
+      { name: "Posture Sync", checks: [true, true, false, true, true, false, true] }
+    ];
+
+    // Save and Re-render
+    function persistData() {
+      localStorage.setItem('aether_slots', JSON.stringify(appointments));
+      localStorage.setItem('aether_tasks', JSON.stringify(tasks));
+      renderCurrentActiveView();
+      renderMetrics();
+      renderTasks();
+    }
+
+    /*
+      ========================================================================
+      THREE.JS: HOLOGRAPHIC CYBER PEDESTAL & ORBITAL GLASS RINGS (Ref 1)
+      ========================================================================
+    */
+    let holoScene, holoCamera, holoRenderer, holoCoreMesh, orbitalGroup;
+
+    function initHologram3D() {
+      const container = document.getElementById('hologram-3d-canvas');
+      if (!container) return;
+
+      holoScene = new THREE.Scene();
+      holoCamera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 100);
+      holoCamera.position.set(0, 3.2, 7.8);
+      holoCamera.lookAt(0, 0, 0);
+
+      holoRenderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+      holoRenderer.setSize(container.clientWidth, container.clientHeight);
+      holoRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      container.appendChild(holoRenderer.domElement);
+
+      orbitalGroup = new THREE.Group();
+      holoScene.add(orbitalGroup);
+
+      // Core faceted glass icosahedron representing Hologram Orb (Reference 1)
+      const coreGeo = new THREE.IcosahedronGeometry(1.2, 1);
+      const coreMat = new THREE.MeshPhysicalMaterial({
+        color: 0xA855F7,
+        emissive: 0x3B0764,
+        roughness: 0.1,
+        metalness: 0.2,
+        transmission: 0.9,
+        ior: 1.5,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.75
+      });
+      holoCoreMesh = new THREE.Mesh(coreGeo, coreMat);
+      orbitalGroup.add(holoCoreMesh);
+
+      // Glowing Holographic Particle Cloud
+      const particleCount = 280;
+      const partGeo = new THREE.BufferGeometry();
+      const positions = new Float32Array(particleCount * 3);
+      for (let i = 0; i < particleCount * 3; i += 3) {
+        const radius = 2.2 + Math.random() * 1.8;
+        const theta = Math.random() * Math.PI * 2;
+        const phi = (Math.random() - 0.5) * Math.PI * 0.8;
+        positions[i] = radius * Math.cos(theta) * Math.cos(phi);
+        positions[i + 1] = radius * Math.sin(phi);
+        positions[i + 2] = radius * Math.sin(theta) * Math.cos(phi);
+      }
+      partGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+      const partMat = new THREE.PointsMaterial({
+        color: 0x38BDF8,
+        size: 0.055,
+        transparent: true,
+        opacity: 0.85
+      });
+      const particleField = new THREE.Points(partGeo, partMat);
+      orbitalGroup.add(particleField);
+
+      // Concentric Floating Laser Orbital Rings (Reference 1)
+      const ringGeometries = [
+        { r: 2.2, tube: 0.02, col: 0xA855F7 },
+        { r: 2.9, tube: 0.015, col: 0x38BDF8 },
+        { r: 3.6, tube: 0.012, col: 0xEC4899 }
+      ];
+
+      ringGeometries.forEach((rg, idx) => {
+        const ringGeo = new THREE.TorusGeometry(rg.r, rg.tube, 16, 100);
+        const ringMat = new THREE.MeshBasicMaterial({ color: rg.col, wireframe: false });
+        const ringMesh = new THREE.Mesh(ringGeo, ringMat);
+        ringMesh.rotation.x = Math.PI / 2 + (idx * 0.2);
+        ringMesh.rotation.y = idx * 0.3;
+        orbitalGroup.add(ringMesh);
+      });
+
+      // Lighting
+      const light1 = new THREE.PointLight(0xA855F7, 3, 20);
+      light1.position.set(3, 4, 3);
+      holoScene.add(light1);
+
+      const light2 = new THREE.PointLight(0x06B6D4, 2.5, 20);
+      light2.position.set(-3, -2, 2);
+      holoScene.add(light2);
+
+      // Animation Loop
+      function animateHolo() {
+        requestAnimationFrame(animateHolo);
+        orbitalGroup.rotation.y += 0.0035;
+        holoCoreMesh.rotation.x += 0.005;
+        holoCoreMesh.rotation.z += 0.004;
+        holoRenderer.render(holoScene, holoCamera);
+      }
+      animateHolo();
+
+      window.addEventListener('resize', () => {
+        if (!container) return;
+        holoCamera.aspect = container.clientWidth / container.clientHeight;
+        holoCamera.updateProjectionMatrix();
+        holoRenderer.setSize(container.clientWidth, container.clientHeight);
+      });
+    }
+
+    function pulseHologramCore() {
+      if (!holoCoreMesh) return;
+      holoCoreMesh.scale.set(1.4, 1.4, 1.4);
+      setTimeout(() => {
+        holoCoreMesh.scale.set(1, 1, 1);
+      }, 300);
+      playGlassTone(['E5', 'B5', 'E6']);
+      triggerToast("Hologram Core Pulsing ✨");
+    }
+
+    /*
+      ========================================================================
+      AUDIO SYNTHESIS: DELICATE CRYSTAL GLASS RESONANCE
+      ========================================================================
+    */
+    function initToneAudio() {
+      if (!synth && window.Tone) {
+        synth = new Tone.PolySynth(Tone.Synth, {
+          oscillator: { type: "sine" },
+          envelope: { attack: 0.005, decay: 1.1, sustain: 0, release: 1.2 }
+        }).toDestination();
+        synth.volume.value = -12;
+      }
+    }
+
+    function playGlassTone(chord = ['A5', 'E6']) {
+      if (!audioActive) return;
+      try {
+        if (window.Tone && Tone.context.state !== 'running') {
+          Tone.start();
+        }
+        initToneAudio();
+        if (synth) synth.triggerAttackRelease(chord, "8n");
+      } catch (e) {
+        console.debug("Audio note skipped:", e);
+      }
+    }
+
+    function toggleCrystalAudio() {
+      audioActive = !audioActive;
+      document.getElementById('audioIconOn').classList.toggle('hidden', !audioActive);
+      document.getElementById('audioIconOff').classList.toggle('hidden', audioActive);
+      triggerToast(audioActive ? "Crystal Audio Resonance Enabled" : "Audio Muted");
+    }
+
+    function toggleAmbientMusic() {
+      ambientPlaying = !ambientPlaying;
+      const playIcon = document.getElementById('ambientPlayIcon');
+      const pauseIcon = document.getElementById('ambientPauseIcon');
+      const eq = document.getElementById('eqBars');
+
+      if (ambientPlaying) {
+        playIcon.classList.add('hidden');
+        pauseIcon.classList.remove('hidden');
+        eq.classList.remove('opacity-30');
+        playGlassTone(['C5', 'G5', 'C6']);
+        triggerToast("Ambient 432Hz Soundscape Playing");
+      } else {
+        playIcon.classList.remove('hidden');
+        pauseIcon.classList.add('hidden');
+        eq.classList.add('opacity-30');
+        triggerToast("Soundscape Paused");
+      }
+    }
+
+    /*
+      ========================================================================
+      SCHEDULER VIEWS RENDERING (Month, Timeline, Focus)
+      ========================================================================
+    */
+
+    function renderMonthMatrix() {
+      const container = document.getElementById('monthGridCells');
+      if (!container) return;
+      container.innerHTML = '';
+
+      const year = currentDate.getFullYear();
+      const month = currentDate.getMonth();
+
+      const firstDayIndex = new Date(year, month, 1).getDay();
+      const totalDaysInMonth = new Date(year, month + 1, 0).getDate();
+      const prevMonthTotalDays = new Date(year, month, 0).getDate();
+
+      document.getElementById('navDateHeader').innerText = 
+        currentDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+
+      // Leading trailing cells
+      for (let i = firstDayIndex - 1; i >= 0; i--) {
+        const dayNum = prevMonthTotalDays - i;
+        const cell = document.createElement('div');
+        cell.className = 'glass-capsule p-2 rounded-2xl opacity-25 flex flex-col justify-between min-h-[75px] sm:min-h-[88px] border border-white/5 cursor-pointer';
+        cell.innerHTML = `<span class="text-xs font-mono text-white/50">${dayNum}</span>`;
+        cell.onclick = () => navigateMonth(-1);
+        container.appendChild(cell);
+      }
+
+      // Active month cells
+      const today = new Date();
+      for (let day = 1; day <= totalDaysInMonth; day++) {
+        const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+        
+        // Match filtered items
+        const daySlots = appointments.filter(a => {
+          const matchDate = a.date === dateStr;
+          const matchCat = !activeFilterCategory || a.category === activeFilterCategory;
+          return matchDate && matchCat;
+        });
+
+        const isSelected = currentSelectedDate.toISOString().split('T')[0] === dateStr;
+        const isToday = today.getFullYear() === year && today.getMonth() === month && today.getDate() === day;
+
+        const cell = document.createElement('div');
+        cell.className = `glass-capsule p-2 sm:p-2.5 rounded-2xl cursor-pointer flex flex-col justify-between min-h-[80px] sm:min-h-[92px] transition-all duration-300 relative group ${
+          isSelected 
+            ? 'border-purple-400 bg-white/15 shadow-[0_0_20px_rgba(168,85,247,0.4)]' 
+            : 'border-white/10 hover:border-white/30 hover:bg-white/10'
+        }`;
+
+        let topHtml = `
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-mono font-medium ${isToday ? 'px-2 py-0.5 rounded-full bg-purple-500 text-white font-bold' : isSelected ? 'text-cyan-300 font-bold' : 'text-white/80'}">${day}</span>
+            ${daySlots.length > 0 ? `<span class="text-[9px] font-mono text-purple-300 px-1.5 py-0.2 rounded-full bg-purple-500/20">${daySlots.length}</span>` : ''}
+          </div>
+        `;
+
+        let slotsHtml = '<div class="space-y-1 mt-1 overflow-hidden">';
+        daySlots.slice(0, 2).forEach(slot => {
+          const cat = CATEGORIES[slot.category] || CATEGORIES.creative;
+          slotsHtml += `
+            <div class="truncate text-[9px] px-1.5 py-0.5 rounded-md font-medium border"
+                 style="background: ${cat.bg}; color: ${cat.color}; border-color: ${cat.border}"
+                 title="${slot.time} - ${slot.title}">
+              <span class="font-mono">${slot.time}</span> ${slot.title}
+            </div>
+          `;
+        });
+        if (daySlots.length > 2) {
+          slotsHtml += `<div class="text-[8px] text-white/40 pl-1 font-mono">+${daySlots.length - 2} more</div>`;
+        }
+        slotsHtml += '</div>';
+
+        cell.innerHTML = topHtml + slotsHtml;
+        cell.onclick = () => {
+          selectDate(new Date(year, month, day));
+          playGlassTone(['D5', 'A5']);
+        };
+        container.appendChild(cell);
+      }
+    }
+
+    function renderWeekTimeline() {
+      const container = document.getElementById('weekTimelineContainer');
+      if (!container) return;
+      container.innerHTML = '';
+
+      const curr = new Date(currentSelectedDate);
+      const firstDayOfWeek = new Date(curr.setDate(curr.getDate() - curr.getDay()));
+
+      const weekDays = [];
+      for (let i = 0; i < 7; i++) {
+        const next = new Date(firstDayOfWeek);
+        next.setDate(firstDayOfWeek.getDate() + i);
+        weekDays.push(next);
+      }
+
+      document.getElementById('weekTimelineTitle').innerText = 
+        `${weekDays[0].toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} – ${weekDays[6].toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}`;
+
+      // Header row
+      let headerHtml = `<div class="grid grid-cols-8 gap-2 pb-2.5 border-b border-white/10 text-center text-xs">
+        <div class="text-white/40 font-mono text-[10px] self-end">Orbit</div>`;
+
+      weekDays.forEach(d => {
+        const isSelected = d.toDateString() === currentSelectedDate.toDateString();
+        headerHtml += `
+          <div class="p-2 rounded-xl cursor-pointer ${isSelected ? 'glass-capsule text-cyan-300 font-bold border-cyan-400/50' : 'text-white/80'}" onclick="selectDate(new Date('${d.toISOString()}'))">
+            <div class="text-[9px] uppercase tracking-wider text-white/50">${d.toLocaleDateString('en-US', { weekday: 'short' })}</div>
+            <div class="text-sm font-display">${d.getDate()}</div>
+          </div>
+        `;
+      });
+      headerHtml += `</div>`;
+
+      // Hourly rows (09:00 to 18:00)
+      let rowsHtml = '<div class="space-y-2 pt-2.5">';
+      for (let hour = 9; hour <= 18; hour++) {
+        const timeLabel = `${String(hour).padStart(2, '0')}:00`;
+        rowsHtml += `<div class="grid grid-cols-8 gap-2 items-center min-h-[44px] border-b border-white/5">
+          <div class="text-[10px] font-mono text-white/40 text-center">${timeLabel}</div>`;
+
+        weekDays.forEach(d => {
+          const dateStr = d.toISOString().split('T')[0];
+          const match = appointments.find(a => a.date === dateStr && a.time.startsWith(String(hour).padStart(2, '0')));
+
+          if (match) {
+            const cat = CATEGORIES[match.category] || CATEGORIES.creative;
+            rowsHtml += `
+              <div onclick="openEditModal('${match.id}')" class="p-2 rounded-xl text-[9px] cursor-pointer border truncate glass-capsule hover:scale-105 transition"
+                   style="background: ${cat.bg}; border-color: ${cat.border}; color: ${cat.color}">
+                <div class="font-bold font-mono">${match.time}</div>
+                <div class="truncate">${match.title}</div>
+              </div>
+            `;
+          } else {
+            rowsHtml += `
+              <div onclick="quickBookSlot('${dateStr}', '${timeLabel}')" class="h-9 rounded-xl border border-dashed border-white/10 hover:border-purple-400/50 hover:bg-white/5 transition flex items-center justify-center group cursor-pointer" title="Book ${timeLabel}">
+                <span class="text-white/0 group-hover:text-purple-300 text-xs transition">+</span>
+              </div>
+            `;
+          }
+        });
+        rowsHtml += `</div>`;
+      }
+      rowsHtml += '</div>';
+
+      container.innerHTML = headerHtml + rowsHtml;
+    }
+
+    function renderDayFocusAgenda() {
+      const container = document.getElementById('focusAgendaItems');
+      if (!container) return;
+      container.innerHTML = '';
+
+      const dateStr = currentSelectedDate.toISOString().split('T')[0];
+      document.getElementById('focusDayTitle').innerText = 
+        currentSelectedDate.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+
+      const daySlots = appointments
+        .filter(a => a.date === dateStr && (!activeFilterCategory || a.category === activeFilterCategory))
+        .sort((a, b) => a.time.localeCompare(b.time));
+
+      if (daySlots.length === 0) {
+        container.innerHTML = `
+          <div class="py-16 text-center space-y-3">
+            <div class="w-12 h-12 mx-auto rounded-full glass-capsule flex items-center justify-center text-purple-300">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
+            </div>
+            <h4 class="text-base font-display font-semibold text-white">Zero Temporal Slots Assigned</h4>
+            <p class="text-xs text-white/50 max-w-xs mx-auto">This holographic timeline is available for spatial design, keynotes, or deep work sessions.</p>
+            <button onclick="openBookingModal(currentSelectedDate)" class="px-5 py-2 rounded-xl bg-purple-500 text-white text-xs font-semibold uppercase tracking-wider shadow-lg">
+              Reserve First Slot
+            </button>
+          </div>
+        `;
+        return;
+      }
+
+      daySlots.forEach(slot => {
+        const cat = CATEGORIES[slot.category] || CATEGORIES.creative;
+        const card = document.createElement('div');
+        card.className = 'glass-capsule p-4 rounded-2xl flex items-center justify-between gap-3 hover:border-white/30 transition';
+        card.innerHTML = `
+          <div class="flex items-center gap-3.5 min-w-0">
+            <div class="w-12 h-12 rounded-xl glass-capsule flex flex-col items-center justify-center border font-mono text-center shrink-0" style="border-color: ${cat.border}; color: ${cat.color}">
+              <span class="text-xs font-bold">${slot.time}</span>
+              <span class="text-[9px] uppercase text-white/40">${slot.duration}m</span>
+            </div>
+            <div class="min-w-0">
+              <div class="flex items-center gap-2">
+                <span class="px-2 py-0.5 rounded-full text-[9px] uppercase font-bold tracking-wider" style="background: ${cat.bg}; color: ${cat.color}; border: 1px solid ${cat.border}">
+                  ${cat.name}
+                </span>
+                ${slot.priority === 'vital' ? '<span class="text-[10px] text-rose-300 font-semibold">&bull; Vital Orbit</span>' : ''}
+              </div>
+              <h4 class="text-sm font-semibold text-white truncate mt-0.5">${slot.title}</h4>
+              ${slot.notes ? `<p class="text-[11px] text-white/60 truncate font-light">${slot.notes}</p>` : ''}
+            </div>
+          </div>
+          <div class="flex items-center gap-2 shrink-0">
+            <button onclick="openEditModal('${slot.id}')" class="px-3 py-1.5 rounded-xl glass-capsule text-xs text-white/80 hover:text-white transition">Edit</button>
+            <button onclick="deleteSlot('${slot.id}')" class="w-7 h-7 rounded-xl glass-capsule text-rose-400 hover:bg-rose-500/20 flex items-center justify-center transition">&times;</button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function renderMetrics() {
+      document.getElementById('statTotalSlots').innerText = appointments.length;
+      const vitalCount = appointments.filter(a => a.priority === 'vital' || a.priority === 'high').length;
+      document.getElementById('statPrioritySlots').innerText = vitalCount;
+
+      const upcoming = appointments
+        .slice()
+        .sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time))[0];
+
+      if (upcoming) {
+        document.getElementById('nextSessionTitle').innerText = upcoming.title;
+        document.getElementById('nextSessionTime').innerText = `${upcoming.date} • ${upcoming.time}`;
+      }
+    }
+
+    function renderCategoryPills() {
+      const container = document.getElementById('categoryPillList');
+      if (!container) return;
+      container.innerHTML = '';
+
+      Object.entries(CATEGORIES).forEach(([key, info]) => {
+        const count = appointments.filter(a => a.category === key).length;
+        const isActive = activeFilterCategory === key;
+        const btn = document.createElement('button');
+        btn.className = `w-full px-3 py-2 rounded-xl text-xs font-medium flex items-center justify-between transition border ${
+          isActive 
+            ? 'glass-capsule border-purple-400 text-white font-bold shadow-[0_0_15px_rgba(168,85,247,0.3)]' 
+            : 'border-white/5 text-white/70 hover:bg-white/5'
+        }`;
+        btn.innerHTML = `
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full" style="background: ${info.color}; box-shadow: 0 0 8px ${info.color}"></span>
+            <span>${info.name}</span>
+          </div>
+          <span class="text-[10px] font-mono text-white/40">${count}</span>
+        `;
+        btn.onclick = () => {
+          activeFilterCategory = isActive ? null : key;
+          renderCategoryPills();
+          renderCurrentActiveView();
+          playGlassTone(['F#5', 'C#6']);
+        };
+        container.appendChild(btn);
+      });
+    }
+
+    function resetCategoryFilter() {
+      activeFilterCategory = null;
+      renderCategoryPills();
+      renderCurrentActiveView();
+      triggerToast("All Spectrum Filters Reset");
+    }
+
+    function renderTasks() {
+      const container = document.getElementById('taskListContainer');
+      if (!container) return;
+      container.innerHTML = '';
+
+      const pending = tasks.filter(t => !t.done).length;
+      document.getElementById('taskCountBadge').innerText = `${pending} Pending`;
+
+      tasks.forEach(t => {
+        const row = document.createElement('div');
+        row.className = 'flex items-center justify-between p-2 rounded-xl glass-capsule text-xs group';
+        row.innerHTML = `
+          <div class="flex items-center gap-2.5 min-w-0">
+            <input type="checkbox" ${t.done ? 'checked' : ''} onchange="toggleTask(${t.id})" class="accent-purple-500 rounded cursor-pointer">
+            <span class="truncate ${t.done ? 'line-through text-white/35' : 'text-white/80'}">${t.text}</span>
+          </div>
+          <button onclick="deleteTask(${t.id})" class="text-white/30 hover:text-rose-400 opacity-0 group-hover:opacity-100 transition px-1">&times;</button>
+        `;
+        container.appendChild(row);
+      });
+    }
+
+    function renderHabitMatrix() {
+      const container = document.getElementById('habitRowsContainer');
+      if (!container) return;
+      container.innerHTML = '';
+
+      habits.forEach(h => {
+        let dotsHtml = '<div class="grid grid-cols-7 gap-1">';
+        h.checks.forEach(c => {
+          dotsHtml += `<span class="w-4 h-4 rounded-full mx-auto flex items-center justify-center text-[9px] ${
+            c ? 'bg-purple-500/40 text-purple-200 border border-purple-400/60 shadow-[0_0_8px_#A855F7]' : 'bg-white/5 border border-white/10'
+          }">•</span>`;
+        });
+        dotsHtml += '</div>';
+
+        const row = document.createElement('div');
+        row.className = 'space-y-1';
+        row.innerHTML = `
+          <div class="text-[10px] text-white/70 flex justify-between">
+            <span>${h.name}</span>
+          </div>
+          ${dotsHtml}
+        `;
+        container.appendChild(row);
+      });
+    }
+
+    /*
+      ========================================================================
+      CIRCULAR POMODORO FOCUS TIMER (Ref 4)
+      ========================================================================
+    */
+    let timerDuration = 25 * 60;
+    let timerRemaining = timerDuration;
+    let timerInterval = null;
+
+    function toggleFocusTimer() {
+      const btn = document.getElementById('timerToggleBtn');
+      if (timerInterval) {
+        // Pause
+        clearInterval(timerInterval);
+        timerInterval = null;
+        btn.innerText = 'Start';
+        triggerToast("Timer Paused");
+      } else {
+        // Start
+        btn.innerText = 'Pause';
+        playGlassTone(['E5', 'B5', 'E6']);
+        triggerToast("Deep Focus Mode Activated");
+        timerInterval = setInterval(() => {
+          timerRemaining--;
+          updateTimerDisplay();
+          if (timerRemaining <= 0) {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            btn.innerText = 'Start';
+            playGlassTone(['C5', 'G5', 'C6', 'G6']);
+            triggerToast("Focus Session Complete! ✨");
+          }
+        }, 1000);
+      }
+    }
+
+    function resetFocusTimer() {
+      if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+      }
+      timerRemaining = timerDuration;
+      document.getElementById('timerToggleBtn').innerText = 'Start';
+      updateTimerDisplay();
+    }
+
+    function updateTimerDisplay() {
+      const m = Math.floor(timerRemaining / 60);
+      const s = timerRemaining % 60;
+      document.getElementById('timerDisplay').innerText = 
+        `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+
+      // Update SVG arc
+      const circle = document.getElementById('timerProgressCircle');
+      const totalCircumference = 314;
+      const progress = (timerRemaining / timerDuration) * totalCircumference;
+      circle.style.strokeDashoffset = totalCircumference - progress;
+    }
+
+    /*
+      ========================================================================
+      MODALS, NAVIGATION & INTERACTION LOGIC
+      ========================================================================
+    */
+
+    function selectDate(dateObj) {
+      currentSelectedDate = new Date(dateObj);
+      renderMonthMatrix();
+      renderWeekTimeline();
+      renderDayFocusAgenda();
+    }
+
+    function navigateMonth(direction) {
+      currentDate.setMonth(currentDate.getMonth() + direction);
+      renderMonthMatrix();
+      playGlassTone(['G5', 'D6']);
+    }
+
+    function jumpToPresent() {
+      currentDate = new Date(2026, 8, 22);
+      currentSelectedDate = new Date(2026, 8, 22);
+      renderMonthMatrix();
+      renderWeekTimeline();
+      renderDayFocusAgenda();
+      triggerToast("Aligned to Current Temporal Coordinate");
+      playGlassTone(['E5', 'G#5', 'B5']);
+    }
+
+    function switchView(viewName) {
+      currentActiveView = viewName;
+      ['month', 'week', 'agenda'].forEach(v => {
+        const btn = document.getElementById(`viewBtn-${v}`);
+        const wrapper = document.getElementById(`viewWrapper-${v}`);
+        if (v === viewName) {
+          btn.classList.add('active');
+          btn.classList.remove('text-white/70');
+          wrapper.classList.remove('hidden');
+          wrapper.classList.add('flex');
+        } else {
+          btn.classList.remove('active');
+          btn.classList.add('text-white/70');
+          wrapper.classList.add('hidden');
+          wrapper.classList.remove('flex');
+        }
+      });
+      renderCurrentActiveView();
+      playGlassTone(['C6', 'G6']);
+    }
+
+    function renderCurrentActiveView() {
+      if (currentActiveView === 'month') renderMonthMatrix();
+      if (currentActiveView === 'week') renderWeekTimeline();
+      if (currentActiveView === 'agenda') renderDayFocusAgenda();
+    }
+
+    function setTheme(theme) {
+      document.body.className = `theme-${theme} min-h-screen relative flex flex-col justify-between selection:bg-purple-500 selection:text-white`;
+      triggerToast(`Refractive Spectrum: ${theme.toUpperCase()}`);
+      playGlassTone(['D5', 'A5', 'D6']);
+    }
+
+    // Modal Operations
+    function openBookingModal(dateOverride = null, timeOverride = "14:00") {
+      document.getElementById('editSlotId').value = "";
+      document.getElementById('modalTitleText').innerText = "Book Spatial Timeline Slot";
+      document.getElementById('scheduleForm').reset();
+
+      const target = dateOverride || currentSelectedDate;
+      document.getElementById('slotDate').value = target.toISOString().split('T')[0];
+      document.getElementById('slotTime').value = timeOverride;
+
+      const modal = document.getElementById('bookingModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      playGlassTone(['F#5', 'A#5', 'C#6']);
+    }
+
+    function openEditModal(slotId) {
+      const slot = appointments.find(a => a.id === slotId);
+      if (!slot) return;
+
+      document.getElementById('editSlotId').value = slot.id;
+      document.getElementById('modalTitleText').innerText = "Modify Spatial Slot";
+      document.getElementById('slotTitle').value = slot.title;
+      document.getElementById('slotDate').value = slot.date;
+      document.getElementById('slotTime').value = slot.time;
+      document.getElementById('slotDuration').value = slot.duration;
+      document.getElementById('slotCategory').value = slot.category;
+      document.getElementById('slotNotes').value = slot.notes || "";
+
+      document.getElementsByName('slotPriority').forEach(r => {
+        r.checked = r.value === slot.priority;
+      });
+
+      const modal = document.getElementById('bookingModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeBookingModal() {
+      const modal = document.getElementById('bookingModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function quickBookSlot(dateStr, timeStr) {
+      currentSelectedDate = new Date(dateStr);
+      openBookingModal(currentSelectedDate, timeStr);
+    }
+
+    function handleFormSubmit(e) {
+      e.preventDefault();
+      const editId = document.getElementById('editSlotId').value;
+      const title = document.getElementById('slotTitle').value.trim();
+      const date = document.getElementById('slotDate').value;
+      const time = document.getElementById('slotTime').value;
+      const duration = document.getElementById('slotDuration').value;
+      const category = document.getElementById('slotCategory').value;
+      const notes = document.getElementById('slotNotes').value.trim();
+
+      let priority = 'normal';
+      document.getElementsByName('slotPriority').forEach(r => {
+        if (r.checked) priority = r.value;
+      });
+
+      if (editId) {
+        const index = appointments.findIndex(a => a.id === editId);
+        if (index !== -1) {
+          appointments[index] = { id: editId, title, date, time, duration, category, priority, notes };
+          triggerToast(`Slot "${title}" calibrated`);
+        }
+      } else {
+        const newSlot = {
+          id: `slot-${Date.now()}`,
+          title,
+          date,
+          time,
+          duration,
+          category,
+          priority,
+          notes
+        };
+        appointments.push(newSlot);
+        triggerToast(`Slot "${title}" locked into timeline!`);
+      }
+
+      persistData();
+      renderCategoryPills();
+      closeBookingModal();
+      playGlassTone(['E5', 'B5', 'E6']);
+    }
+
+    function deleteSlot(slotId) {
+      appointments = appointments.filter(a => a.id !== slotId);
+      persistData();
+      renderCategoryPills();
+      triggerToast("Entry cleared from registry");
+      playGlassTone(['C5', 'F5']);
+    }
+
+    // Task Operations
+    function addQuickTask() {
+      const input = document.getElementById('quickTaskInput');
+      const val = input.value.trim();
+      if (!val) return;
+      tasks.push({ id: Date.now(), text: val, done: false });
+      input.value = '';
+      persistData();
+      playGlassTone(['G5', 'C6']);
+    }
+
+    function handleTaskKeydown(e) {
+      if (e.key === 'Enter') addQuickTask();
+    }
+
+    function toggleTask(id) {
+      const t = tasks.find(x => x.id === id);
+      if (t) t.done = !t.done;
+      persistData();
+      playGlassTone(['A5']);
+    }
+
+    function deleteTask(id) {
+      tasks = tasks.filter(x => x.id !== id);
+      persistData();
+    }
+
+    // Export iCal (.ics)
+    function exportToICS() {
+      if (appointments.length === 0) {
+        triggerToast("No slots to export");
+        return;
+      }
+
+      let ics = [
+        "BEGIN:VCALENDAR",
+        "VERSION:2.0",
+        "PRODID:-//AETHER GLASS//SPATIAL SCHEDULER//EN",
+        "CALSCALE:GREGORIAN",
+        "METHOD:PUBLISH"
+      ];
+
+      appointments.forEach(slot => {
+        const cDate = slot.date.replace(/-/g, "");
+        const cTime = slot.time.replace(/:/g, "") + "00";
+        const start = `${cDate}T${cTime}`;
+        const durationMin = parseInt(slot.duration || 60, 10);
+        const [h, m] = slot.time.split(":").map(Number);
+        const totalMinutes = h * 60 + m + durationMin;
+        const endH = String(Math.floor(totalMinutes / 60) % 24).padStart(2, "0");
+        const endM = String(totalMinutes % 60).padStart(2, "0");
+        const end = `${cDate}T${endH}${endM}00`;
+
+        ics.push("BEGIN:VEVENT");
+        ics.push(`UID:${slot.id}@aether-glass.io`);
+        ics.push(`DTSTAMP:${cDate}T000000Z`);
+        ics.push(`DTSTART:${start}`);
+        ics.push(`DTEND:${end}`);
+        ics.push(`SUMMARY:${slot.title}`);
+        ics.push(`DESCRIPTION:${slot.notes || "Spatial Appointment"}`);
+        ics.push("STATUS:CONFIRMED");
+        ics.push("END:VEVENT");
+      });
+
+      ics.push("END:VCALENDAR");
+
+      const blob = new Blob([ics.join("\r\n")], { type: "text/calendar;charset=utf-8" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = `Aether_Glass_Schedule_${currentSelectedDate.toISOString().split('T')[0]}.ics`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      triggerToast("iCal Calendar Exported Successfully!");
+      playGlassTone(['D5', 'F#5', 'A5', 'D6']);
+    }
+
+    // Toast Feedback
+    function triggerToast(text) {
+      const toast = document.getElementById('glassToast');
+      document.getElementById('glassToastText').innerText = text;
+      toast.classList.remove('opacity-0', 'translate-y-20');
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-20');
+      }, 3200);
+    }
+
+    // Live clock ticker
+    setInterval(() => {
+      const now = new Date();
+      document.getElementById('navLiveTime').innerText = 
+        now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' }) + ' PKT';
+    }, 1000);
+
+    // Initial Window Load
+    window.onload = function() {
+      initHologram3D();
+      renderCategoryPills();
+      renderMetrics();
+      renderTasks();
+      renderHabitMatrix();
+      renderCurrentActiveView();
+      updateTimerDisplay();
+    };
+  </script>
+</body>
+</html>
