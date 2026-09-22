@@ -1,0 +1,2435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AQSA'S STORE — Elegance Redefined</title>
+  <meta name="description" content="AQSA'S STORE — Premium fashion, couture apparel, luxury footwear, handbags, and fine timepieces.">
+
+  <!-- Google Fonts: Playfair Display + Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Three.js for Hero Section 3D Swirling Silk Cloth Simulation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <style>
+    /* ==========================================================================
+       1. BRAND IDENTITY & NATURE-INSPIRED GREEN PALETTE
+       ========================================================================== */
+    :root {
+      --primary-dark: #659287;       /* Deep Slate Green: Headings, main buttons, footer */
+      --primary-accent: #88BDA4;     /* Muted Teal/Green: Hover states, badges, icons */
+      --secondary-bg: #B1D3B9;       /* Soft Sage: Secondary cards, subtle sections */
+      --main-bg: #E6F2DD;            /* Very Light Mint: Body, hero overlay */
+      --neutral-white: #FFFFFF;      /* Pure White: Product card backgrounds */
+
+      --text-dark: #233832;          /* Deep forest charcoal for high legibility */
+      --text-muted: #526E65;         /* Muted slate green text */
+      --border-soft: #CFE2D4;        /* Soft sage border */
+      --border-accent: #88BDA4;      /* Accent border */
+
+      --font-serif: 'Playfair Display', Georgia, serif;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+
+      --radius-card: 12px;
+      --radius-pill: 50px;
+      --radius-circle: 50%;
+      --radius-arch: 40px 40px 16px 16px;
+
+      --shadow-sm: 0 4px 12px rgba(101, 146, 135, 0.08);
+      --shadow-md: 0 8px 24px rgba(101, 146, 135, 0.14);
+      --shadow-lg: 0 16px 36px rgba(101, 146, 135, 0.18);
+
+      --transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--main-bg);
+      color: var(--text-dark);
+      line-height: 1.6;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* Headings */
+    h1, h2, h3, h4, .font-serif {
+      font-family: var(--font-serif);
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--primary-dark);
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+      transition: var(--transition);
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      background: none;
+      transition: var(--transition);
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 1.75rem;
+    }
+
+    .section-spacing {
+      padding: 5rem 0;
+    }
+
+    /* Pill Buttons */
+    .btn-pill-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      background: var(--primary-dark);
+      color: #FFFFFF;
+      padding: 0.9rem 2.2rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      box-shadow: 0 6px 18px rgba(101, 146, 135, 0.28);
+      border: 2px solid var(--primary-dark);
+    }
+
+    .btn-pill-primary:hover {
+      background: var(--primary-accent);
+      border-color: var(--primary-accent);
+      box-shadow: 0 8px 24px rgba(136, 189, 164, 0.4);
+      transform: translateY(-2px);
+    }
+
+    .btn-pill-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      background: #FFFFFF;
+      color: var(--primary-dark);
+      padding: 0.85rem 2rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border: 2px solid var(--primary-dark);
+    }
+
+    .btn-pill-secondary:hover {
+      background: var(--primary-dark);
+      color: #FFFFFF;
+      transform: translateY(-2px);
+    }
+
+    /* Badges */
+    .badge-pill {
+      display: inline-block;
+      padding: 0.35rem 0.9rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: var(--secondary-bg);
+      color: var(--primary-dark);
+    }
+
+    /* ==========================================================================
+       2. STICKY TOP NAVBAR
+       ========================================================================== */
+    .announcement-bar {
+      background: var(--primary-dark);
+      color: #FFFFFF;
+      text-align: center;
+      font-size: 0.75rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 0.55rem 1rem;
+      font-weight: 600;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .nav-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 80px;
+    }
+
+    .brand-logo {
+      font-family: var(--font-serif);
+      font-size: 1.85rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--primary-dark);
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+    }
+
+    .brand-logo span.sub {
+      font-family: var(--font-sans);
+      font-size: 0.55rem;
+      letter-spacing: 0.38em;
+      text-transform: uppercase;
+      color: var(--primary-accent);
+      margin-top: 0.25rem;
+      font-weight: 700;
+    }
+
+    .nav-links-list {
+      display: flex;
+      align-items: center;
+      gap: 1.8rem;
+      list-style: none;
+    }
+
+    .nav-item-link {
+      font-size: 0.82rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: var(--text-dark);
+      position: relative;
+      padding: 0.5rem 0;
+    }
+
+    .nav-item-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary-dark);
+      transition: var(--transition);
+      border-radius: 2px;
+    }
+
+    .nav-item-link:hover::after,
+    .nav-item-link.active::after {
+      width: 100%;
+    }
+
+    .nav-item-link:hover {
+      color: var(--primary-dark);
+    }
+
+    .nav-actions-group {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
+    .icon-action-btn {
+      color: var(--primary-dark);
+      position: relative;
+      padding: 0.5rem;
+      border-radius: var(--radius-circle);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .icon-action-btn:hover {
+      background: var(--main-bg);
+      color: var(--primary-accent);
+      transform: scale(1.05);
+    }
+
+    .counter-pill-badge {
+      position: absolute;
+      top: -2px;
+      right: -2px;
+      background: var(--primary-dark);
+      color: #FFFFFF;
+      font-size: 0.62rem;
+      font-weight: 700;
+      height: 18px;
+      width: 18px;
+      border-radius: var(--radius-circle);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #FFFFFF;
+    }
+
+    .burger-menu-btn {
+      display: none;
+      color: var(--primary-dark);
+      padding: 0.5rem;
+    }
+
+    @media (max-width: 992px) {
+      .nav-links-list {
+        display: none;
+      }
+      .burger-menu-btn {
+        display: block;
+      }
+    }
+
+    /* ==========================================================================
+       3. HERO SECTION — SWIRLING 3D SILK CLOTH EFFECT (CONFINED TO HERO)
+       ========================================================================== */
+    #hero-section {
+      position: relative;
+      width: 100%;
+      height: calc(100vh - 120px);
+      min-height: 620px;
+      max-height: 820px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: linear-gradient(135deg, #E6F2DD 0%, #D4E9CA 100%);
+    }
+
+    /* Canvas strictly inside hero */
+    #silk-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .hero-vignette-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+      background: radial-gradient(
+        circle at center,
+        rgba(230, 242, 221, 0.45) 0%,
+        rgba(230, 242, 221, 0.85) 65%,
+        rgba(230, 242, 221, 0.98) 100%
+      );
+      pointer-events: none;
+    }
+
+    .hero-content-card {
+      position: relative;
+      z-index: 3;
+      max-width: 780px;
+      padding: 3rem 2.5rem;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      box-shadow: 0 20px 50px rgba(101, 146, 135, 0.15);
+      margin: 0 1.5rem;
+      animation: heroFloatIn 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    }
+
+    @keyframes heroFloatIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero-brand-tag {
+      font-size: 0.85rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--primary-dark);
+      display: inline-block;
+      margin-bottom: 0.85rem;
+    }
+
+    .hero-title-main {
+      font-size: clamp(2.8rem, 6vw, 4.8rem);
+      line-height: 1.08;
+      color: var(--primary-dark);
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-title-main span.italic {
+      font-style: italic;
+      font-weight: 400;
+      color: var(--text-dark);
+    }
+
+    .hero-subtext {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 2.25rem;
+      max-width: 580px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero-cta-duo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+    }
+
+    /* ==========================================================================
+       4. CIRCULAR CATEGORY NAVIGATION (PERFECT CIRCLES)
+       ========================================================================== */
+    .category-section {
+      background: #FFFFFF;
+      padding: 4.5rem 0 4rem;
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .category-header-wrap {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .category-circles-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2.25rem;
+      flex-wrap: wrap;
+    }
+
+    .category-circle-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      text-decoration: none;
+      group: hover;
+    }
+
+    .circle-thumb-frame {
+      width: 100px;
+      height: 100px;
+      border-radius: var(--radius-circle);
+      padding: 5px;
+      background: var(--main-bg);
+      border: 2px solid var(--secondary-bg);
+      position: relative;
+      margin-bottom: 0.9rem;
+      transition: var(--transition);
+      overflow: hidden;
+    }
+
+    .circle-thumb-frame img {
+      width: 100%;
+      height: 100%;
+      border-radius: var(--radius-circle);
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .category-circle-item:hover .circle-thumb-frame {
+      border-color: var(--primary-dark);
+      box-shadow: 0 8px 24px rgba(101, 146, 135, 0.28);
+      transform: translateY(-5px);
+    }
+
+    .category-circle-item:hover .circle-thumb-frame img {
+      transform: scale(1.12);
+    }
+
+    .circle-name {
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--primary-dark);
+      margin-bottom: 0.2rem;
+    }
+
+    .circle-count {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* ==========================================================================
+       5. PRODUCT CARD SYSTEM (12PX BORDER-RADIUS, PURE WHITE BG, NO 3D FLIP)
+       ========================================================================== */
+    .product-card {
+      background: var(--neutral-white);
+      border-radius: var(--radius-card);
+      overflow: hidden;
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: var(--transition);
+    }
+
+    .product-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-5px);
+      border-color: var(--primary-accent);
+    }
+
+    .card-media-box {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1 / 1.15;
+      overflow: hidden;
+      background: #F4F8F3;
+    }
+
+    .card-media-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .product-card:hover .card-media-box img {
+      transform: scale(1.06);
+    }
+
+    .card-tag-pill {
+      position: absolute;
+      top: 0.75rem;
+      left: 0.75rem;
+      background: rgba(255, 255, 255, 0.94);
+      color: var(--primary-dark);
+      padding: 0.28rem 0.75rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      backdrop-filter: blur(4px);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      z-index: 2;
+    }
+
+    .card-wishlist-btn {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-circle);
+      background: rgba(255, 255, 255, 0.94);
+      color: var(--primary-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+      z-index: 2;
+      transition: var(--transition);
+    }
+
+    .card-wishlist-btn:hover,
+    .card-wishlist-btn.active {
+      background: #FFFFFF;
+      color: #E63946;
+      transform: scale(1.1);
+    }
+
+    .card-wishlist-btn.active svg {
+      fill: #E63946;
+    }
+
+    .card-body-content {
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      justify-content: space-between;
+    }
+
+    .card-category-sub {
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--primary-accent);
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+    }
+
+    .card-title-serif {
+      font-family: var(--font-serif);
+      font-size: 1.05rem;
+      color: var(--text-dark);
+      line-height: 1.35;
+      margin-bottom: 0.65rem;
+      font-weight: 600;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .card-title-serif a:hover {
+      color: var(--primary-dark);
+    }
+
+    .card-price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 0.6rem;
+      margin-bottom: 1.1rem;
+    }
+
+    .price-current {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+    }
+
+    .price-original {
+      font-size: 0.82rem;
+      color: #8C9E97;
+      text-decoration: line-through;
+    }
+
+    .card-btn-add {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      background: var(--main-bg);
+      color: var(--primary-dark);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-pill);
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .card-btn-add:hover {
+      background: var(--primary-dark);
+      color: #FFFFFF;
+      border-color: var(--primary-dark);
+      box-shadow: 0 6px 16px rgba(101, 146, 135, 0.25);
+    }
+
+    /* ==========================================================================
+       6. BEST SELLERS SLIDER (HOMEPAGE 4 ITEMS VISIBLE)
+       ========================================================================== */
+    .slider-container-wrap {
+      position: relative;
+      overflow: hidden;
+      padding: 1rem 0 2rem;
+    }
+
+    .slider-track-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .slider-nav-btn {
+      position: absolute;
+      top: 45%;
+      transform: translateY(-50%);
+      width: 46px;
+      height: 46px;
+      border-radius: var(--radius-circle);
+      background: #FFFFFF;
+      color: var(--primary-dark);
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+    }
+
+    .slider-nav-btn:hover {
+      background: var(--primary-dark);
+      color: #FFFFFF;
+      transform: translateY(-50%) scale(1.08);
+    }
+
+    .slider-nav-prev { left: -18px; }
+    .slider-nav-next { right: -18px; }
+
+    @media (max-width: 1024px) {
+      .slider-track-row {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 640px) {
+      .slider-track-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ==========================================================================
+       7. SPLIT-SCREEN PROMO BANNER (ARCHED CURVED EDGES)
+       ========================================================================== */
+    .promo-split-banner {
+      background: var(--secondary-bg);
+      border-radius: 36px;
+      overflow: hidden;
+      border: 2px solid #A1C6A9;
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      box-shadow: var(--shadow-md);
+    }
+
+    .promo-text-side {
+      padding: 4.5rem 4rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .promo-eyebrow {
+      font-size: 0.78rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 0.75rem;
+    }
+
+    .promo-title-serif {
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      line-height: 1.15;
+      color: var(--primary-dark);
+      margin-bottom: 1.25rem;
+    }
+
+    .promo-body-para {
+      font-size: 1rem;
+      color: var(--text-dark);
+      line-height: 1.7;
+      margin-bottom: 2rem;
+      max-width: 480px;
+    }
+
+    .promo-image-side {
+      position: relative;
+      min-height: 380px;
+      overflow: hidden;
+      /* Arched inner edge */
+      border-radius: var(--radius-arch);
+    }
+
+    .promo-image-side img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    @media (max-width: 900px) {
+      .promo-split-banner {
+        grid-template-columns: 1fr;
+      }
+      .promo-text-side {
+        padding: 3rem 2rem;
+      }
+      .promo-image-side {
+        min-height: 300px;
+      }
+    }
+
+    /* ==========================================================================
+       8. SHOPPING CATALOG PAGE (SIDEBAR FILTERS + CSS GRID)
+       ========================================================================== */
+    .catalog-layout-grid {
+      display: grid;
+      grid-template-columns: 270px 1fr;
+      gap: 2.5rem;
+      align-items: start;
+    }
+
+    .filter-sidebar {
+      background: #FFFFFF;
+      border: 1px solid var(--border-soft);
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: var(--shadow-sm);
+      position: sticky;
+      top: 100px;
+    }
+
+    .filter-group {
+      margin-bottom: 2rem;
+      padding-bottom: 1.75rem;
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .filter-group:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .filter-group-title {
+      font-size: 0.82rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .filter-pill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .filter-tag-btn {
+      padding: 0.45rem 1rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.76rem;
+      font-weight: 600;
+      background: var(--main-bg);
+      color: var(--text-dark);
+      border: 1px solid var(--border-soft);
+      transition: var(--transition);
+    }
+
+    .filter-tag-btn:hover,
+    .filter-tag-btn.active {
+      background: var(--primary-dark);
+      color: #FFFFFF;
+      border-color: var(--primary-dark);
+    }
+
+    .price-range-slider {
+      width: 100%;
+      accent-color: var(--primary-dark);
+      cursor: pointer;
+    }
+
+    .catalog-products-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    @media (max-width: 1100px) {
+      .catalog-products-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 768px) {
+      .catalog-layout-grid {
+        grid-template-columns: 1fr;
+      }
+      .filter-sidebar {
+        position: static;
+      }
+    }
+
+    /* ==========================================================================
+       9. CART & CHECKOUT PAGE (WHATSAPP INTEGRATION)
+       ========================================================================== */
+    .cart-checkout-grid {
+      display: grid;
+      grid-template-columns: 1.35fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .cart-items-card,
+    .checkout-form-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-soft);
+      border-radius: 16px;
+      padding: 2.25rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .cart-row-item {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      padding: 1.25rem 0;
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .cart-item-thumb {
+      width: 80px;
+      height: 95px;
+      border-radius: 8px;
+      object-fit: cover;
+      background: #F4F8F3;
+    }
+
+    .cart-item-meta {
+      flex: 1;
+    }
+
+    .cart-item-title {
+      font-family: var(--font-serif);
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 0.3rem;
+    }
+
+    .cart-item-price {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+    }
+
+    .qty-controls-row {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-pill);
+      padding: 0.2rem 0.5rem;
+      gap: 0.75rem;
+      background: var(--main-bg);
+      margin-top: 0.5rem;
+    }
+
+    .qty-btn {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .qty-display {
+      font-size: 0.85rem;
+      font-weight: 700;
+      min-width: 18px;
+      text-align: center;
+    }
+
+    .form-group-wrap {
+      margin-bottom: 1.25rem;
+    }
+
+    .form-label-field {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--primary-dark);
+      margin-bottom: 0.4rem;
+      display: block;
+    }
+
+    .form-input-text {
+      width: 100%;
+      padding: 0.85rem 1.2rem;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border-soft);
+      background: #FFFFFF;
+      font-family: inherit;
+      font-size: 0.9rem;
+      color: var(--text-dark);
+      outline: none;
+      transition: var(--transition);
+    }
+
+    .form-input-text:focus {
+      border-color: var(--primary-dark);
+      box-shadow: 0 0 0 3px rgba(101, 146, 135, 0.15);
+    }
+
+    .summary-calc-line {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .summary-calc-line.total-line {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      border-top: 1px solid var(--border-soft);
+      padding-top: 1rem;
+      margin-top: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .btn-whatsapp-checkout {
+      width: 100%;
+      padding: 1.1rem;
+      background: #1B7A43;
+      color: #FFFFFF;
+      border-radius: var(--radius-pill);
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      box-shadow: 0 8px 24px rgba(27, 122, 67, 0.3);
+      border: 2px solid #1B7A43;
+    }
+
+    .btn-whatsapp-checkout:hover {
+      background: #145E33;
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 860px) {
+      .cart-checkout-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ==========================================================================
+       10. PRODUCT DETAIL MODAL (QUICK VIEW / PDP)
+       ========================================================================== */
+    .modal-backdrop-layer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(35, 56, 50, 0.6);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+
+    .modal-backdrop-layer.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .pdp-dialog-box {
+      background: #FFFFFF;
+      border-radius: 24px;
+      max-width: 920px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: var(--shadow-lg);
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      position: relative;
+      border: 1px solid var(--border-soft);
+      transform: scale(0.94);
+      transition: var(--transition);
+    }
+
+    .modal-backdrop-layer.active .pdp-dialog-box {
+      transform: scale(1);
+    }
+
+    .modal-close-icon {
+      position: absolute;
+      top: 1.25rem;
+      right: 1.25rem;
+      width: 38px;
+      height: 38px;
+      border-radius: var(--radius-circle);
+      background: var(--main-bg);
+      color: var(--primary-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+    }
+
+    .modal-close-icon:hover {
+      background: var(--primary-dark);
+      color: #FFFFFF;
+    }
+
+    .pdp-modal-image-col {
+      background: #F4F8F3;
+      overflow: hidden;
+      aspect-ratio: 1 / 1.15;
+    }
+
+    .pdp-modal-image-col img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .pdp-modal-info-col {
+      padding: 2.75rem 2.25rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    @media (max-width: 768px) {
+      .pdp-dialog-box {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ==========================================================================
+       11. COMPREHENSIVE FOOTER (#659287 DEEP SLATE GREEN)
+       ========================================================================== */
+    .site-main-footer {
+      background: var(--primary-dark);
+      color: #FFFFFF;
+      padding: 5rem 0 2.5rem;
+      margin-top: 5rem;
+    }
+
+    .footer-content-grid {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr 1fr 1.2fr;
+      gap: 3.5rem;
+      padding-bottom: 4rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+    }
+
+    .footer-brand-title {
+      font-family: var(--font-serif);
+      font-size: 2rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-desc-text {
+      font-size: 0.92rem;
+      color: #DDEBE6;
+      line-height: 1.75;
+      margin-bottom: 1.75rem;
+      max-width: 360px;
+    }
+
+    .footer-col-header {
+      font-size: 0.8rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--secondary-bg);
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-links-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .footer-links-list a {
+      font-size: 0.88rem;
+      color: #EDF5F2;
+    }
+
+    .footer-links-list a:hover {
+      color: #FFFFFF;
+      padding-left: 6px;
+    }
+
+    .newsletter-box-row {
+      display: flex;
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius-pill);
+      padding: 0.35rem 0.4rem 0.35rem 1.25rem;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+
+    .newsletter-box-row input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: #FFFFFF;
+      font-family: inherit;
+      font-size: 0.85rem;
+      outline: none;
+    }
+
+    .newsletter-box-row input::placeholder {
+      color: #C3DFD6;
+    }
+
+    .newsletter-box-row button {
+      background: #FFFFFF;
+      color: var(--primary-dark);
+      padding: 0.65rem 1.4rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .newsletter-box-row button:hover {
+      background: var(--secondary-bg);
+    }
+
+    .footer-socials-line {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.75rem;
+    }
+
+    .social-circle-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-circle);
+      background: rgba(255, 255, 255, 0.12);
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      transition: var(--transition);
+    }
+
+    .social-circle-btn:hover {
+      background: #FFFFFF;
+      color: var(--primary-dark);
+      transform: translateY(-3px);
+    }
+
+    .footer-bottom-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 2.5rem;
+      font-size: 0.8rem;
+      color: #DDEBE6;
+    }
+
+    @media (max-width: 992px) {
+      .footer-content-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 2.5rem;
+      }
+    }
+    @media (max-width: 600px) {
+      .footer-content-grid {
+        grid-template-columns: 1fr;
+      }
+      .footer-bottom-line {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+      }
+    }
+
+    /* Mobile Drawer */
+    .mobile-nav-panel {
+      position: fixed;
+      top: 0;
+      left: -320px;
+      width: 300px;
+      height: 100vh;
+      background: #FFFFFF;
+      padding: 2.5rem 2rem;
+      box-shadow: var(--shadow-lg);
+      transition: left 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+      z-index: 1001;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .modal-backdrop-layer.active .mobile-nav-panel {
+      left: 0;
+    }
+
+    /* Toast Notification */
+    .aqsa-toast-msg {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: var(--primary-dark);
+      color: #FFFFFF;
+      padding: 0.95rem 1.75rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.85rem;
+      font-weight: 600;
+      box-shadow: var(--shadow-lg);
+      z-index: 2000;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: var(--transition);
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      border: 2px solid var(--secondary-bg);
+    }
+
+    .aqsa-toast-msg.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Page Visibility for Hash-based SPA routing */
+    .view-page-tab {
+      display: none;
+    }
+
+    .view-page-tab.active {
+      display: block;
+      animation: fadeInPage 0.4s ease forwards;
+    }
+
+    @keyframes fadeInPage {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================================================
+       TOP ANNOUNCEMENT BAR
+       ========================================================================== -->
+  <div class="announcement-bar">
+    COMPLIMENTARY NATIONWIDE SHIPPING ON ALL ORDERS &bull; DISPATCH VIA WHATSAPP CONCIERGE
+  </div>
+
+  <!-- ==========================================================================
+       STICKY TOP NAVBAR
+       ========================================================================== -->
+  <header class="site-header">
+    <div class="container nav-row">
+      <!-- Brand Logo -->
+      <a href="#/" class="brand-logo">
+        AQSA'S STORE
+        <span class="sub">Elegance Redefined</span>
+      </a>
+
+      <!-- Category & Section Links -->
+      <nav>
+        <ul class="nav-links-list">
+          <li><a href="#/" class="nav-item-link" id="nav-home">Home</a></li>
+          <li><a href="#/women" class="nav-item-link" id="nav-women">Women</a></li>
+          <li><a href="#/men" class="nav-item-link" id="nav-men">Men</a></li>
+          <li><a href="#/kids" class="nav-item-link" id="nav-kids">Kids</a></li>
+          <li><a href="#/shoes" class="nav-item-link" id="nav-shoes">Shoes</a></li>
+          <li><a href="#/bags" class="nav-item-link" id="nav-bags">Bags</a></li>
+          <li><a href="#/watches" class="nav-item-link" id="nav-watches">Watches</a></li>
+        </ul>
+      </nav>
+
+      <!-- Action Group -->
+      <div class="nav-actions-group">
+        <!-- Wishlist Link -->
+        <a href="#/wishlist" class="icon-action-btn" aria-label="Wishlist">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          <span class="counter-pill-badge" id="wishlist-badge">0</span>
+        </a>
+
+        <!-- Shopping Cart Link -->
+        <a href="#/cart" class="icon-action-btn" aria-label="Cart">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span class="counter-pill-badge" id="cart-badge">0</span>
+        </a>
+
+        <!-- Mobile Burger -->
+        <button class="burger-menu-btn" onclick="window.storeApp.toggleMobileMenu()" aria-label="Toggle Menu">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       MAIN VIEWPORT (SPA HASH-BASED ROUTING)
+       ========================================================================== -->
+  <main id="app-main-viewport">
+
+    <!-- ========================================================================
+         VIEW 1: HOMEPAGE (#/ or empty)
+         ======================================================================== -->
+    <div id="view-home" class="view-page-tab active">
+
+      <!-- HERO SECTION — 3D SWIRLING SILK CLOTH SIMULATION (CONFINED TO HERO ONLY) -->
+      <section id="hero-section">
+        <!-- Silk Canvas (Three.js WebGL Cloth Mesh) -->
+        <canvas id="silk-canvas"></canvas>
+        <div class="hero-vignette-overlay"></div>
+
+        <!-- Center Overlay Card -->
+        <div class="hero-content-card">
+          <span class="hero-brand-tag">AQSA'S STORE</span>
+          <h1 class="hero-title-main">
+            Elegance <span class="italic">Redefined.</span>
+          </h1>
+          <p class="hero-subtext">
+            Immerse yourself in our premier collections of handcrafted luxury, fluid couture silhouettes, and timeless essentials.
+          </p>
+          <div class="hero-cta-duo">
+            <a href="#/women" class="btn-pill-primary">Shop Women's</a>
+            <a href="#/shoes" class="btn-pill-secondary">Explore Shoes</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. CIRCULAR CATEGORY NAVIGATION (PERFECT CIRCLES) -->
+      <section class="category-section">
+        <div class="container">
+          <div class="category-header-wrap">
+            <span class="badge-pill">CURATED DEPARTMENTS</span>
+            <h2 style="font-size: 2.2rem; margin-top: 0.5rem;">Explore by Category</h2>
+          </div>
+
+          <div class="category-circles-row">
+            <!-- 1. Women -->
+            <a href="#/women" class="category-circle-item">
+              <div class="circle-thumb-frame">
+                <img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=400&q=80" alt="Women's Collection">
+              </div>
+              <span class="circle-name">Women</span>
+              <span class="circle-count">10 Pieces</span>
+            </a>
+
+            <!-- 2. Men -->
+            <a href="#/men" class="category-circle-item">
+              <div class="circle-thumb-frame">
+                <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=400&q=80" alt="Men's Collection">
+              </div>
+              <span class="circle-name">Men</span>
+              <span class="circle-count">10 Pieces</span>
+            </a>
+
+            <!-- 3. Kids -->
+            <a href="#/kids" class="category-circle-item">
+              <div class="circle-thumb-frame">
+                <img src="https://images.unsplash.com/photo-1622290291468-a28f7a7dc6a8?auto=format&fit=crop&w=400&q=80" alt="Kids' Collection">
+              </div>
+              <span class="circle-name">Kids</span>
+              <span class="circle-count">10 Pieces</span>
+            </a>
+
+            <!-- 4. Shoes -->
+            <a href="#/shoes" class="category-circle-item">
+              <div class="circle-thumb-frame">
+                <img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=400&q=80" alt="Shoes Collection">
+              </div>
+              <span class="circle-name">Shoes</span>
+              <span class="circle-count">8 Pieces</span>
+            </a>
+
+            <!-- 5. Bags -->
+            <a href="#/bags" class="category-circle-item">
+              <div class="circle-thumb-frame">
+                <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=400&q=80" alt="Bags Collection">
+              </div>
+              <span class="circle-name">Bags</span>
+              <span class="circle-count">8 Pieces</span>
+            </a>
+
+            <!-- 6. Watches -->
+            <a href="#/watches" class="category-circle-item">
+              <div class="circle-thumb-frame">
+                <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=400&q=80" alt="Watches Collection">
+              </div>
+              <span class="circle-name">Watches</span>
+              <span class="circle-count">8 Pieces</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. BEST SELLERS PRODUCT SLIDER (4 ITEMS VISIBLE) -->
+      <section class="section-spacing">
+        <div class="container">
+          <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom: 2.5rem;">
+            <div>
+              <span class="badge-pill">MOST COVETED</span>
+              <h2 style="font-size: 2.2rem; margin-top: 0.4rem;">Best Sellers</h2>
+            </div>
+            <div style="display:flex; gap:0.75rem;">
+              <button class="slider-nav-btn" onclick="window.storeApp.slidePrev()" aria-label="Previous">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+              </button>
+              <button class="slider-nav-btn" onclick="window.storeApp.slideNext()" aria-label="Next">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="slider-container-wrap">
+            <div class="slider-track-row" id="best-sellers-row">
+              <!-- Rendered dynamically -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. SPLIT-SCREEN PROMO BANNER (TEXT LEFT, ARCHED IMAGE RIGHT) -->
+      <section class="section-spacing" style="padding-top: 0;">
+        <div class="container">
+          <div class="promo-split-banner">
+            <!-- Left Text Box -->
+            <div class="promo-text-side">
+              <span class="promo-eyebrow">SEASONAL ATELIER ARCHIVE</span>
+              <h2 class="promo-title-serif">The Art of Pure Mulberry Silk</h2>
+              <p class="promo-body-para">
+                Tailored with meticulous intention, our signature evening wear and seasonal tailoring combine breathtaking drape with effortless comfort.
+              </p>
+              <div>
+                <a href="#/women" class="btn-pill-primary">Shop The Edit</a>
+              </div>
+            </div>
+
+            <!-- Right Image Box (Arched) -->
+            <div class="promo-image-side">
+              <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1200&q=80" alt="Silk Dress Editorial">
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ========================================================================
+         VIEW 2: SHOPPING CATALOG (#/women, #/men, #/kids, #/shoes, #/bags, #/watches)
+         ======================================================================== -->
+    <div id="view-catalog" class="view-page-tab">
+      <div class="container" style="padding: 3.5rem 1.75rem 6rem;">
+        <!-- Header -->
+        <div style="margin-bottom: 2.5rem; text-align:center;">
+          <span class="badge-pill" id="catalog-category-eyebrow">DEPARTMENT</span>
+          <h1 id="catalog-main-title" style="font-size: 2.8rem; margin-top: 0.5rem;">Collection</h1>
+          <p id="catalog-sub-desc" style="color:var(--text-muted); font-size:1rem; max-width:600px; margin:0.5rem auto 0;">
+            Browse our carefully curated garments, precision timepieces, and luxury accessories.
+          </p>
+        </div>
+
+        <div class="catalog-layout-grid">
+          <!-- Sidebar Filters -->
+          <aside class="filter-sidebar">
+            <!-- Category Filter -->
+            <div class="filter-group">
+              <span class="filter-group-title">Category</span>
+              <div class="filter-pill-tags">
+                <button class="filter-tag-btn" onclick="window.storeApp.setFilterCategory('all')">All</button>
+                <button class="filter-tag-btn" onclick="window.storeApp.setFilterCategory('women')">Women</button>
+                <button class="filter-tag-btn" onclick="window.storeApp.setFilterCategory('men')">Men</button>
+                <button class="filter-tag-btn" onclick="window.storeApp.setFilterCategory('kids')">Kids</button>
+                <button class="filter-tag-btn" onclick="window.storeApp.setFilterCategory('shoes')">Shoes</button>
+                <button class="filter-tag-btn" onclick="window.storeApp.setFilterCategory('bags')">Bags</button>
+                <button class="filter-tag-btn" onclick="window.storeApp.setFilterCategory('watches')">Watches</button>
+              </div>
+            </div>
+
+            <!-- Price Filter Slider -->
+            <div class="filter-group">
+              <span class="filter-group-title">Max Price (PKR)</span>
+              <input type="range" min="10000" max="65000" step="5000" value="65000" class="price-range-slider" id="price-slider" oninput="window.storeApp.handlePriceSlider(this.value)">
+              <div style="display:flex; justify-content:space-between; margin-top:0.6rem; font-size:0.8rem; color:var(--text-dark); font-weight:700;">
+                <span>PKR 10,000</span>
+                <span id="price-slider-display">PKR 65,000</span>
+              </div>
+            </div>
+
+            <!-- Color Palette Filter -->
+            <div class="filter-group">
+              <span class="filter-group-title">Palette</span>
+              <div class="filter-pill-tags">
+                <button class="filter-tag-btn active" onclick="window.storeApp.setFilterColor('all', this)">All</button>
+                <button class="filter-tag-btn" onclick="window.storeApp.setFilterColor('Black', this)">Black</button>
+                <button class="filter-tag-btn" onclick="window.storeApp.setFilterColor('Green', this)">Green</button>
+                <button class="filter-tag-btn" onclick="window.storeApp.setFilterColor('Gold', this)">Gold</button>
+                <button class="filter-tag-btn" onclick="window.storeApp.setFilterColor('Cognac', this)">Cognac</button>
+                <button class="filter-tag-btn" onclick="window.storeApp.setFilterColor('Cream', this)">Cream</button>
+              </div>
+            </div>
+
+            <!-- Sort By -->
+            <div class="filter-group">
+              <span class="filter-group-title">Sort By</span>
+              <select id="sort-select" onchange="window.storeApp.handleSortChange(this.value)" style="width:100%; padding:0.65rem 1rem; border-radius:var(--radius-pill); border:1px solid var(--border-soft); font-family:inherit; font-size:0.82rem; outline:none; background:#FFF;">
+                <option value="featured">Featured Collection</option>
+                <option value="price-low">Price: Low to High</option>
+                <option value="price-high">Price: High to Low</option>
+              </select>
+            </div>
+          </aside>
+
+          <!-- Main Product Grid -->
+          <main>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
+              <span id="catalog-count-text" style="font-size:0.88rem; color:var(--text-muted); font-weight:600;">Showing 10 Items</span>
+            </div>
+            <div class="catalog-products-grid" id="catalog-grid">
+              <!-- Rendered via JS -->
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================================================
+         VIEW 3: CART & WHATSAPP CHECKOUT (#/cart)
+         ======================================================================== -->
+    <div id="view-cart" class="view-page-tab">
+      <div class="container" style="padding: 4rem 1.75rem 6rem;">
+        <div style="text-align:center; margin-bottom:3rem;">
+          <span class="badge-pill">YOUR SELECTIONS</span>
+          <h1 style="font-size: 2.8rem; margin-top:0.4rem;">Shopping Bag &amp; Checkout</h1>
+        </div>
+
+        <div class="cart-checkout-grid">
+          <!-- Cart Items List -->
+          <div class="cart-items-card">
+            <h2 style="font-size: 1.4rem; margin-bottom: 1.5rem;">Selected Pieces (<span id="cart-total-qty-count">0</span>)</h2>
+            <div id="cart-items-list-box">
+              <!-- Dynamically rendered -->
+            </div>
+          </div>
+
+          <!-- Checkout Form & WhatsApp Button -->
+          <div class="checkout-form-card">
+            <h2 style="font-size: 1.4rem; margin-bottom: 1.5rem;">Dispatch Details</h2>
+            <form id="checkout-form" onsubmit="window.storeApp.handleWhatsAppCheckout(event)">
+              <div class="form-group-wrap">
+                <label class="form-label-field">Full Name</label>
+                <input type="text" id="cust-name" class="form-input-text" placeholder="e.g. Ayesha Khan" required>
+              </div>
+
+              <div class="form-group-wrap">
+                <label class="form-label-field">Delivery Address</label>
+                <input type="text" id="cust-address" class="form-input-text" placeholder="House #, Street, City" required>
+              </div>
+
+              <div class="form-group-wrap">
+                <label class="form-label-field">Phone Number</label>
+                <input type="tel" id="cust-phone" class="form-input-text" placeholder="0300-1234567" required>
+              </div>
+
+              <!-- Cost breakdown -->
+              <div style="margin: 1.75rem 0 1rem;">
+                <div class="summary-calc-line">
+                  <span>Subtotal</span>
+                  <span id="summary-subtotal">PKR 0</span>
+                </div>
+                <div class="summary-calc-line">
+                  <span>Nationwide Courier</span>
+                  <span style="color:#1B7A43; font-weight:700;">FREE</span>
+                </div>
+                <div class="summary-calc-line total-line">
+                  <span>Estimated Total</span>
+                  <span id="summary-total">PKR 0</span>
+                </div>
+              </div>
+
+              <!-- WhatsApp Order Button -->
+              <button type="submit" class="btn-whatsapp-checkout">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                Place Order via WhatsApp
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================================================
+         VIEW 4: WISHLIST (#/wishlist)
+         ======================================================================== -->
+    <div id="view-wishlist" class="view-page-tab">
+      <div class="container" style="padding: 4rem 1.75rem 6rem;">
+        <div style="text-align:center; margin-bottom:3rem;">
+          <span class="badge-pill">SAVED HEIRLOOMS</span>
+          <h1 style="font-size: 2.8rem; margin-top:0.4rem;">Your Wishlist</h1>
+        </div>
+        <div class="catalog-products-grid" id="wishlist-grid">
+          <!-- Dynamically rendered -->
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ==========================================================================
+       PRODUCT DETAIL MODAL (QUICK VIEW)
+       ========================================================================== -->
+  <div class="modal-backdrop-layer" id="pdp-modal-backdrop" onclick="window.storeApp.closeModal(event)">
+    <div class="pdp-dialog-box" onclick="event.stopPropagation()">
+      <button class="modal-close-icon" onclick="window.storeApp.closeModal()" aria-label="Close modal">&times;</button>
+      <div class="pdp-modal-image-col">
+        <img id="modal-pdp-img" src="" alt="Product view">
+      </div>
+      <div class="pdp-modal-info-col">
+        <span class="badge-pill" id="modal-pdp-cat">CATEGORY</span>
+        <h2 id="modal-pdp-title" style="font-size:2rem; margin:0.6rem 0 0.8rem; color:var(--text-dark);">Product Name</h2>
+        <div style="font-size:1.4rem; font-weight:700; color:var(--primary-dark); margin-bottom:1.25rem;" id="modal-pdp-price">PKR 0</div>
+        <p id="modal-pdp-desc" style="color:var(--text-muted); font-size:0.95rem; line-height:1.7; margin-bottom:2rem;">
+          Exquisitely crafted using ethically sourced fabrics, honoring timeless silhouette and enduring grace.
+        </p>
+
+        <div style="display:flex; gap:1rem;">
+          <button class="btn-pill-primary" style="flex:1;" id="modal-add-cart-btn">
+            Add to Bag
+          </button>
+          <button class="btn-pill-secondary" id="modal-add-wish-btn">
+            Wishlist
+          </button>
+        </div>
+      </div>
+    </div>
+  <!-- MOBILE NAVIGATION DRAWER -->
+  <div class="modal-backdrop-layer" id="mobile-menu-backdrop" onclick="window.storeApp.toggleMobileMenu()">
+    <nav class="mobile-nav-panel" onclick="event.stopPropagation()">
+      <div>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2rem;">
+          <span class="brand-logo" style="font-size:1.4rem;">AQSA'S STORE</span>
+          <button onclick="window.storeApp.toggleMobileMenu()" style="font-size:1.6rem; color:var(--primary-dark);" aria-label="Close Menu">&times;</button>
+        </div>
+        <ul style="list-style:none; display:flex; flex-direction:column; gap:1.25rem;">
+          <li><a href="#/" class="nav-item-link" onclick="window.storeApp.toggleMobileMenu()">Home</a></li>
+          <li><a href="#/women" class="nav-item-link" onclick="window.storeApp.toggleMobileMenu()">Women's Collection</a></li>
+          <li><a href="#/men" class="nav-item-link" onclick="window.storeApp.toggleMobileMenu()">Men's Sartorial</a></li>
+          <li><a href="#/kids" class="nav-item-link" onclick="window.storeApp.toggleMobileMenu()">Kids' Couture</a></li>
+          <li><a href="#/shoes" class="nav-item-link" onclick="window.storeApp.toggleMobileMenu()">Footwear &amp; Heels</a></li>
+          <li><a href="#/bags" class="nav-item-link" onclick="window.storeApp.toggleMobileMenu()">Handbags &amp; Totes</a></li>
+          <li><a href="#/watches" class="nav-item-link" onclick="window.storeApp.toggleMobileMenu()">Luxury Watches</a></li>
+          <li><a href="#/cart" class="nav-item-link" onclick="window.storeApp.toggleMobileMenu()">Shopping Bag</a></li>
+          <li><a href="#/wishlist" class="nav-item-link" onclick="window.storeApp.toggleMobileMenu()">Saved Wishlist</a></li>
+        </ul>
+      </div>
+      <div>
+        <a href="https://wa.me/ADD_YOUR_WHATSAPP_NUMBER_HERE" target="_blank" class="btn-whatsapp-checkout" style="font-size:0.75rem; padding:0.8rem;">
+          WhatsApp Concierge
+        </a>
+      </div>
+    </nav>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div class="aqsa-toast-msg" id="aqsa-toast">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+    <span id="toast-text-content">Added to shopping bag</span>
+  </div>
+
+  <!-- ==========================================================================
+       COMPREHENSIVE FOOTER (#659287 DEEP SLATE GREEN)
+       ========================================================================== -->
+  <footer class="site-main-footer">
+    <div class="container">
+      <div class="footer-content-grid">
+        <!-- Col 1: Brand -->
+        <div>
+          <span class="footer-brand-title">AQSA'S STORE</span>
+          <p class="footer-desc-text">
+            A bespoke fashion &amp; lifestyle atelier dedicated to uncompromised craftsmanship, fluid fabrics, and timeless design.
+          </p>
+          <div class="footer-socials-line">
+            <!-- Instagram -->
+            <a href="https://instagram.com" target="_blank" rel="noopener" class="social-circle-btn" aria-label="Instagram">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+            </a>
+            <!-- WhatsApp -->
+            <a href="https://wa.me/ADD_YOUR_WHATSAPP_NUMBER_HERE" target="_blank" rel="noopener" class="social-circle-btn" aria-label="WhatsApp">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </a>
+            <!-- Facebook -->
+            <a href="https://facebook.com" target="_blank" rel="noopener" class="social-circle-btn" aria-label="Facebook">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </a>
+            <!-- TikTok -->
+            <a href="https://tiktok.com" target="_blank" rel="noopener" class="social-circle-btn" aria-label="TikTok">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Col 2: Categories -->
+        <div>
+          <h4 class="footer-col-header">Departments</h4>
+          <ul class="footer-links-list">
+            <li><a href="#/women">Women's Couture</a></li>
+            <li><a href="#/men">Men's Sartorial</a></li>
+            <li><a href="#/kids">Kids' Collection</a></li>
+            <li><a href="#/shoes">Footwear &amp; Heels</a></li>
+            <li><a href="#/bags">Handbags &amp; Totes</a></li>
+            <li><a href="#/watches">Luxury Watches</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Customer Care -->
+        <div>
+          <h4 class="footer-col-header">Customer Care</h4>
+          <ul class="footer-links-list">
+            <li><a href="#/cart">Track My Order</a></li>
+            <li><a href="#/cart">Nationwide Delivery</a></li>
+            <li><a href="#/cart">Size &amp; Fit Guide</a></li>
+            <li><a href="#/cart">WhatsApp Concierge</a></li>
+            <li><a href="#/cart">Returns &amp; Exchanges</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Newsletter -->
+        <div>
+          <h4 class="footer-col-header">Join the Atelier</h4>
+          <p style="font-size:0.85rem; color:#DDEBE6; margin-bottom:1rem; line-height:1.6;">
+            Subscribe to receive private collection previews, runway updates, and bespoke invitations.
+          </p>
+          <form class="newsletter-box-row" onsubmit="window.storeApp.handleNewsletter(event)">
+            <input type="email" placeholder="Enter your email..." required>
+            <button type="submit">Join</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="footer-bottom-line">
+        <span>&copy; 2026 AQSA'S STORE. All Rights Reserved.</span>
+        <span>Elegance Redefined &bull; Handcrafted Perfection</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==========================================================================
+       JAVASCRIPT: PRODUCT DATABASE, 3D SILK SIMULATION, & SPA ROUTING
+       ========================================================================== -->
+  <script>
+    // ==========================================================================
+    // 1. HARDCODED PRODUCT DATABASE (STRICT CATEGORIES & ACCURATE UNIQUE IMAGES)
+    // ==========================================================================
+    const products = [
+      // --- WOMEN'S (10 Unique Pieces) ---
+      { id: 1, name: "Mulberry Silk Bias Slip Gown", price: 28500, orig: 32000, cat: "women", color: "Green", rating: 4.9, img: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=800&q=80", bestSeller: true },
+      { id: 2, name: "Tailored Linen Single-Breasted Blazer", price: 34000, orig: 38000, cat: "women", color: "Cream", rating: 4.8, img: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80", bestSeller: false },
+      { id: 3, name: "Mongolian Cashmere Wrap Coat", price: 46000, orig: 52000, cat: "women", color: "Cream", rating: 5.0, img: "https://images.unsplash.com/photo-1539533018447-63fcce667823?auto=format&fit=crop&w=800&q=80", bestSeller: true },
+      { id: 4, name: "Pleated Silk Crepe Maxi Dress", price: 29500, orig: 33000, cat: "women", color: "Green", rating: 4.7, img: "https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=800&q=80", bestSeller: false },
+      { id: 5, name: "Embroidered Micro-Velvet Kaftan", price: 36000, orig: 41000, cat: "women", color: "Black", rating: 4.9, img: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=800&q=80", bestSeller: false },
+      { id: 6, name: "High-Waisted Wide Leg Silk Trousers", price: 18500, orig: 21000, cat: "women", color: "Cream", rating: 4.6, img: "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=800&q=80", bestSeller: false },
+      { id: 7, name: "Satin Lapel Tuxedo Evening Gown", price: 42000, orig: 48000, cat: "women", color: "Black", rating: 4.8, img: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=800&q=80", bestSeller: true },
+      { id: 8, name: "Ribbed Merino Knit Turtleneck", price: 16500, orig: 19000, cat: "women", color: "Green", rating: 4.7, img: "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?auto=format&fit=crop&w=800&q=80", bestSeller: false },
+      { id: 9, name: "Silk Organza Fluted Midi Skirt", price: 22500, orig: 26000, cat: "women", color: "Cream", rating: 4.8, img: "https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?auto=format&fit=crop&w=800&q=80", bestSeller: false },
+      { id: 10, name: "Raw Silk Tailored Co-ord Ensemble", price: 38000, orig: 43000, cat: "women", color: "Green", rating: 4.9, img: "https://images.unsplash.com/photo-1485968579580-b6d095142e6e?auto=format&fit=crop&w=800&q=80", bestSeller: false },
+
+      // --- MEN'S (10 Unique Pieces) ---
+      { id: 11, name: "Super 130s Italian Wool Suit", price: 56000, orig: 62000, cat: "men", color: "Black", rating: 5.0, img: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=800&q=80", bestSeller: true },
+      { id: 12, name: "Raw Silk Formal Prince Coat", price: 41000, orig: 46000, cat: "men", color: "Black", rating: 4.9, img: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80", bestSeller: true },
+      { id: 13, name: "Hand-Embroidered Cotton Kurta", price: 19500, orig: 22000, cat: "men", color: "Cream", rating: 4.8, img: "https://images.unsplash.com/photo-1583863788434-e58a36330cf0?auto=format&fit=crop&w=800&q=80", bestSeller: false },
+      { id: 14, name: "Irish Linen Casual Overshirt", price: 17500, orig: 20000, cat: "men", color: "Green", rating: 4.7, img: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=800&q=80", bestSeller: false },
+      { id: 15, name: "Double-Faced Wool Cashmere Coat", price: 51000, orig: 58000, cat: "men", color: "Cognac", rating: 4.9, img: "https://images.unsplash.com/photo-1544022613-e87ca75a784a?auto=format&fit=crop&w=800&q=80", bestSeller: false },
+      { id: 16, name: "Tailored Flat-Front Wool Chinos", price: 19000, orig: 22000, cat: "men", color: "Green", rating: 4.6, img: "https://images.unsplash.com/photo-1479064555552-3ef4979f8908?auto=format&fit=crop&w=800&q=80", bestSeller: false },
+      { id: 17, name: "Silk Jacquard Evening Waistcoat", price: 24500, orig: 28000, cat: "men", color: "Gold", rating: 4.8, img: "https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?auto=format&fit=crop&w=800&q=80", bestSeller: false },
+      { id: 18, name: "Linen Blend Textured Safari Jacket", price: 28000, orig: 32000, cat: "men", color: "Green", rating: 4.7, img: "https://images.unsplash.com/photo-1516826957135-700dedea698c?auto=format&fit=crop&w=800&q=80", bestSeller: false },
+      { id: 19, name: "Classic French Cuff Oxford Shirt", price: 15500, orig: 18000, cat: "men", color: "Cream", rating: 4.8, img: "https://images.unsplash.com/photo-1598033129183-c4f50c736f10?auto=format&fit=crop&w=800&q=80", bestSeller: false },
+      { id: 20, name: "Merino Wool V-Neck Pullover", price: 21000, orig: 24000, cat: "men", color: "Black", rating: 4.8, img: "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=800&q=80", bestSeller: false },
+
+      // --- KIDS' (10 Unique Pieces) ---
+      { id: 21, name: "Junior Prince Embroidered Waistcoat", price: 16500, orig: 19000, cat: "kids", color: "Gold", rating: 4.9, img: "https://images.unsplash.com/photo-1622290291468-a28f7a7dc6a8?auto=format&fit=crop&w=800&q=80", bestSeller: true },
+      { id: 22, name: "Pastel Silk Embroidered Frock", price: 18500, orig: 21000, cat: "kids", color: "Cream", rating: 4.8, img: "https://images.unsplash.com/photo-1518831959646-742c3a14ebf7?auto=format&fit=crop&w=800&q=80", bestSeller: false },
+      { id: 23, name: "Boys Tailored Linen Kurta Set", price: 14500, orig: 17000, cat: "kids", color: "Green", rating: 4.7, img: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=800&q=80", bestSeller: false },
+      { id: 24, name: "Floral Organza Holiday Dress", price: 19500, orig: 22500, cat: "kids", color: "Cream", rating: 4.9, img: "https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?auto=format&fit=crop&w=800&q=80", bestSeller: false },
+      { id: 25, name: "Kids Velvet Evening Sherwani", price: 22000, orig: 25000, cat: "kids", color: "Black", rating: 5.0, img: "https://images.unsplash.com/photo-1508873696983-2df5293cb32b?auto=format&fit=crop&w=800&q=80", bestSeller: false },
+      { id: 26, name: "Chiffon Pleated Party Gown", price: 17500, orig: 20000, cat: "kids", color: "Green", rating: 4.7, img: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=800&q=80", bestSeller: false },
+      { id: 27, name: "Boys Cotton Casual Blazer", price: 16000, orig: 18500, cat: "kids", color: "Cream", rating: 4.6, img: "https://images.unsplash.com/photo-1503945438517-f65904a52ce6?auto=format&fit=crop&w=800&q=80", bestSeller: false },
+      { id: 28, name: "Embroidered Silk Gharara Set", price: 23500, orig: 27000, cat: "kids", color: "Gold", rating: 4.9, img: "https://images.unsplash.com/photo-1471286174890-9c112ffca56a?auto=format&fit=crop&w=800&q=80", bestSeller: false },
+      { id: 29, name: "Linen Bow-Tie Formal Suit", price: 21000, orig: 24000, cat: "kids", color: "Black", rating: 4.8, img: "https://images.unsplash.com/photo-1485546246426-74dc88dec4d9?auto=format&fit=crop&w=800&q=80", bestSeller: false },
+      { id: 30, name: "Cotton Eyelet Summer Frock", price: 13500, orig: 15500, cat: "kids", color: "Cream", rating: 4.8, img: "https://images.unsplash.com/photo-1476703993599-0035a21b17a9?auto=format&fit=crop&w=800&q=80", bestSeller: false },
+
+      // --- SHOES (8 Unique Pieces) ---
+      { id: 31, name: "Double-Monk Strap Burnished Shoes", price: 29500, orig: 33000, cat: "shoes", color: "Cognac", rating: 4.9, img: "https://images.unsplash.com/photo-1614252235316-8c857d38b5f4?auto=format&fit=crop&w=800&q=80", bestSeller: true },
+      { id: 32, name: "Strappy Stiletto Silk Sandals", price: 26500, orig: 30000, cat: "shoes", color: "Gold", rating: 4.8, img: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=800&q=80", bestSeller: true },
+      { id: 33, name: "Burnished Suede Chelsea Boots", price: 31000, orig: 35000, cat: "shoes", color: "Cognac", rating: 4.9, img: "https://images.unsplash.com/photo-1520639888713-7851133b1ed0?auto=format&fit=crop&w=800&q=80", bestSeller: false },
+      { id: 34, name: "Pointed Toe Satin Evening Pumps", price: 27500, orig: 31000, cat: "shoes", color: "Green", rating: 4.8, img: "https://images.unsplash.com/photo-1535043934128-cf0b28d52f95?auto=format&fit=crop&w=800&q=80", bestSeller: false },
+      { id: 35, name: "Hand-Welted Full Grain Brogues", price: 33000, orig: 38000, cat: "shoes", color: "Black", rating: 5.0, img: "https://images.unsplash.com/photo-1533867617858-e7b97e060509?auto=format&fit=crop&w=800&q=80", bestSeller: false },
+      { id: 36, name: "Minimalist Leather Mules", price: 21500, orig: 24000, cat: "shoes", color: "Cream", rating: 4.7, img: "https://images.unsplash.com/photo-1562273138-f46be4ebdf33?auto=format&fit=crop&w=800&q=80", bestSeller: false },
+      { id: 37, name: "Loafers with Gilded Horsebit", price: 28500, orig: 32000, cat: "shoes", color: "Black", rating: 4.9, img: "https://images.unsplash.com/photo-1582588678413-dbf45f4823e9?auto=format&fit=crop&w=800&q=80", bestSeller: false },
+      { id: 38, name: "Velvet Embroidered Khussa Shoes", price: 16500, orig: 19000, cat: "shoes", color: "Gold", rating: 4.8, img: "https://images.unsplash.com/photo-1603808033192-082d6919d3e1?auto=format&fit=crop&w=800&q=80", bestSeller: false },
+
+      // --- BAGS (8 Unique Pieces) ---
+      { id: 39, name: "Quilted Noir Flap Crossbody", price: 41000, orig: 46000, cat: "bags", color: "Black", rating: 5.0, img: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=800&q=80", bestSeller: true },
+      { id: 40, name: "Smooth Cognac Carryall Tote", price: 47500, orig: 53000, cat: "bags", color: "Cognac", rating: 4.9, img: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=800&q=80", bestSeller: false },
+      { id: 41, name: "Structured Top Handle Satchel", price: 49000, orig: 55000, cat: "bags", color: "Cream", rating: 4.9, img: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=800&q=80", bestSeller: false },
+      { id: 42, name: "Evening Gilded Minaudière Clutch", price: 34000, orig: 38000, cat: "bags", color: "Gold", rating: 4.8, img: "https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?auto=format&fit=crop&w=800&q=80", bestSeller: false },
+      { id: 43, name: "Woven Nappa Leather Hobo", price: 44000, orig: 49000, cat: "bags", color: "Green", rating: 4.8, img: "https://images.unsplash.com/photo-1591561954557-26941169b49e?auto=format&fit=crop&w=800&q=80", bestSeller: false },
+      { id: 44, name: "Suede Crescent Shoulder Pochette", price: 38000, orig: 42000, cat: "bags", color: "Cognac", rating: 4.7, img: "https://images.unsplash.com/photo-1598532163257-ae3c6b2524b6?auto=format&fit=crop&w=800&q=80", bestSeller: false },
+      { id: 45, name: "Croc-Embossed Baguette Bag", price: 36000, orig: 40000, cat: "bags", color: "Green", rating: 4.9, img: "https://images.unsplash.com/photo-1575032617751-6ddec2089882?auto=format&fit=crop&w=800&q=80", bestSeller: false },
+      { id: 46, name: "Full-Grain Leather Weekend Duffle", price: 45000, orig: 51000, cat: "bags", color: "Black", rating: 5.0, img: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=800&q=80", bestSeller: false },
+
+      // --- WATCHES (8 Unique Pieces) ---
+      { id: 47, name: "Elegance Gold Mesh Bracelet Watch", price: 39000, orig: 44000, cat: "watches", color: "Gold", rating: 4.9, img: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=800&q=80", bestSeller: true },
+      { id: 48, name: "Chronograph Noir Alligator Strap", price: 46000, orig: 52000, cat: "watches", color: "Black", rating: 5.0, img: "https://images.unsplash.com/photo-1524805444758-089113d48a6d?auto=format&fit=crop&w=800&q=80", bestSeller: false },
+      { id: 49, name: "Petite Diamond Bezel Timepiece", price: 61000, orig: 68000, cat: "watches", color: "Gold", rating: 5.0, img: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=800&q=80", bestSeller: false },
+      { id: 50, name: "Skeleton Automatic Horology Watch", price: 64000, orig: 72000, cat: "watches", color: "Black", rating: 4.9, img: "https://images.unsplash.com/photo-1533139502658-0198f920d8e8?auto=format&fit=crop&w=800&q=80", bestSeller: false },
+      { id: 51, name: "Minimalist Slate Ceramic Watch", price: 43000, orig: 48000, cat: "watches", color: "Green", rating: 4.8, img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=80", bestSeller: false },
+      { id: 52, name: "Two-Tone Oyster Steel Dress Watch", price: 49500, orig: 55000, cat: "watches", color: "Gold", rating: 4.9, img: "https://images.unsplash.com/photo-1547996160-71dfabb1d316?auto=format&fit=crop&w=800&q=80", bestSeller: false },
+      { id: 53, name: "Octagonal Emerald Dial Timepiece", price: 53000, orig: 59000, cat: "watches", color: "Green", rating: 4.8, img: "https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&w=800&q=80", bestSeller: false },
+      { id: 54, name: "Moonphase Calendar Atelier Watch", price: 62000, orig: 70000, cat: "watches", color: "Cream", rating: 4.9, img: "https://images.unsplash.com/photo-1542496658-e33a6d0d50f6?auto=format&fit=crop&w=800&q=80", bestSeller: false }
+    ];
+
+    // ==========================================================================
+    // 2. HERO 3D SWIRLING SILK CLOTH SIMULATION (CONFINED STRICTLY TO HERO)
+    // ==========================================================================
+    (function initSilkClothSimulation() {
+      const canvas = document.getElementById('silk-canvas');
+      const heroSec = document.getElementById('hero-section');
+      if (!canvas || !heroSec || typeof THREE === 'undefined') return;
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(45, heroSec.clientWidth / heroSec.clientHeight, 0.1, 1000);
+      camera.position.set(0, 0, 15);
+
+      const renderer = new THREE.WebGLRenderer({
+        canvas: canvas,
+        alpha: true,
+        antialias: true
+      });
+      renderer.setSize(heroSec.clientWidth, heroSec.clientHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+      // Studio Lighting for Silk Highlights
+      const ambientLight = new THREE.AmbientLight(0xE6F2DD, 0.85);
+      scene.add(ambientLight);
+
+      const keyLight = new THREE.DirectionalLight(0xFFFFFF, 1.2);
+      keyLight.position.set(10, 15, 12);
+      scene.add(keyLight);
+
+      const fillLight = new THREE.DirectionalLight(0x88BDA4, 0.6);
+      fillLight.position.set(-12, -10, -5);
+      scene.add(fillLight);
+
+      // High-density plane geometry for fluid cloth waves
+      const cols = 64;
+      const rows = 48;
+      const width = 24;
+      const height = 16;
+      const geometry = new THREE.PlaneGeometry(width, height, cols, rows);
+
+      // Realistic pearlescent white silk/satin material
+      const silkMaterial = new THREE.MeshPhysicalMaterial({
+        color: 0xFFFFFF,
+        metalness: 0.12,
+        roughness: 0.16,
+        clearcoat: 0.85,
+        clearcoatRoughness: 0.25,
+        transmission: 0.05,
+        side: THREE.DoubleSide
+      });
+
+      const silkMesh = new THREE.Mesh(geometry, silkMaterial);
+      silkMesh.rotation.x = -0.25;
+      scene.add(silkMesh);
+
+      // Save initial vertex positions
+      const positionAttr = geometry.attributes.position;
+      const initialPositions = positionAttr.array.slice();
+
+      let mouseX = 0, mouseY = 0;
+      heroSec.addEventListener('mousemove', (e) => {
+        const rect = heroSec.getBoundingClientRect();
+        mouseX = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
+        mouseY = -((e.clientY - rect.top) / rect.height - 0.5) * 2;
+      });
+
+      window.addEventListener('resize', () => {
+        if (!heroSec) return;
+        camera.aspect = heroSec.clientWidth / heroSec.clientHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(heroSec.clientWidth, heroSec.clientHeight);
+      });
+
+      // Simulation Clock & Animation Loop
+      const clock = new THREE.Clock();
+      function animateSilk() {
+        requestAnimationFrame(animateSilk);
+        const t = clock.getElapsedTime() * 0.85;
+
+        // Wave simulation: multiple sine and cosine harmonics
+        for (let i = 0; i < positionAttr.count; i++) {
+          const u = initialPositions[i * 3];
+          const v = initialPositions[i * 3 + 1];
+
+          // Complex fluid cloth undulation
+          const wave1 = Math.sin(u * 0.38 + t * 1.2) * 1.2;
+          const wave2 = Math.cos(v * 0.45 + t * 0.95) * 0.9;
+          const wave3 = Math.sin((u + v) * 0.32 + t * 1.1) * 0.6;
+          const ripple = Math.sin(Math.sqrt(u * u + v * v) * 0.5 - t * 1.5) * 0.4;
+
+          // Subtle interaction with mouse position
+          const mouseDist = Math.hypot(u - mouseX * 8, v - mouseY * 5);
+          const mouseDisplace = Math.sin(mouseDist * 0.8 - t * 2.0) * Math.max(0, 1.2 - mouseDist * 0.15);
+
+          positionAttr.setZ(i, wave1 + wave2 + wave3 + ripple + mouseDisplace);
+        }
+
+        positionAttr.needsUpdate = true;
+        geometry.computeVertexNormals();
+
+        // Slow camera floating
+        camera.position.x = mouseX * 1.2;
+        camera.position.y = mouseY * 0.8;
+        camera.lookAt(0, 0, 0);
+
+        renderer.render(scene, camera);
+      }
+      animateSilk();
+    })();
+
+    // ==========================================================================
+    // 3. STORE CLIENT CONTROLLER (SPA HASH ROUTING & LOCALSTORAGE CART/WISHLIST)
+    // ==========================================================================
+    class AqsaStoreApp {
+      constructor() {
+        this.cart = JSON.parse(localStorage.getItem('aqsa_cart') || '[]');
+        this.wishlist = JSON.parse(localStorage.getItem('aqsa_wishlist') || '[]');
+        this.currentFilterCat = 'all';
+        this.currentFilterColor = 'all';
+        this.maxPrice = 65000;
+        this.sortBy = 'featured';
+        this.sliderIndex = 0;
+
+        this.init();
+      }
+
+      init() {
+        this.updateBadges();
+        this.renderBestSellers();
+        this.renderCatalog();
+        this.renderCart();
+        this.renderWishlist();
+
+        window.addEventListener('hashchange', () => this.handleRouting());
+        this.handleRouting();
+      }
+
+      // Hash Routing Simulation
+      handleRouting() {
+        const hash = window.location.hash || '#/';
+        const route = hash.replace('#/', '').toLowerCase();
+
+        // Reset navigation active state
+        document.querySelectorAll('.nav-item-link').forEach(l => l.classList.remove('active'));
+        document.querySelectorAll('.view-page-tab').forEach(v => v.classList.remove('active'));
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        if (route === '' || route === 'home') {
+          document.getElementById('view-home').classList.add('active');
+          const nh = document.getElementById('nav-home');
+          if (nh) nh.classList.add('active');
+        } else if (['women', 'men', 'kids', 'shoes', 'bags', 'watches', 'all'].includes(route)) {
+          this.currentFilterCat = route === 'all' ? 'all' : route;
+          this.renderCatalog();
+          document.getElementById('view-catalog').classList.add('active');
+          const navItem = document.getElementById(`nav-${route}`);
+          if (navItem) navItem.classList.add('active');
+        } else if (route === 'cart') {
+          this.renderCart();
+          document.getElementById('view-cart').classList.add('active');
+        } else if (route === 'wishlist') {
+          this.renderWishlist();
+          document.getElementById('view-wishlist').classList.add('active');
+        } else {
+          document.getElementById('view-home').classList.add('active');
+        }
+      }
+
+      // Product Card HTML Builder (No 3D Flip, 12px Card Radius, Pure White BG)
+      buildProductCardHTML(p) {
+        const isWished = this.wishlist.includes(p.id);
+        return `
+          <div class="product-card">
+            <div class="card-media-box">
+              <span class="card-tag-pill">${p.cat}</span>
+              <button class="card-wishlist-btn ${isWished ? 'active' : ''}" onclick="window.storeApp.toggleWishlist(${p.id}, this)" aria-label="Add to Wishlist">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              </button>
+              <a href="javascript:void(0)" onclick="window.storeApp.openModal(${p.id})">
+                <img src="${p.img}" alt="${p.name}" loading="lazy">
+              </a>
+            </div>
+            <div class="card-body-content">
+              <div>
+                <div class="card-category-sub">${p.cat.toUpperCase()} &bull; ${p.color}</div>
+                <h3 class="card-title-serif">
+                  <a href="javascript:void(0)" onclick="window.storeApp.openModal(${p.id})">${p.name}</a>
+                </h3>
+                <div class="card-price-row">
+                  <span class="price-current">PKR ${p.price.toLocaleString()}</span>
+                  ${p.orig ? `<span class="price-original">PKR ${p.orig.toLocaleString()}</span>` : ''}
+                </div>
+              </div>
+              <button class="card-btn-add" onclick="window.storeApp.addToCart(${p.id})">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                Add to Bag
+              </button>
+            </div>
+          </div>
+        `;
+      }
+
+      // Best Sellers Slider
+      renderBestSellers() {
+        const bestItems = products.filter(p => p.bestSeller);
+        const container = document.getElementById('best-sellers-row');
+        if (container) {
+          container.innerHTML = bestItems.slice(0, 4).map(p => this.buildProductCardHTML(p)).join('');
+        }
+      }
+
+      slideNext() {
+        const bestItems = products.filter(p => p.bestSeller);
+        this.sliderIndex = (this.sliderIndex + 1) % (bestItems.length - 3);
+        const container = document.getElementById('best-sellers-row');
+        if (container) {
+          container.innerHTML = bestItems.slice(this.sliderIndex, this.sliderIndex + 4).map(p => this.buildProductCardHTML(p)).join('');
+        }
+      }
+
+      slidePrev() {
+        const bestItems = products.filter(p => p.bestSeller);
+        this.sliderIndex = Math.max(0, this.sliderIndex - 1);
+        const container = document.getElementById('best-sellers-row');
+        if (container) {
+          container.innerHTML = bestItems.slice(this.sliderIndex, this.sliderIndex + 4).map(p => this.buildProductCardHTML(p)).join('');
+        }
+      }
+
+      // Catalog Filtering & Rendering
+      renderCatalog() {
+        const catEyebrow = document.getElementById('catalog-category-eyebrow');
+        const mainTitle = document.getElementById('catalog-main-title');
+        const countText = document.getElementById('catalog-count-text');
+        const grid = document.getElementById('catalog-grid');
+        if (!grid) return;
+
+        // Title update
+        const titleMap = {
+          all: "Complete Collection",
+          women: "Women's Collection",
+          men: "Men's Sartorial",
+          kids: "Kids' Couture",
+          shoes: "Footwear &amp; Heels",
+          bags: "Handbags &amp; Totes",
+          watches: "Luxury Watches"
+        };
+        if (catEyebrow) catEyebrow.textContent = this.currentFilterCat.toUpperCase();
+        if (mainTitle) mainTitle.innerHTML = titleMap[this.currentFilterCat] || "Collection";
+
+        // Filtering
+        let filtered = products.filter(p => {
+          const matchCat = (this.currentFilterCat === 'all') || (p.cat === this.currentFilterCat);
+          const matchColor = (this.currentFilterColor === 'all') || (p.color === this.currentFilterColor);
+          const matchPrice = p.price <= this.maxPrice;
+          return matchCat && matchColor && matchPrice;
+        });
+
+        // Sorting
+        if (this.sortBy === 'price-low') {
+          filtered.sort((a, b) => a.price - b.price);
+        } else if (this.sortBy === 'price-high') {
+          filtered.sort((a, b) => b.price - a.price);
+        }
+
+        if (countText) countText.textContent = `Showing ${filtered.length} Items`;
+
+        if (filtered.length === 0) {
+          grid.innerHTML = `
+            <div style="grid-column: 1/-1; text-align:center; padding: 4rem 1rem; color: var(--text-muted);">
+              <p style="font-size: 1.2rem; font-family: var(--font-serif); margin-bottom: 0.5rem; color: var(--primary-dark);">No Pieces Match Your Current Filter</p>
+              <p style="font-size: 0.9rem;">Adjust your price slider or select another category to view collections.</p>
+            </div>
+          `;
+        } else {
+          grid.innerHTML = filtered.map(p => this.buildProductCardHTML(p)).join('');
+        }
+      }
+
+      setFilterCategory(cat) {
+        this.currentFilterCat = cat;
+        this.renderCatalog();
+      }
+
+      setFilterColor(color, btn) {
+        this.currentFilterColor = color;
+        if (btn) {
+          document.querySelectorAll('.filter-tag-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+        }
+        this.renderCatalog();
+      }
+
+      handlePriceSlider(val) {
+        this.maxPrice = parseInt(val, 10);
+        const display = document.getElementById('price-slider-display');
+        if (display) display.textContent = `PKR ${this.maxPrice.toLocaleString()}`;
+        this.renderCatalog();
+      }
+
+      handleSortChange(val) {
+        this.sortBy = val;
+        this.renderCatalog();
+      }
+
+      // Cart Functionality (localStorage)
+      addToCart(id) {
+        const product = products.find(p => p.id === id);
+        if (!product) return;
+
+        const existing = this.cart.find(item => item.id === id);
+        if (existing) {
+          existing.qty += 1;
+        } else {
+          this.cart.push({ ...product, qty: 1 });
+        }
+        localStorage.setItem('aqsa_cart', JSON.stringify(this.cart));
+        this.updateBadges();
+        this.showToast(`Added ${product.name} to your bag`);
+      }
+
+      updateQty(id, delta) {
+        const item = this.cart.find(i => i.id === id);
+        if (!item) return;
+        item.qty += delta;
+        if (item.qty <= 0) {
+          this.cart = this.cart.filter(i => i.id !== id);
+        }
+        localStorage.setItem('aqsa_cart', JSON.stringify(this.cart));
+        this.updateBadges();
+        this.renderCart();
+      }
+
+      removeFromCart(id) {
+        this.cart = this.cart.filter(i => i.id !== id);
+        localStorage.setItem('aqsa_cart', JSON.stringify(this.cart));
+        this.updateBadges();
+        this.renderCart();
+        this.showToast("Removed from bag");
+      }
+
+      renderCart() {
+        const listBox = document.getElementById('cart-items-list-box');
+        const countSpan = document.getElementById('cart-total-qty-count');
+        const subtotalSpan = document.getElementById('summary-subtotal');
+        const totalSpan = document.getElementById('summary-total');
+        if (!listBox) return;
+
+        const totalQty = this.cart.reduce((sum, item) => sum + item.qty, 0);
+        const subtotal = this.cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+
+        if (countSpan) countSpan.textContent = totalQty;
+        if (subtotalSpan) subtotalSpan.textContent = `PKR ${subtotal.toLocaleString()}`;
+        if (totalSpan) totalSpan.textContent = `PKR ${subtotal.toLocaleString()}`;
+
+        if (this.cart.length === 0) {
+          listBox.innerHTML = `
+            <div style="text-align:center; padding: 3rem 1rem; color: var(--text-muted);">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-bottom:1rem; opacity:0.6;"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+              <p style="font-size: 1.1rem; font-family: var(--font-serif); margin-bottom: 0.5rem; color: var(--primary-dark);">Your Shopping Bag is Vacant</p>
+              <p style="font-size: 0.85rem;">Discover our collections to choose your bespoke garments.</p>
+              <a href="#/women" class="btn-pill-primary" style="margin-top: 1.5rem; display:inline-flex;">Start Shopping</a>
+            </div>
+          `;
+        } else {
+          listBox.innerHTML = this.cart.map(item => `
+            <div class="cart-row-item">
+              <img src="${item.img}" alt="${item.name}" class="cart-item-thumb">
+              <div class="cart-item-meta">
+                <div class="cart-item-title">${item.name}</div>
+                <div class="cart-item-price">PKR ${item.price.toLocaleString()}</div>
+                <div class="qty-controls-row">
+                  <button type="button" class="qty-btn" onclick="window.storeApp.updateQty(${item.id}, -1)">&minus;</button>
+                  <span class="qty-display">${item.qty}</span>
+                  <button type="button" class="qty-btn" onclick="window.storeApp.updateQty(${item.id}, 1)">&plus;</button>
+                </div>
+              </div>
+              <button type="button" onclick="window.storeApp.removeFromCart(${item.id})" style="color:#A4B5AF; padding:0.5rem;" aria-label="Remove item">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+              </button>
+            </div>
+          `).join('');
+        }
+      }
+
+      // WhatsApp Checkout Compilation
+      handleWhatsAppCheckout(e) {
+        e.preventDefault();
+        if (this.cart.length === 0) {
+          this.showToast("Your shopping bag is empty");
+          return;
+        }
+
+        const name = document.getElementById('cust-name').value.trim();
+        const address = document.getElementById('cust-address').value.trim();
+        const phone = document.getElementById('cust-phone').value.trim();
+
+        const subtotal = this.cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+        const itemsText = this.cart.map((item, idx) => `${idx + 1}. ${item.name} (x${item.qty}) — PKR ${(item.price * item.qty).toLocaleString()}`).join('\n');
+
+        const message = `*NEW ORDER — AQSA'S STORE*\n` +
+                        `----------------------------------\n` +
+                        `*CUSTOMER DETAILS:*\n` +
+                        `Name: ${name}\n` +
+                        `Phone: ${phone}\n` +
+                        `Delivery Address: ${address}\n` +
+                        `----------------------------------\n` +
+                        `*ORDER ITEMS:*\n` +
+                        `${itemsText}\n` +
+                        `----------------------------------\n` +
+                        `*TOTAL AMOUNT: PKR ${subtotal.toLocaleString()}*\n` +
+                        `Nationwide Delivery: FREE\n` +
+                        `----------------------------------\n` +
+                        `Please confirm my order dispatch timeline.`;
+
+        // Exact placeholder required by prompt: https://wa.me/ADD_YOUR_WHATSAPP_NUMBER_HERE?text=
+        const waUrl = `https://wa.me/ADD_YOUR_WHATSAPP_NUMBER_HERE?text=${encodeURIComponent(message)}`;
+        window.open(waUrl, '_blank');
+      }
+
+      // Wishlist (localStorage)
+      toggleWishlist(id, btn) {
+        if (this.wishlist.includes(id)) {
+          this.wishlist = this.wishlist.filter(item => item !== id);
+          if (btn) btn.classList.remove('active');
+          this.showToast("Removed from wishlist");
+        } else {
+          this.wishlist.push(id);
+          if (btn) btn.classList.add('active');
+          this.showToast("Saved to wishlist");
+        }
+        localStorage.setItem('aqsa_wishlist', JSON.stringify(this.wishlist));
+        this.updateBadges();
+      }
+
+      renderWishlist() {
+        const grid = document.getElementById('wishlist-grid');
+        if (!grid) return;
+
+        const wishItems = products.filter(p => this.wishlist.includes(p.id));
+        if (wishItems.length === 0) {
+          grid.innerHTML = `
+            <div style="grid-column: 1/-1; text-align:center; padding: 4rem 1rem; color: var(--text-muted);">
+              <p style="font-size: 1.2rem; font-family: var(--font-serif); margin-bottom: 0.5rem; color: var(--primary-dark);">Your Wishlist is Empty</p>
+              <p style="font-size: 0.9rem;">Tap the heart icon on any piece to save it for later.</p>
+              <a href="#/women" class="btn-pill-primary" style="margin-top: 1.5rem; display:inline-flex;">Explore Collections</a>
+            </div>
+          `;
+        } else {
+          grid.innerHTML = wishItems.map(p => this.buildProductCardHTML(p)).join('');
+        }
+      }
+
+      // Modal Quick View
+      openModal(id) {
+        const product = products.find(p => p.id === id);
+        if (!product) return;
+
+        document.getElementById('modal-pdp-img').src = product.img;
+        document.getElementById('modal-pdp-cat').textContent = product.cat.toUpperCase();
+        document.getElementById('modal-pdp-title').textContent = product.name;
+        document.getElementById('modal-pdp-price').textContent = `PKR ${product.price.toLocaleString()}`;
+
+        const addBtn = document.getElementById('modal-add-cart-btn');
+        const wishBtn = document.getElementById('modal-add-wish-btn');
+
+        addBtn.onclick = () => {
+          this.addToCart(product.id);
+          this.closeModal();
+        };
+
+        wishBtn.onclick = () => {
+          this.toggleWishlist(product.id);
+          this.closeModal();
+        };
+
+        document.getElementById('pdp-modal-backdrop').classList.add('active');
+      }
+
+      closeModal() {
+        const backdrop = document.getElementById('pdp-modal-backdrop');
+        if (backdrop) backdrop.classList.remove('active');
+      }
+
+      updateBadges() {
+        const cartQty = this.cart.reduce((sum, item) => sum + item.qty, 0);
+        const cBadge = document.getElementById('cart-badge');
+        if (cBadge) cBadge.textContent = cartQty;
+
+        const wBadge = document.getElementById('wishlist-badge');
+        if (wBadge) wBadge.textContent = this.wishlist.length;
+      }
+
+      showToast(msg) {
+        const toast = document.getElementById('aqsa-toast');
+        const text = document.getElementById('toast-text-content');
+        if (!toast) return;
+        if (text) text.textContent = msg;
+        toast.classList.add('active');
+        setTimeout(() => toast.classList.remove('active'), 2800);
+      }
+
+      toggleMobileMenu() {
+        const backdrop = document.getElementById('mobile-menu-backdrop');
+        if (backdrop) backdrop.classList.toggle('active');
+      }
+
+      handleNewsletter(e) {
+        e.preventDefault();
+        this.showToast("Welcome to the AQSA Atelier Newsletter");
+        e.target.reset();
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      window.storeApp = new AqsaStoreApp();
+    });
+  </script>
+</body>
+</html>
